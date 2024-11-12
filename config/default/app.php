@@ -11,7 +11,7 @@ return [
 	
 		// updater **********************************************************************************************
 		'live_updater' => [
-			'url' => "https://unee.app/version",
+			'url' => "https://unee.app/@version",
 			'canal' => "stable", // stable, beta
 		],
 		
