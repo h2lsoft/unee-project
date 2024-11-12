@@ -61,7 +61,7 @@ If you encounter any issues, have questions, or want to request new features, pl
 
 ### How to Report an Issue
 
-1. Go to the [Issues page](https://github.com/yourusername/unee-framework/issues).
+1. Go to the [Issues page](https://github.com/h2lsoft/unee-project/issues).
 2. Check if your issue has already been reported to avoid duplicates.
 3. If not, click **New Issue**.
 4. Provide a clear and concise description of the problem, including:
@@ -85,7 +85,6 @@ We welcome contributions from the community. To contribute:
 3. Make your changes and commit them.
 4. Submit a pull request.
 
-Please review our [contribution guidelines](https://unee.app/contributing) before submitting your PR.
 
 ## License
 
