@@ -57,7 +57,7 @@ For detailed documentation, visit [UNEE Documentation](https://unee.app/docs).
 
 ## Issues
 
-If you encounter any issues, have questions, or want to request new features, please use the [GitHub Issues](https://github.com/yourusername/unee-framework/issues) page.
+If you encounter any issues, have questions, or want to request new features, please use the [GitHub Issues](https://github.com/h2lsoft/unee-project/issues) page.
 
 ### How to Report an Issue
 
