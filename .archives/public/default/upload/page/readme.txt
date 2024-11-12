@@ -1,1 +1,0 @@
-automatic path to page upload
