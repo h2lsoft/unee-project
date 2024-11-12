@@ -1,6 +1,7 @@
 .idea/*
 /vendor/*
 /config/*
+/.tests/*
 /.tmp/*
 /.archives/*
 composer.lock
