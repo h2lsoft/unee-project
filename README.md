@@ -1,7 +1,7 @@
 # UNEE
 
 [![UNEE Website](https://img.shields.io/badge/Website-UNEE.app-blue)](https://unee.app)
-[![Latest Version](https://img.shields.io/github/v/release/h2lsoft/unee-project)](https://github.com/yourusername/unee-framework/releases)
+[![Latest Version](https://img.shields.io/github/v/release/h2lsoft/unee-project)](https://github.com/h2lsoft/unee-project/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 **UNEE** is a powerful web application framework specifically designed for enterprises. 
