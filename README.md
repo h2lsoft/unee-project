@@ -1,4 +1,4 @@
-# UNEE Framework
+# UNEE
 
 [![UNEE Website](https://img.shields.io/badge/Website-UNEE.app-blue)](https://unee.app)
 [![Latest Version](https://img.shields.io/github/v/release/h2lsoft/unee-project)](https://github.com/yourusername/unee-framework/releases)
@@ -36,7 +36,8 @@ Follow these steps to set up the UNEE framework:
     ```bash
     mkdir my_project
     cd my_project
-   git clone https://github.com/h2lsoft/unee-project.git .
+    git clone https://github.com/h2lsoft/unee-project.git .
+    composer update
     ```
 
 2. **Edit configuration files**
