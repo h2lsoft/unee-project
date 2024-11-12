@@ -1,5 +1,5 @@
 <p align="center"><a href="https://unee.app" target="_blank">
-    <img src="https://unee.app/.assets/logo.svg" alt="Unee Logo">
+    <img width="290" height="124" src="https://unee.app/.assets/logo.svg" alt="Unee Logo">
 </a></p>
 
 [![UNEE Website](https://img.shields.io/badge/Website-UNEE.app-violet)](https://unee.app)
