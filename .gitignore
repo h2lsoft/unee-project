@@ -6,3 +6,4 @@
 /.archives/*
 composer.lock
 test.php
+config/default/app.php
