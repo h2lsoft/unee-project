@@ -4,6 +4,7 @@
 /.tests/*
 /.tmp/*
 /.archives/*
+/.assets/*
 composer.lock
 test.php
 config/default/app.php
