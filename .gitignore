@@ -2,6 +2,6 @@
 /vendor/*
 /config/*
 /.tmp/*
-composer.json
+/.archives/*
 composer.lock
 test.php

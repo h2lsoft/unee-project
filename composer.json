@@ -1,0 +1,25 @@
+{
+  "require": {
+    "h2lsoft/db-manager": "^1",
+    "twig/twig": "^3",
+
+    "gumlet/php-image-resize": "^2",
+    "maximebf/debugbar": "^1",
+    "phpmailer/phpmailer": "^6",
+    "spipu/html2pdf": "^5",
+    "mobiledetect/mobiledetectlib": "^4",
+
+    "symfony/http-foundation": "^7",
+    "symfony/http-kernel": "^7",
+    "symfony/routing": "^7",
+    "symfony/error-handler": "^7",
+    "symfony/finder": "^7",
+    "symfony/html-sanitizer": "^7",
+    "symfony/console": "^7",
+    "symfony/event-dispatcher": "^7.0",
+    "h2lsoft/validator": "^1.2"
+  },
+  "require-dev": {
+    "kint-php/kint": "^5"
+  }
+}
