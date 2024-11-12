@@ -1,4 +1,6 @@
-# UNEE
+<p align="center"><a href="https://unee.app" target="_blank">
+    <img src="https://unee.app/.assets/logo.svg" alt="Unee Logo">
+</a></p>
 
 [![UNEE Website](https://img.shields.io/badge/Website-UNEE.app-violet)](https://unee.app)
 [![Latest Version](https://img.shields.io/github/v/release/h2lsoft/unee-project)](https://github.com/h2lsoft/unee-project/releases)
