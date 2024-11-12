@@ -57,6 +57,7 @@ class Mail_TemplateController extends \Core\Controller {
 		$form->addTextarea('description', '', false, []);
 		
 		// frontend languages
+		$xss_exceptions = [];
 		$langs = \Core\Config::get('frontend/langs');
 		foreach($langs as $lang)
 		{
@@ -67,6 +68,8 @@ class Mail_TemplateController extends \Core\Controller {
 			$form->addText("sender_{$lang[0]}", "Sender{$no_translate}", false);
 			$form->addText("subject_{$lang[0]}", "Subject{$no_translate}", true);
 			$form->addTextarea("body_{$lang[0]}", "Message{$no_translate}", true, ['style' => 'height:10em'], "You can put variables like `[[ VARIABLE ]]`");
+
+			$xss_exceptions[] = "body_{$lang[0]}";
 		}
 		
 		
@@ -76,7 +79,7 @@ class Mail_TemplateController extends \Core\Controller {
 			// valid
 			if($form->isValid())
 			{
-				$form->save();
+				$form->save([], [], $xss_exceptions);
 			}
 			
 			return $form->json();
