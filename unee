@@ -1,0 +1,86 @@
+<?php
+
+use Core\DB;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\CommandLoader\FactoryCommandLoader;
+
+require __DIR__.'/vendor/autoload.php';
+include "core/lib/function/core.php";
+include "core/lib/function/string.php";
+require __DIR__.'/core/bootstrap.php';
+// init DB
+$pg = $config['db']['package']['default'];
+
+// cli> db user override
+if(isset($config['cli']['database']['host']) && !empty($config['cli']['database']['host']))
+	$pg['host'] = $config['cli']['database']['host'];
+
+if(isset($config['cli']['database']['port']) && !empty($config['cli']['database']['port']))
+	$pg['port'] = $config['cli']['database']['port'];
+
+if(isset($config['cli']['database']['username']) && !empty($config['cli']['database']['username']))
+	$pg['username'] = $config['cli']['database']['username'];
+
+if(isset($config['cli']['database']['password']) && !empty($config['cli']['database']['password']))
+	$pg['password'] = $config['cli']['database']['password'];
+
+
+
+$DB = new DB();
+$DB->connect($pg['driver'], $pg['host'], $pg['username'], $pg['password'], $pg['database'], $pg['port'], $pg['pdo_options']);
+foreach($pg['init_queries'] as $sql)
+	$DB->query($sql);
+
+
+$commandLoader = new FactoryCommandLoader([
+
+		// app
+		'install' => function (): Command {
+			return new \Command\App\Install();
+		},
+
+		// event:list
+		'event:list' => function (): Command {
+			return new \Command\App\EventListAll();
+		},
+
+		// make:migration
+		'make:migration' => function (): Command {
+			return new \Command\Make\Migration();
+		},
+
+		// migrate
+		'migrate' => function (): Command {
+			return new \Command\Migrate\Migrate();
+		},
+
+		// migrate:rollback
+		'migrate:rollback' => function (): Command {
+			return new \Command\Migrate\Rollback();
+		},
+
+		// migrate:status
+		'migrate:status' => function (): Command {
+			return new \Command\Migrate\Status();
+		},
+
+		// migrate:reset
+		'migrate:reset' => function (): Command {
+			return new \Command\Migrate\Reset();
+		},
+
+		// @todo> make:entity
+		'make:entity' => function (): Command {
+			return new \Command\Make\Entity();
+		},
+
+
+
+]);
+
+
+$application = new Application();
+$application->setCommandLoader($commandLoader);
+$application->run();
+

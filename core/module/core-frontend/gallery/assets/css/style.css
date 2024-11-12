@@ -1,0 +1,43 @@
+.unee-gallery {
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+
+    padding: 25px;
+    background-color: #eee;
+
+    margin:80px auto;
+    border-radius: 5px;
+
+}
+
+.unee-gallery a {
+
+    display: block;
+    text-decoration: none;
+    /* height: 280px; */
+    overflow: hidden;
+
+}
+
+.unee-gallery a img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+
+    transform: scale(1);
+    transition: all 1s;
+    opacity: 1;
+
+    border-radius: 5px;
+
+}
+
+.unee-gallery a:hover img {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+.sl-overlay {background: #000;}
+.sl-wrapper .sl-navigation button, .sl-wrapper .sl-close {color: #eee;}

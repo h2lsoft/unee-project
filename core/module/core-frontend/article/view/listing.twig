@@ -1,0 +1,66 @@
+{% if wrapper %}<div class="unee-article-listing">{% endif %}
+
+    {% for a in articles %}
+    <article class="article-item {{ a.class }} {{ article_class }}" itemscope itemtype="https://schema.org/Article">
+        <div class="article-content">
+            <a href="{{ a.link }}" class="article-image">
+                <img class="{{ a.image_class }}" src="{{ a.thumbnail_url }}" alt="{{ a.title }}" itemprop="image" width="{{ a.thumbnail_width }}" height="{{ a.thumbnail_height }}">
+            </a>
+            <div class="article-body">
+                <header>
+                    <h2 itemprop="headline">
+                        <a href="{{ a.link }}" itemprop="url">{{ a.title }}</a>
+                    </h2>
+                </header>
+                <p class="{{ a.resume_class }}" itemprop="articleBody">
+                    {{ a.resume }}
+                </p>
+                <footer>
+                    <small>
+                        <span><i18n>Published on</i18n></span>&nbsp;<time datetime="{{ a.date }}" itemprop="datePublished">{{ a.dateX }}</time>
+                    </small>
+
+                    <small itemprop="author" itemscope itemtype="https://schema.org/Person">
+                        <span>
+                            <meta itemprop="name" content="{{ a.author }}">
+                            <meta itemprop="url" content="{{ blog_listing_url }}?author={{ a.author_login|escape }}">
+                            <i18n>by</i18n> <a href="{{ a.author_search_url }}">{{ a.author }}</a>
+                        </span>
+                    </small>
+
+                </footer>
+            </div>
+        </div>
+    </article>
+    {% else %}
+    <div class="norecord">
+        <i18n>No record found</i18n>
+    </div>
+
+    {% endfor %}
+
+
+    {% if pagination %}
+        {% if page_end > 1 %}
+            <div class="unee-pagination">
+
+                {% if current_page != page_start %}
+                    <a href="{{ listing_url_previous }}" class="unee-pagination-btn unee-pagination-btn-previous">&laquo;</a>
+                {% endif %}
+
+                {% for cur_page in page_start..page_end %}
+                    <a href="{% if cur_page == 1 %}{{ listing_url_first }}{% else %}{{ listing_url }}{{ cur_page }}/{% endif %}" class="{% if cur_page == current_page  %}active{% endif %}">{{ cur_page }}</a>
+                {% endfor %}
+
+                {% if current_page != page_end %}
+                    <a href="{{ listing_url_next }}" class="unee-pagination-btn unee-pagination-btn-next">&raquo;</a>
+                {% endif %}
+
+            </div>
+        {% endif %}
+    {% endif %}
+
+
+{% if wrapper %}</div>{% endif %}
+
+

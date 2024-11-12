@@ -1,0 +1,118 @@
+{% extends '/core/theme/core-admin/base.twig' %}
+
+
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+
+<div id="login-form" class="container-fluid login-form-wrapper">
+
+    <div class="d-flex justify-content-center">
+        <div class="col-lg-3 col-md-8 col-sm-12 shadow-lg p-5 bg-light">
+
+            <div class="text-center">
+                <h3 class="text-primary mb-4"><i18n>Sign In</i18n></h3>
+            </div>
+
+            <form method="post" action="" @submit.prevent="loginCheck" class="form-ajax" :class="{'form-ajax-is-loading': isLoading}">
+
+                <template v-if="hasError">
+                    <div class="form-error mb-3 text-center text-danger">${errorMessage}</div>
+                </template>
+
+                <div class="row">
+                    <div class="col mb-3">
+                        <input type="{{ u_type }}" v-model="{{ u_key }}" id="{{ u_key }}" class="form-control" placeholder="{{ u_placeholder }}" autofocus>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col mb-3">
+                        <input type="password" v-model="password" id="password" class="form-control" placeholder="Password">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col mb-3">
+                        <button class="btn w-100 btn-primary text-center my-3" type="submit" :disabled="isLoading">
+
+                            <template v-if="isLoading">
+                                <span class="spinner-border  spinner-border-sm text-white"></span>
+                            </template>
+
+                            Login
+                        </button>
+                    </div>
+
+                    <p class="text-center"><a href="{{ path(password_route) }}">Forgot your password?</a></p>
+
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<script>
+Vue.createApp({
+
+    delimiters: ['${', '}'], // important for twig
+    data() {
+        return {
+
+            // vars
+            "{{ u_key }}":"",
+            password:"",
+
+            isLoading:false,
+            hasError:false,
+            errorMessage:"",
+        }
+    },
+    methods: {
+        loginCheck() {
+
+            this.isLoading = true;
+
+            let formData = new FormData();
+            formData.append("{{ u_key }}", this.{{ u_key }});
+            formData.append("password", this.password);
+            formData.append("_format", 'json');
+
+            fetch('', {
+                method: "POST",
+                body: formData,
+            })
+                .then((response) => {
+	                if(response.ok)return response.json();
+	                throw new Error("unexpected, please retry");
+                })
+                .then((response) => {
+
+                    if(response.error)
+                    {
+                        this.isLoading = false;
+                        this.hasError = true;
+	                    this.errorMessage = "Credentials not found";
+                    }
+                    else
+                    {
+                        document.location.href = response.url_success;
+                    }
+                })
+                .catch((error)  => {
+                    this.isLoading = false;
+                    this.hasError = true;
+                    this.errorMessage = error;
+                });
+
+        }
+    },
+
+}).mount('#login-form');
+</script>
+
+
+{% endblock content %}

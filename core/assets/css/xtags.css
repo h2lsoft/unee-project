@@ -1,0 +1,49 @@
+.xtag, .input-tag-manager-tags a {
+    background-color: #ccc;
+    color: black;
+    border-radius: 5px;
+}
+
+.xtag.selected::before {
+    content: "✓";
+    margin-right: 5px;
+}
+
+.input-tag-manager-tags [data-first-letter='a' i], .xtag[data-first-letter='a' i] { background-color: #ff9999; color: #000; }
+.input-tag-manager-tags [data-first-letter='b' i], .xtag[data-first-letter='b' i] { background-color: #ffcc99; color: #000; }
+.input-tag-manager-tags [data-first-letter='c' i], .xtag[data-first-letter='c' i] { background-color: #ffff99; color: #000; }
+.input-tag-manager-tags [data-first-letter='d' i], .xtag[data-first-letter='d' i] { background-color: #ccff99; color: #000; }
+.input-tag-manager-tags [data-first-letter='e' i], .xtag[data-first-letter='e' i] { background-color: #99ff99; color: #000; }
+.input-tag-manager-tags [data-first-letter='f' i], .xtag[data-first-letter='f' i] { background-color: #99ffcc; color: #000; }
+.input-tag-manager-tags [data-first-letter='g' i], .xtag[data-first-letter='g' i] { background-color: #99ffff; color: #000; }
+.input-tag-manager-tags [data-first-letter='h' i], .xtag[data-first-letter='h' i] { background-color: #99ccff; color: #000; }
+.input-tag-manager-tags [data-first-letter='i' i], .xtag[data-first-letter='i' i] { background-color: #9999ff; color: #fff; }
+.input-tag-manager-tags [data-first-letter='j' i], .xtag[data-first-letter='j' i] { background-color: #cc99ff; color: #fff; }
+.input-tag-manager-tags [data-first-letter='k' i], .xtag[data-first-letter='k' i] { background-color: #ff99ff; color: #000; }
+.input-tag-manager-tags [data-first-letter='l' i], .xtag[data-first-letter='l' i] { background-color: #ff99cc; color: #000; }
+.input-tag-manager-tags [data-first-letter='m' i], .xtag[data-first-letter='m' i] { background-color: #ff6699; color: #fff; }
+.input-tag-manager-tags [data-first-letter='n' i], .xtag[data-first-letter='n' i] { background-color: #ff9966; color: #000; }
+.input-tag-manager-tags [data-first-letter='o' i], .xtag[data-first-letter='o' i] { background-color: #ffcc66; color: #000; }
+.input-tag-manager-tags [data-first-letter='p' i], .xtag[data-first-letter='p' i] { background-color: #ffff66; color: #000; }
+.input-tag-manager-tags [data-first-letter='q' i], .xtag[data-first-letter='q' i] { background-color: #ccff66; color: #000; }
+.input-tag-manager-tags [data-first-letter='r' i], .xtag[data-first-letter='r' i] { background-color: #66ff66; color: #000; }
+.input-tag-manager-tags [data-first-letter='s' i], .xtag[data-first-letter='s' i] { background-color: #66ffcc; color: #000; }
+.input-tag-manager-tags [data-first-letter='t' i], .xtag[data-first-letter='t' i] { background-color: #66ffff; color: #000; }
+.input-tag-manager-tags [data-first-letter='u' i], .xtag[data-first-letter='u' i] { background-color: #66ccff; color: #000; }
+.input-tag-manager-tags [data-first-letter='v' i], .xtag[data-first-letter='v' i] { background-color: #6666ff; color: #fff; }
+.input-tag-manager-tags [data-first-letter='w' i], .xtag[data-first-letter='w' i] { background-color: #cc66ff; color: #fff; }
+.input-tag-manager-tags [data-first-letter='x' i], .xtag[data-first-letter='x' i] { background-color: #ff66ff; color: #000; }
+.input-tag-manager-tags [data-first-letter='y' i], .xtag[data-first-letter='y' i] { background-color: #ff66cc; color: #000; }
+.input-tag-manager-tags [data-first-letter='z' i], .xtag[data-first-letter='z' i] { background-color: #ff6699; color: #fff; }
+
+
+.input-tag-manager-tags [data-first-letter='0' i], .xtag[data-first-letter='0' i] { background-color: #66ffff; color: #000; }
+.input-tag-manager-tags [data-first-letter='1' i], .xtag[data-first-letter='1' i] { background-color: #66ccff; color: #000; }
+.input-tag-manager-tags [data-first-letter='2' i], .xtag[data-first-letter='2' i] { background-color: #6666ff; color: #fff; }
+.input-tag-manager-tags [data-first-letter='3' i], .xtag[data-first-letter='3' i] { background-color: #cc66ff; color: #fff; }
+.input-tag-manager-tags [data-first-letter='4' i], .xtag[data-first-letter='4' i] { background-color: #ff66ff; color: #000; }
+.input-tag-manager-tags [data-first-letter='5' i], .xtag[data-first-letter='5' i] { background-color: #ff66cc; color: #000; }
+.input-tag-manager-tags [data-first-letter='6' i], .xtag[data-first-letter='6' i] { background-color: #ff6699; color: #fff; }
+.input-tag-manager-tags [data-first-letter='7' i], .xtag[data-first-letter='7' i] { background-color: #ff9966; color: #000; }
+.input-tag-manager-tags [data-first-letter='8' i], .xtag[data-first-letter='8' i] { background-color: #ffcc66; color: #000; }
+.input-tag-manager-tags [data-first-letter='9' i], .xtag[data-first-letter='9' i] { background-color: #ffff66; color: #000; }

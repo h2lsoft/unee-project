@@ -1,0 +1,115 @@
+.form-ajax .btn-submit i.spinner {display: none}
+
+.form-ajax .form-error {}
+
+.form-ajax label.required:after {
+	content: "*";
+	color: var(--bs-danger);
+	padding-left: 5px;
+}
+
+.form-ajax .help-message {
+	font-size: 13px;
+	color: #999;
+	padding-top: 5px;
+}
+
+.form-ajax .help-message:first-letter {
+	text-transform: uppercase;
+}
+
+
+
+.form-ajax .file-image--placeholder {
+	padding: 5px;
+	border: 1px dashed #e5e5e5;
+	height: 120px;
+	margin-bottom: 10px;
+	cursor: pointer;
+}
+
+.form-ajax  .file-image--placeholder:hover,
+.form-ajax  .file-image--placeholder.drag-over
+{
+	border-color: #666;
+	background-color: #f5f5f5;
+}
+
+.form-ajax .file-image--placeholder img.zoomable:hover {
+	cursor: zoom-in;
+	opacity: 0.6;
+	
+}
+
+.form-ajax  .file-image--delete-placeholder {
+	margin-bottom: 10px;
+	font-size: 13px;
+	color: #999;
+}
+
+
+/*
+.form-ajax  .file-image--placeholder img {
+	display: none;
+}
+*/
+
+.form-ajax  .file-image--placeholder img {
+	max-height: 100%;
+	/* object-fit: contain; */
+	
+}
+
+
+.form-ajax.form-ajax-loading {opacity: 0.5; user-select: none; pointer-events: none;}
+.form-ajax.form-ajax-loading .btn-submit i.spinner {display: inline-block}
+
+
+.form-ajax h1 {font-size: 20px; letter-spacing: 0; font-weight: normal; color: var(--bs-primary); margin-bottom: 30px;}
+.form-ajax h1:empty {display: none;}
+
+.form-ajax h2 {font-size: 16px; letter-spacing: 0; font-weight: normal;
+	
+	color: var(--bs-dark);
+	
+	padding-bottom: 15px;
+	border-bottom:1px solid #e5e5e5;
+}
+
+.form-ajax hr {
+	color: #e5e5e5;
+	opacity: 1;
+	
+}
+
+
+.form-ajax-notification {
+	display: none;
+	
+	position: fixed;
+	z-index: 1000;
+	background-color: var(--bs-success);
+	color: white;
+	
+	right: 0;
+	min-width: 300px;
+	top: 70px;
+	
+	padding: 15px;
+	padding-right: 40px;
+}
+
+.form-ajax-notification i {
+	
+	font-size: 24px;
+	margin-right: 8px;
+	position: relative;
+	top: 2px;
+}
+
+
+.form-ajax-success {
+	display: none;
+	text-align: center;
+	padding: 15px 0;
+}

@@ -1,0 +1,71 @@
+{% extends '/core/theme/core-admin/plugin.twig' %}
+
+{% block plugin_content %}
+<form name="former" method="post" action="" class="form-factory form-ajax" data-success-notification="ok">
+
+    <input type="hidden" name="xcore_group_id" value="{{ get('xcore_group_id') }}">
+
+    <div class="input-group">
+
+        <select id="xcore_group_id" class="form-select">
+
+            <option value=""><i18n>User group</i18n>...</option>
+
+            {% for group in groups %}
+                <option value="{{ group.id }}" {% if group.id == get('xcore_group_id') %}selected{% endif %} >{{ group.name }} (#{{ group.id }})</option>
+            {% endfor %}
+        </select>
+
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary"><i18n>Save</i18n></button>
+        </div>
+
+    </div>
+
+
+
+    {% if get('xcore_group_id') != false %}
+        {% for menu, plugins in menus %}
+            <h2 class="text-primary mt-4 mb-2 pb-1">
+                <div class="form-check">
+                    <input class="form-check-input form-check-input-menu" type="checkbox" data-name="{{ menu }}" id="menu_{{ slugify(menu) }}">
+                    <label class="form-check-label" for="menu_{{ slugify(menu) }}">
+                        <b><i18n>{{ menu }}</i18n></b>
+                    </label>
+                </div>
+            </h2>
+
+            {% for plugin in plugins %}
+                <div class="row mb-0 row-hover">
+                    <div class="col-2 py-1">
+                        <div class="form-check">
+                            <input type="checkbox" id="plugin_{{ plugin.id }}" value="{{ plugin.id }}" class="form-check-input form-check-input-plugin" data-menu="{{ menu }}">
+                            <label class="form-check-label" for="plugin_{{ plugin.id }}">
+                                <i class="{{ plugin.icon }} me-1"></i> <i18n>{{ plugin.name }}</i18n>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col py-1">
+
+                        {% for action in plugin.actions %}
+                            <div class="form-check form-switch d-inline-block me-3">
+                                <input type="checkbox" name="action[]" value="{{ plugin.id }}_{{ action }}" id="action_{{ plugin.xcore_menu_id }}_{{ plugin.id }}"  data-menu="{{ menu }}" data-plugin-id="{{ plugin.id }}" class="form-check-input form-check-input-plugin-action" {% if plugin.id ~ '_' ~ action in rights %}checked{% endif %}>
+                                <label class="form-check-label" for="action_{{ plugin.xcore_menu_id }}_{{ plugin.id }}">{{ action }}</label>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            {% endfor %}
+
+
+        {% endfor %}
+    {% endif %}
+
+</form>
+
+
+<script defer src="/core/module/core-backend/right/assets/js/init.js"></script>
+
+
+{% endblock plugin_content %}

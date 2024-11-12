@@ -1,0 +1,325 @@
+.blockee-editor-window-canvas {
+
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999998;
+    background-color: rgba(255,255,255, 0.85);
+}
+
+.blockee-editor-window {
+
+    display: none;
+    z-index: 9999999;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    width: 800px;
+
+    max-height: 600px;
+    background-color: #fff;
+    transform: translateX(-50%);
+
+    box-shadow: 0 0 15px #ccc;
+    border-radius: 10px;
+
+    font-family: sans-serif;
+    font-size: 13px;
+}
+
+.blockee-editor-window--file-browser {
+    z-index: 99999988;
+
+    max-height: none;
+    top:50%;
+    left:50%;
+    width: 98vw;
+    height: 98vh;
+    transform: translate(-50%, -50%);
+}
+
+.blockee-editor-window--file-browser .blockee-editor-window-header {
+    display: none;
+}
+
+.blockee-editor-window--file-browser .blockee-editor-window-body {
+    overflow: hidden;
+    width: 100vw;
+    max-height: none;
+    height: calc(100vh - 10px);
+    padding: 0px;
+    overflow: hidden;
+}
+
+.blockee-editor-window--file-browser iframe {
+
+    box-sizing: border-box;
+    width: calc(100vw - 40px);
+    height: calc(100vh - 25px);
+    border: none;
+    overflow: hidden;
+
+}
+
+.blockee-editor-window--source {
+    max-height: none;
+    height: calc(100vh - 100px);
+
+    width: 80vw;
+    max-width: none;
+    top: 40px;
+
+}
+
+.blockee-editor-window--source textarea {
+    height: calc(100vh - 240px);
+}
+
+.blockee-editor-window--source .blockee-editor-window-body {
+    max-height: none;
+}
+
+
+.blockee-editor-window-header  {
+    height: 40px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    font-size: 18px;
+    letter-spacing: 0px;
+}
+
+.blockee-editor-window-body  {
+
+    box-sizing: border-box;
+
+    min-height: 200px;
+    max-height: calc(600px - 40px - 70px);
+    padding: 10px 15px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.blockee-editor-form-row {
+    margin: 3px 0;
+    /*border-top:1px solid #e5e5e5;
+    border-bottom:1px solid #e5e5e5;
+    border-right:1px solid #e5e5e5;*/
+}
+
+.blockee-editor-form-label {
+
+    display: inline-block;
+    box-sizing: border-box;
+    width: 120px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 10px;
+    text-align: right;
+    white-space: nowrap;
+    /*font-weight: bold; */
+    margin-right: 5px;
+
+    /*background-color: #e5e5e5; */
+    color: rgb(118, 138, 159);
+
+}
+
+.blockee-editor-window label {cursor: pointer;}
+.blockee-editor-window label:hover {color: #999}
+
+.blockee-editor-window .label-group {background: #999; color: white; padding: 5px 3px; text-align: center; min-width: 25px; display: inline-block; }
+.blockee-editor-window .label-group + input {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-color:#999;
+}
+
+.blockee-editor-window .label-group + textarea {
+    border-color:#999;
+}
+
+.blockee-editor-window .blockee-editor-form-row {
+    display: flex;
+    vertical-align: top;
+}
+
+.blockee-editor-window .blockee-editor-form-label + textarea {
+    width: calc(100% - 130px);
+    min-height: 150px;
+}
+
+.blockee-editor-window input::placeholder,
+.blockee-editor-window textarea::placeholder
+{
+    color: #ccc;
+}
+
+
+.blockee-editor-window input[type="button"],
+.blockee-editor-window input[type="submit"],
+.blockee-editor-window button
+{
+
+    border-radius: 6px;
+    background-color: #f0f0f0;
+    border: 1px solid #f0f0f0;
+    padding: 3px 0;
+    text-align: center;
+    box-sizing: border-box;
+    color: #222f3e;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    user-select: none;
+    width: 100px;
+    max-width: 100px;
+}
+
+.blockee-editor-window input[type="button"]:hover,
+.blockee-editor-window input[type="submit"]:hover,
+.blockee-editor-window button:hover
+{
+    background-color: #e3e3e3;
+    border-color: #e3e3e3;
+}
+
+
+
+.blockee-editor-window select {
+    /*padding: 4px 5px; */
+
+    border: 1px solid rgb(204, 214, 222);
+    padding: 4px 6px;
+
+}
+
+.blockee-editor-window input[type="text"],
+.blockee-editor-window input[type="color"],
+.blockee-editor-window input[type="number"],
+.blockee-editor-window textarea
+{
+    width: calc(100% - 130px);
+
+
+    /*border-radius: 5px; */
+    border: 1px solid rgb(204, 214, 222);
+    padding: 4px 6px;
+}
+
+
+.blockee-editor-window input[type="text"]:focus,
+.blockee-editor-window input[type="color"]:focus,
+.blockee-editor-window input[type="number"]:focus,
+.blockee-editor-window textarea:focus
+{
+    border-radius: 0px!important;
+    border-color: cornflowerblue!important;
+}
+
+
+.blockee-editor-window input[type="color"]
+{
+    width: 50px;
+    height: 24px;
+    padding: 0;
+}
+
+
+.blockee-editor-window input[type="number"] {
+    width: 50px;
+    text-align: center;
+}
+
+
+.blockee-editor-window textarea {
+    width: 100%;
+}
+
+.blockee-editor-window input[type="radio"],
+.blockee-editor-window input[type="checkbox"]
+{
+    margin: 0px 6px;
+    position: relative;
+    top: 2px;
+    cursor: pointer;
+}
+
+.blockee-editor-window .input-file {
+    width: calc(100% - 170px)!important;
+}
+
+
+.blockee-editor-window .input-file-manager {
+    width: 30px!important;
+    background-color: #006ce7!important;
+    color: white!important;
+}
+
+.blockee-editor-window .blockee-editor-form-button-filemanager {
+    position: absolute;
+    margin-top: 3px;
+    right: 22px;
+}
+
+
+
+
+.blockee-editor-window-footer  {
+    text-align: center;
+
+    padding: 10px 0;
+
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+
+    box-sizing: border-box;
+
+}
+
+.blockee-editor-window-footer input[type="button"],
+.blockee-editor-window-footer input[type="submit"]
+{
+    flex: 1;
+    justify-content: center;
+
+    line-height: 20px;
+    font-size: 14px;
+
+    padding: 6px 5px;
+
+
+}
+
+.blockee-editor-window-footer input[type="submit"] {
+    /* background-color: #006ce7;*/
+
+    background-color: rgb(96, 111, 209);
+    color: white;
+}
+
+.blockee-editor-window-footer input[type="submit"]:hover {
+    background-color: #0054b4;
+}
+
+
+.blockee-editor-window--confirm {
+
+}
+
+.blockee-editor-window--confirm .blockee-editor-window-body {
+    text-align: center;
+    min-height: 100px;
+    line-height: 100px;
+    font-size: 14px;
+}
+
+
+.blockee-editor-block-element[contenteditable] a, .blockee-editor-block-element [contenteditable] a
+{
+    pointer-events: none;
+}

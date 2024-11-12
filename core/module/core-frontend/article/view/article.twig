@@ -1,0 +1,40 @@
+<article class="unee-article" itemscope itemtype="https://schema.org/Article">
+
+    <header>
+        <h1 itemprop="headline">{{ article.title|raw }}</h1>
+        <p>
+            <span class="article-date">
+                <i18n>Published on</i18n> <time datetime="{{ article.date }}" itemprop="datePublished">{{ article.dateX }}</time>
+            </span>
+
+            <span class="article-author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                <meta itemprop="name" content="{{ article.author }}">
+                <meta itemprop="url" content="{{ blog_search_author_url }}">
+                <i18n>by</i18n> <a href="{{ blog_search_author_url }}">{{ article.author }}</a>
+            </span>
+
+        </p>
+    </header>
+
+    <div class="article-content" itemprop="articleBody">
+
+        <div class="article-image">
+            <img alt="{{ article.title }}" src="{{ article.thumbnail_url }}">
+        </div>
+
+        {{ article.content|raw }}
+
+    </div>
+
+
+    {% if article.tags is not empty %}
+    <div class="article-tags">
+
+        {% for tag in article.tags %}
+            <span class="xtag article-tag" data-first-letter="{{ tag|slice(0, 1)|lower }}">{{ tag }}</span>
+        {% endfor %}
+
+    </div>
+    {% endif %}
+
+</article>

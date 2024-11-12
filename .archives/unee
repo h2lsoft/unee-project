@@ -1,0 +1,62 @@
+<?php
+
+use Core\DB;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\CommandLoader\FactoryCommandLoader;
+
+require __DIR__.'/vendor/autoload.php';
+include "core/lib/function/core.php";
+include "core/lib/function/string.php";
+require __DIR__.'/core/bootstrap.php';
+
+// init DB
+$CONFIG = include 'config/default/app.php';
+$tmp = include 'config/default/backend.php';
+$CONFIG = array_merge($CONFIG, $tmp);
+
+$pg = $CONFIG['db']['package']['default'];
+
+// cli> db user override
+if(!empty($CONFIG['cli']['database']['username']))
+	$pg['username'] = $CONFIG['cli']['database']['username'];
+
+if(!empty($CONFIG['cli']['database']['password']))
+	$pg['username'] = $CONFIG['cli']['database']['password'];
+
+
+
+$DB = new DB();
+$DB->connect($pg['driver'], $pg['host'], $pg['username'], $pg['password'], $pg['database'], $pg['port'], $pg['pdo_options']);
+foreach($pg['init_queries'] as $sql)
+	$DB->query($sql);
+
+
+$commandLoader = new FactoryCommandLoader(
+	[
+		// app
+		'install' => function (): Command {
+			return new \Command\App\Install();
+		},
+
+
+		/* 'update' => function (): Command {
+			return new \Command\App\Update();
+		},*/
+
+		// event
+		'event:list' => function (): Command {
+		return new \Command\App\EventListAll();
+	}
+
+		// make
+		// @todo> make:module
+		// @todo> make:entity
+		// @todo> make:event
+		// @todo> make:migrate
+	]);
+
+$application = new Application();
+$application->setCommandLoader($commandLoader);
+$application->run();
+

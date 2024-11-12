@@ -1,0 +1,54 @@
+<div id="xfiles" class="unee-files">
+
+
+    {% if files is empty %}
+
+        <div class="norecord">
+            <i18n>No files found</i18n>
+        </div>
+
+    {% else %}
+
+        <table class="{{ class }}">
+
+            {% if category_forced == ''  %}
+                <caption>
+                    <select class="form-select unee-files--select w-auto">
+                        <option value=""><i18n>Category</i18n>...</option>
+
+                        {% for c in categories %}
+                            <option value="{{ slugify(c) }}" {% if slugify(c) == get('category') %}selected{% endif %}>{{ c }}</option>
+                        {% endfor %}
+                    </select>
+                </caption>
+            {% endif %}
+
+            <thead>
+            <th class="col-title"><i18n>Title</i18n></th>
+            <th class="min col-source"><i18n>Source</i18n></th>
+            <th class="min col-date"><i18n>Date</i18n></th>
+            <th class="min col-size"><i18n>Size</i18n></th>
+            <th class="min col-file-download"></th>
+            </thead>
+
+            <tbody>
+            {% for f in files %}
+                <tr>
+                    <td class="col-title">{{ f.title }}</td>
+                    <td class="min col-source">{{ f.source }}</td>
+                    <td class="min col-date">{{ f.date|date(date_format) }}</td>
+                    <td class="min col-size">{{ f.size }}</td>
+                    <td class="min col-file-download">
+                        <a href="{{ f.url }}" download title="<i18n>Download</i18n>"><i class="bi bi-{{ f.link_icon }}"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    {% endif %}
+
+
+</div>

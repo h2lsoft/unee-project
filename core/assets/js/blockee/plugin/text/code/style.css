@@ -1,0 +1,20 @@
+code.blockee-editor-block-element {
+    outline: none;
+
+    line-height: normal;
+    background-color: black;
+
+    padding: 20px;
+    border-radius: 5px;
+    width: 100%;
+    display: block;
+
+    color: white;
+
+    white-space: preserve;
+    line-height: 24px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}

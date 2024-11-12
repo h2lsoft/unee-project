@@ -1,0 +1,72 @@
+{% extends '/core/theme/core-admin/base.twig' %}
+
+{% block title %}{{ plugin.name }}{% endblock title %}
+
+
+{% block content %}
+
+
+    {% block header %}
+        {% include '/core/theme/core-admin/_header.twig' %}
+    {% endblock header %}
+
+    {% block menu %}{{ xcore_backend('menu') }}{% endblock menu %}
+
+    <div class="app-content"  id="swup" class="transition-fade">
+
+
+
+        {{ xcore_backend('breadcrumbs') }}
+
+        <h1 class="app-plugin-title" data-id="{{ plugin.id }}">
+            <i class="{{ plugin.icon }} app-plugin-icon me-1"></i>
+            <a href="/@backend/{% if plugin.route_prefix_name is not empty %}{{ plugin.route_prefix_name }}/{% endif %}"><i18n>{{ plugin.name }}</i18n></a>
+
+            {% if plugin_bookmark is not defined or plugin_bookmark == true %}
+                <a href="#" class="ms-1 link-plugin-action-favorite btn-action"
+                   data-bs-toggle="tooltip" title="<i18n>Add/remove bookmark</i18n>"
+                   data-action="/@backend/user-bookmark/toggle/{{ plugin.id }}/"
+                   data-action-message="<i18n>Bookmark has been updated</i18n>"
+                   data-action-icon-ok="bi-bookmark-fill" data-action-icon-ko="bi-bookmark"
+                   data-action-success-callback="userBookmarkReload()">
+                    <i class="bi bi-bookmark{% if plugin.bookmarked == true %}-fill{% endif %}"></i>
+                </a>
+            {% endif %}
+
+
+        </h1>
+
+        {% if plugin_box is not defined or plugin_box == true %}
+        <div class="container-fluid app-content-container">
+            <div class="row">
+                <div class="col-12 p-0">
+                    <div class="card plugin-box">
+                        <div class="card-body">
+        {% endif %}
+
+                            {% block plugin_content %}{% endblock plugin_content %}
+
+        {% if plugin_box is not defined or plugin_box == true %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        </div>
+
+    <script>
+    QUERY_STRING = "{{ url_get_query_string() }}"; // reload
+    </script>
+
+    </div>
+
+    {#
+    <footer class="app-footer">
+        Unee v.{{ core_version }}
+    </footer>
+    #}
+
+{% endblock content %}
+
+

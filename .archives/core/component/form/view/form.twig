@@ -1,0 +1,237 @@
+<form name="{{ form.name }}" method="post" action="" class="form-factory mx-auto form-ajax {{ form.class }}" data-force-error-message="" {% for attr,value in form.attributes %} {{ attr }}="{{ value }}" {% endfor %}>
+
+{% if form.title is not empty %}
+    <h1><i18n>{{ form.title }}</i18n> {% if form.is_editing %}- #{{ form.id }}{% endif %}</h1>
+{% endif %}
+
+
+    <div class="form-error mb-3 text-danger"></div>
+
+
+    {% set tab_first_init = false %}
+    {% for f in form.fields %}
+
+        {% if f.type == 'html' %}
+
+            {{ f.html|raw }}
+
+        {% elseif f.type == 'header' %}
+            <div class="mb-3 row header-{{ f.name }}">
+                <div class="col">
+                    <h2><i18n>{{ f.label|raw }}</i18n></h2>
+                </div>
+            </div>
+        {% elseif f.type == 'hr' %}
+            <div class="mb-3 row header-{{ f.name }}">
+                <div class="col">
+                    <hr>
+                </div>
+            </div>
+        {% elseif f.type == 'tab-menu' %}
+
+            <ul class="nav nav-tabs mt-4 mb-3 offset-2" id="pills-tab" role="tablist">
+                {% for f in form.fields %}
+                    {% if f.type == 'tab' %}
+                        <li class="nav-item">
+                            <button type="button" class="nav-link me-2 {% if tab_first_init == false %}active {% set tab_first_init = true %} {% endif %}" id="pills-tab_{{ f.name }}" data-bs-toggle="tab" data-bs-target="#pills_{{ f.name }}">
+                                <i18n>{{ f.label|raw }}</i18n>
+                            </button>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <div class="tab-content">
+
+            {% set tab_first_init = false %}
+
+
+
+        {% elseif f.type == 'tab' %}
+
+            <div id="pills_{{ f.name }}" class="tab-pane  {% if tab_first_init == false %}show active{% endif %} {{ f.class }}" tabindex="0">
+            {% set tab_first_init = true %}
+
+
+
+
+        {% elseif f.type == 'tab-close' or f.type == 'tab-menu-close'  %}
+
+            </div>
+
+        {% else %}
+            <div class="mb-2 row row-{{ f.name }}">
+
+                <div class="col-2  col-{{ f.name}}--label mt-1 text-end">
+                    <label for="{{ f.name }}" class="text-end ucfirst {% if f.required == true %}required{% endif %}"><i18n>{{ f.label }}</i18n></label>
+                </div>
+
+                {% if f.type in ['text', 'email', 'tel', 'password', 'number', 'date', 'datetime', 'time'] %}
+                    <div class="col col-{{ f.name}} {% if f.input_col_size is not empty %}col-{{ f.input_col_size }} {{ f.input_col_class }}{% endif %}">
+
+                        {% if f.icon_before != '' or f.after != '' %}
+                        <div class="input-group">
+
+                            {% if f.icon_before != '' %}
+                            <span class="input-group-text">
+                                <i class="{{ f.icon_before }}"></i>
+                            </span>
+                            {% endif %}
+
+                        {% endif %}
+
+                            {% set val = f.value %}
+                            {% if f.type in ['date', 'datetime', 'time'] and (f.value == '00:00:00' or f.value == '0000-00-00' or f.value == '0000-00-00 00:00:00')  %}
+                                {% set val = '' %}
+                            {% endif %}
+
+
+                        <input type="{% if f.type == 'datetime' %}datetime-local{% else %}{{ f.type }}{% endif %}" class="form-control {{ f.class }}" id="{{ f.name }}" name="{{ f.name }}" value="{{ val }}" {% for attr_name, attr_value in f.attributes %}{{ attr_name }}="{{ attr_value }}"{% endfor %}>
+
+
+                        {% if f.datalist is defined %}
+                        <datalist id="{{ f.attributes.list }}">
+                            {% for o in f.datalist %}
+                            <option value="{{ o.value }}">{{ o.label }}</option>
+                            {% endfor %}
+                        </datalist>
+                        {% endif %}
+
+
+                        {% if f.after != '' %}
+                        <span class="input-group-text input-group-text-after">{{ f.after|raw }}</span>
+                        {% endif %}
+
+                        {% if f.icon_before != '' or f.after != '' %}</div>{% endif %}
+
+                        {% if f.help != '' %}
+                            <div class="help-message"><i18n>{{ f.help|raw }}</i18n></div>
+                        {% endif %}
+
+                    </div>
+                {% elseif f.type == 'select' %}
+                    <div class="col col-{{ f.name}} {% if f.input_col_size is not empty %}col-{{ f.input_col_size }} {{ f.input_col_class }}{% endif %}">
+
+                        <select name="{{ f.name }}" id="{{ f.name }}" class="form-select {{ f.class }}" {% for attr_name, attr_value in f.attributes %}{{ attr_name }}="{{ attr_value }}"{% endfor %}>
+                            <option value=""><i18n>{{ f.caption }}</i18n></option>
+
+                            {% for o in f.options %}
+
+                                {% if o.optgroup is defined and o.optgroup == 1 %}
+                                    <optgroup label="{{ o.label }}">
+                                {% else %}
+                                    <option value="{{ o.value }}" {% if f.value == o.value %}selected{% endif %}>{{ o.label }}</option>
+                                {% endif %}
+
+
+                            {% endfor %}
+
+                        </select>
+
+                        {% if f.help != '' %}
+                            <div class="help-message"><i18n>{{ f.help|raw }}</i18n></div>
+                        {% endif %}
+
+                    </div>
+                {% elseif f.type == 'radio' %}
+                    <div class="col col-{{ f.name }} {% if f.input_col_size is not empty %}col-{{ f.input_col_size }} {{ f.input_col_class }}{% endif %}">
+
+                        {% for o in f.options %}
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="{{ f.name }}_{{ loop.index }}">
+                                <input class="form-check-input" type="radio" name="{{ f.name }}" id="{{ f.name }}_{{ loop.index }}" value="{{ o.value }}" {% if f.value == o.value %}checked{% endif %}>
+                                <i18n>{{ o.label|raw }}</i18n>
+                            </label>
+                        </div>
+                        {% endfor %}
+
+
+
+
+                        {% if f.help != '' %}
+                            <div class="help-message"><i18n>{{ f.help|raw }}</i18n></div>
+                        {% endif %}
+
+                    </div>
+                {% elseif f.type == 'textarea' %}
+                    <div class="col col-{{ f.name}} {% if f.input_col_size is not empty %}col-{{ f.input_col_size }} {{ f.input_col_class }}{% endif %}">
+                        <textarea name="{{ f.name }}" id="{{ f.name }}" class="form-control {{ f.class }}" {% for attr_name, attr_value in f.attributes %}{{ attr_name }}="{{ attr_value }}"{% endfor %}>{{ f.value }}</textarea>
+                        {% if f.help != '' %}
+                            <div class="help-message"><i18n>{{ f.help|raw }}</i18n></div>
+                        {% endif %}
+                    </div>
+
+
+
+                {% elseif f.type == 'switch' %}
+                    <div class="col col-{{ f.name }} mt-1 {% if f.input_col_size is not empty %}col-{{ f.input_col_size }} {{ f.input_col_class }}{% endif %}">
+                        <div class="form-check form-switch">
+                            <input type="checkbox" id="{{ f.name }}" name="{{ f.name }}" class="form-check-input {{ f.class }}" value="yes" {% if f.value is defined and f.value|lower == 'yes' %}checked{% endif %} {% for attr_name, attr_value in f.attributes %}{{ attr_name }}="{{ attr_value }}"{% endfor %}>
+                        </div>
+                        {% if f.help != '' %}<div class="help-message"><i18n>{{ f.help|raw }}</i18n></div>{% endif %}
+                    </div>
+                {% elseif f.type == 'file-image' or f.type == 'file'  %}
+                    <div class="col col-{{ f.name }} {% if f.input_col_size is not empty %}col-{{ f.input_col_size }} {{ f.input_col_class }}{% endif %}">
+
+                        {% if f.type == 'file-image' %}
+                            <div class="file-image--placeholder" onclick="$('#{{ f.name }}').click()">
+                                <img id="{{ f.name }}_image_preview" src="{{ f.value }}" class="zoomable">
+                            </div>
+                        {% endif %}
+
+
+                        {% if f.value is not empty %}
+                        <div class="file-image--delete-placeholder">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" name="{{ f.name }}__delete" id="{{ f.name }}__delete" value="yes">
+                                <label class="form-check-label" for="{{ f.name }}__delete"><i18n>delete this file</i18n></label>
+                            </div>
+                        </div>
+                        {% endif %}
+
+
+                        <div class="input-group">
+                            <input type="file" name="{{ f.name }}" id="{{ f.name }}" class="form-control {{ f.class }}" accept="{{ f.accept }}" size="{{ f.max_file_size }}" {% if f.type == 'file-image' %}onchange="document.getElementById('{{ f.name }}_image_preview').src = window.URL.createObjectURL(this.files[0])"{% endif %} {% for attr_name, attr_value in f.attributes %}{{ attr_name }}="{{ attr_value }}"{% endfor %}>
+                            <div class="input-group-text input-group-text-after">
+                                <button class="btn" type="button" onclick="$('#{{ f.name }}').val('')"><i class="bi bi-x-lg"></i></button>
+                            </div>
+                        </div>
+
+                        {% if f.help != '' %}<div class="help-message"><i18n>{{ f.help|raw }}</i18n></div>{% endif %}
+                    </div>
+                {% endif %}
+
+            </div>
+        {% endif %}
+
+
+
+    {% endfor %}
+
+    {% if form.is_editing %}
+        <input type="hidden" name="_method" value="PUT">
+    {% endif %}
+
+    <div class="row form-footer my-5 pt-5 border-top border-primary">
+
+        <div class="col-6 text-center">
+            <button type="button" onclick="history.back();" class="btn btn-secondary"><i18n>Cancel</i18n></button>
+        </div>
+
+        <div class="col-6 text-center">
+            <button type="submit" class="btn btn-primary btn-submit"><i18n>Save</i18n></button>
+        </div>
+
+    </div>
+
+
+
+</form>
+<div class="form-ajax-notification">
+    <i class="bi bi-check-lg"></i> <span class="form-ajax-notification-message"></span>
+</div>
+
+{% if form.js_files is not empty %}
+    {% for js_file in form.js_files %}
+        <script src="{{ js_file }}"></script>
+    {% endfor %}
+{% endif %}

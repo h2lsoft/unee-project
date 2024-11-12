@@ -1,0 +1,25 @@
+.table-pages {}
+.table-pages th {font-size: 13px;}
+
+.table-pages th, .table-pages td {
+    border-bottom: 0px;
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+    padding-left: 0!important;
+}
+
+.table-pages .page-name {color: black;}
+.table-pages .page-name:hover {color: royalblue;}
+.table-pages thead:first-child  th {margin-bottom: 40px!important;}
+
+.table-pages .img-avatar-xs {width: 22px; height: 22px;}
+
+.table-pages .header-message {
+    padding-left: 5px!important;
+    padding-right: 5px!important;
+    padding-top: 3px!important;
+    padding-bottom: 3px!important;
+
+
+
+}

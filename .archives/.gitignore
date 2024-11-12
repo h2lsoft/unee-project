@@ -1,0 +1,6 @@
+/composer.lock
+/.idea/*
+/version/*
+/.tmp/*
+/vendor/*
+/config/default/app.php

@@ -1,0 +1,30 @@
+{% extends '/core/theme/core-admin/plugin.twig' %}
+
+{% set plugin_box = false %}
+{% set plugin_bookmark = false %}
+
+{% block plugin_content %}
+
+
+
+
+    {% for widget in  widgets %}
+        {{ widget|raw }}
+    {% endfor %}
+
+
+
+
+
+
+
+    <script defer src="/core/module/core-backend/dashboard/assets/js/init.js"></script>
+
+
+
+
+
+
+
+{% endblock plugin_content %}
+

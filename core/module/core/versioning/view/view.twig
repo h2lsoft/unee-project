@@ -1,0 +1,50 @@
+{% extends '/core/theme/core-admin/plugin.twig' %}
+
+{% set plugin_box = false %}
+{% set plugin_bookmark = false %}
+
+{% block plugin_content %}
+
+    <table class="table table-hover table-condensed">
+    <tbody>
+    {% for key, val in rows  %}
+        {% if key != '_links' %}
+        <tr>
+            <th>{{ key }}</th>
+            <td>
+                {{ val }}
+            </td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+    </tbody>
+    </table>
+
+    {% if rows['_links'] is defined %}
+    <h3>Links</h3>
+    <table class="table table-hover table-condensed">
+
+        {% for l_table, l_vals in rows['_links']  %}
+
+            <h4 class="mb-0">[ {{ l_table }} ]</h4>
+
+            {% for l_val in l_vals['_data'] %}
+            <table class="table table-hover table-condensed">
+
+                {% for l_k, l_v in l_val %}
+                    <tr>
+                        <th>{{ l_k }}</th>
+                        <td>{{ l_v }}</td>
+                    </tr>
+                {% endfor %}
+
+            </table>
+            {% endfor %}
+
+        {% endfor %}
+
+    </table>
+    {% endif %}
+
+
+{% endblock plugin_content %}

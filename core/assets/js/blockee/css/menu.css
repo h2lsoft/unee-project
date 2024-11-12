@@ -1,0 +1,160 @@
+.blockee-editor-canvas {
+
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9998;
+    background-color: rgba(255,255,255, 0);
+
+}
+
+
+.blockee-editor__menu {
+
+    background-color: white;
+
+    position: fixed;
+    z-index: 99999;
+
+    display: none;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #ccc;
+
+    padding: 0px 0px;
+
+    font-family: sans-serif;
+    font-size: 12px;
+
+    min-width: 250px;
+    min-height: 300px;
+    max-height: 300px;
+    overflow-y: auto;
+
+    box-sizing: border-box;
+}
+
+.blockee-editor__menu input[type="search"] {
+
+    border-radius: 5px;
+    padding-left: 5px;
+    border: 1px solid #ccc;
+    margin: 3px 5px;
+    width: calc(100% - 10px);
+    box-sizing: border-box;
+    outline: none;
+
+}
+
+
+.blockee-editor__menu .blockee-editor__menu-group
+{
+    padding: 0 10px;
+    font-family: sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.blockee-editor__menu ul
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.blockee-editor__menu ul li
+{
+    padding: 5px 10px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.blockee-editor__menu ul li img
+{
+
+    border-radius: 2px;
+    padding: 3px;
+    display: inline-block;
+    background: #ccc;
+    margin-right: 5px;
+    vertical-align: middle;
+    object-position: center center;
+}
+
+.blockee-editor__menu ul li.active {
+    cursor: pointer;
+    background-color: cornflowerblue;
+    color: white;
+
+}
+
+.blockee-editor__menu li kbd{
+    background-color: #666;
+    margin-left: 5px;
+}
+
+.blockee-editor__menu ul li.divider {pointer-events: none;}
+.blockee-editor__menu ul li.divider:after {
+
+    content: " ";
+    border-top: 1px solid #e5e5e5;
+    box-sizing: border-box;
+    width: 100%;
+    height: 0;
+    position: absolute;
+
+}
+
+
+.blockee-editor__menu-block {
+    min-width: 120px;
+    min-height: auto;
+    overflow: hidden;
+    position: fixed;
+}
+
+.blockee-editor__menu-block li {
+    padding-left: 28px!important;
+    background-repeat: no-repeat;
+    background-position: 5px center;
+}
+
+.blockee-editor__menu li.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.blockee-editor__menu-block--li-add {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/> </svg>');
+}
+
+.blockee-editor__menu-block--li-duplicate {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/> </svg>');
+}
+
+.blockee-editor__menu-block--li-up {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5"/> </svg>');
+}
+
+.blockee-editor__menu-block--li-down {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4"/> </svg>');
+}
+
+.blockee-editor__menu-block--li-delete {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16"> <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/> </svg>');
+}
+
+.blockee-editor__menu-block--li-configure {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z"/> </svg>');
+}
+

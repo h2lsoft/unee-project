@@ -1,0 +1,15 @@
+{% extends '/core/theme/core-admin/base.twig' %}
+
+{% block body_class %}body-simple{% endblock %}
+{% block title %}{{ page_title }}{% endblock title %}
+
+{% block content %}
+
+    {% block header %}{% endblock header %}
+    {% block menu %}{% endblock menu %}
+
+    <div class="app-content"  id="swup" class="transition-fade">
+    {{ content|raw }}
+    </div>
+
+{% endblock %}

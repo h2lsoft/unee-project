@@ -1,0 +1,85 @@
+.datagrid {box-shadow: none;}
+.datagrid > :not(:first-child) {border: 0;}
+.datagrid > :not(caption) > * > * {border-color: #ccc;}
+.datagrid caption {
+	padding: 8px 0;
+	padding-bottom: 25px;
+}
+
+.datagrid .nav-btns {
+	margin-top: -30px;
+}
+
+.datagrid th {text-transform: capitalize; padding: 8px; white-space: nowrap}
+.datagrid th.column-order-by:hover {background: #e5e5e5; }
+.datagrid th.column-order-by.active {background: royalblue; color: white!important;  }
+.datagrid th.column-order-by.active a {color: white!important;}
+
+.datagrid td {padding: 8px; white-space: nowrap; vertical-align: middle}
+
+.datagrid.table-condensed th,
+.datagrid.table-condensed td
+{
+	padding: 5px 8px;
+}
+
+
+.datagrid .min {width: 10px;}
+.datagrid .center {text-align: center}
+.datagrid .left {text-align: left}
+.datagrid .right {text-align: right}
+
+.datagrid .batch-column {vertical-align: middle; white-space: nowrap; width: 1%; text-align: right}
+.datagrid .btn-actions {padding: 0 10px; vertical-align: middle; white-space: nowrap; width: 1%; text-align: right}
+
+.datagrid .btn-actions a {font-size: 17px; padding: 0 5px; color: #666; }
+.datagrid .btn-actions a:hover {opacity: 0.5!important; }
+
+.datagrid i {font-size: 15px;}
+
+.datagrid a.btn-action {font-size: 17px; padding: 0 5px; color: #666; }
+.datagrid a.btn-action:hover {opacity: 0.5!important; }
+
+
+.datagrid-tooltip-btn-actions {margin-left:6px!important;}
+.datagrid-tooltip-notes {
+	
+	--bs-popover-max-width: 600px!important;
+	--bs-popover-font-size: 0.5rem!important;
+	--bs-popover-body-color: #fff!important;
+	
+}
+
+.datagrid th.order-by {cursor: pointer}
+.datagrid th.order-by.active {color: royalblue;}
+.datagrid th.order-by:hover {background: royalblue; color: #fff}
+
+.datagrid th.column-order-by {padding: 0!important;}
+.datagrid th.column-order-by a {display: block; padding: 10px;}
+
+
+.datagrid td.position-column {cursor: move; width: 10px; text-align: center}
+
+
+.datagrid.table-striped > tbody> tr> td.no-record,
+.datagrid td.no-record
+	{text-align: center; vertical-align: middle; height: 150px; border:0; background: white!important;}
+
+.datagrid td[data-type="button"] .btn-sm {padding-top: 1px; padding-bottom: 1px; display: block;}
+
+.datagrid td img {max-height: 80px; max-width: 180px}
+
+
+.datagrid .pager {}
+.datagrid .pager a i {font-size: 18px; margin: 0 5px; color: #666; position: relative; top: 2px }
+.datagrid .pager a:hover i {color: royalblue; }
+.datagrid .pager .input-page { width:6em; box-shadow: none}
+
+.datagrid .pager-records-by-page-input {width:6.3em; box-shadow: none; cursor: pointer}
+
+
+.datagrid-search-offcanvas {width: 40%!important; min-width: 300px!important;}
+
+.datagrid .btn-batch-execute {margin-top: -1px;}
+
+.dropdown-menu-user-search  {min-width:300px!important;}

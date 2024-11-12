@@ -1,0 +1,10 @@
+<!-- gallery #{{ gallery.id }} -->
+<div id="unee-gallery-{{ gallery.id }}" class="unee-gallery {{ gallery.class }}">
+    {% for card in cards %}
+        <a href="{{ card.image }}"><img src="{{ card.thumbnail_url }}" title="{{ card.title }}" alt="{{ card.title }}"></a>
+    {% endfor %}
+</div>
+<!-- /gallery #{{ gallery.id}} -->
+
+
+

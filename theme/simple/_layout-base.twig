@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="{{ page.language }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{ page.meta_title|raw }}</title>
+    <meta name="description" content="{{ page.meta_description|raw }}">
+    <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1{% if page.meta_robot is not empty %}, {{ page.meta_robot }}{% endif %}"/>
+
+    <meta property="og:site_name" content="{{ config('name') }}" >
+    <meta property="og:locale" content="{{ page.language }}_{{ page.language|upper }}" >
+    <meta property="og:title" content="{{ page.meta_title|raw }}" >
+    <meta property="og:description" content="{{ page.meta_description|raw }}" >
+    <meta property="og:type" content="website">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image" content="{{ page.meta_og_image|raw }}" />
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+
+    <!-- assets_css -->
+    <x-minifier>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/h2lsoft/unee-css/dist/unee.min.css">
+    <link rel="stylesheet" href="/core/assets/js/blockee/css/@vars.css" />
+    <link rel="stylesheet" href="/core/assets/js/blockee/css/@utils.css" />
+    <link rel="stylesheet" href="/theme/simple/assets/css/@blockee.css" />
+    <link rel="stylesheet" href="/theme/simple/assets/css/style.css" />
+    <link rel="stylesheet" href="/core/module/core-frontend/article/assets/css/style.css" />
+    <link rel="stylesheet" href="/core/module/core-frontend/files/assets/css/style.css" />
+    <link rel="stylesheet" href="/core/module/core-frontend/slider/assets/css/style.css"/>
+    <link rel="stylesheet" href="/core/module/core-frontend/gallery/assets/css/style.css" />
+    </x-minifier>
+    <!-- /assets_css -->
+
+    {% block css_added %}{% endblock %}
+
+    {% block js_head %}
+        {% for f in config('frontend/assets/js_head') %}<script src="{{ f }}"></script>{% endfor %}
+    {% endblock js_head %}
+
+    {% block css %}
+        {% for f in config('frontend/assets/css') %}<link rel="stylesheet" href="{{ f }}">{% endfor %}
+    {% endblock css %}
+
+</head>
+{% block header %}{% endblock header %}
+<body class="{% block body_class %}{% endblock %}">
+
+    {% block content %}{% endblock content %}
+
+
+    <script src="@theme_assets_js/app.js"></script>
+
+    {% block js_body %}
+        {% for f in config('frontend/assets/js_body') %}<script src="{{ f }}"></script>{% endfor %}
+    {% endblock js_body %}
+
+</body>
+</html>

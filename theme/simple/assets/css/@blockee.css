@@ -1,0 +1,18 @@
+.blockee-editor-block-element {font-family: "DejaVu Serif Condensed", serif;}
+h1.blockee-editor-block-element {font-size: 30px; color: #244c3f; padding-bottom: 15px; margin-bottom: 30px; border-bottom: 1px solid rgba(36, 76, 63, 0.2); }
+h2.blockee-editor-block-element  {font-size: 20px; color: #244c3f; margin-top: 40px; margin-bottom: 40px; border:0}
+h3.blockee-editor-block-element {font-size: 24px;}
+p.blockee-editor-block-element {font-size: 19px; line-height: 28px;}
+ul.blockee-editor-block-element {font-size: 19px; line-height: 28px; margin-left: 40px;margin-top: 40px;}
+ul.blockee-editor-block-element li {margin: 20px 0;}
+ul.blockee-editor-block-element  ul {margin-left: 40px; margin-top: 25px; margin-bottom: 40px;}
+ul.blockee-editor-block-element  li > ul {list-style: none;}
+ol.blockee-editor-block-element {font-size: 19px; line-height: 36px; margin-left: 40px;}
+ol.blockee-editor-block-element li {margin: 15px 0;}
+ol.blockee-editor-block-element  ol {margin-left: 40px; margin-top: 25px; margin-bottom: 40px;}
+ol.blockee-editor-block-element  li > ol {list-style: none;}
+blockquote.blockee-editor-block-element {padding: 40px 40px;}
+.blockee-editor-block-element figure img {border-radius: 5px;}
+
+details.blockee-editor-block-element[open] summary {background-color: #244c3f; color: white;}
+.blockee-editor-block-element--img img {max-width: 100%;}

@@ -1,0 +1,16 @@
+.blockee-editor-block-element--img img:not([src]),
+.blockee-editor-block-element--img img[src=""]
+{
+
+    background-color: #eee;
+    background-image: url("icon.svg");
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    width: 100%;
+    height: 80px;
+}
+
+
+

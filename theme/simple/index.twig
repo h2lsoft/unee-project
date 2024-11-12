@@ -1,0 +1,32 @@
+{% extends theme_path ~ '/_layout-base.twig' %}
+
+{% block content %}
+
+    <nav>
+        <div class="container">
+            <a href="/" class="brand">
+                <img src="/public/default/assets/img/logo.png" alt="{{ config('name') }}">
+            </a>
+            <input type="checkbox" aria-label="Menu toggle">
+
+            {{ xZone("MAIN MENU #1") }}
+
+        </div>
+    </nav>
+
+
+    <div class="container">
+        {% if page.is_homepage == 'no'  %}
+        <div class="breadcrumbs">
+            {{ xBreadcrumb(page.id) }}
+        </div>
+        {% endif %}
+
+        {% if page.headline is not empty %}<h1>{{ page.headline }}</h1>{% endif %}
+
+        {{ page.content|raw }}
+    </div>
+
+
+
+{% endblock content %}

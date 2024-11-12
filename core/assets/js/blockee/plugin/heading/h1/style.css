@@ -1,0 +1,12 @@
+h1.blockee-editor-block-element {
+    outline: none;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+h1:empty:after {
+
+
+
+}

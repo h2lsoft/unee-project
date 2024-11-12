@@ -1,0 +1,5 @@
+:root{
+        --body-padding-top:100px;
+        --breadcrumbs-link-prefix-content:none;
+        --breadcrumbs-link-suffix-content:'/';
+}

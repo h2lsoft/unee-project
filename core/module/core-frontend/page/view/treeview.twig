@@ -1,0 +1,117 @@
+{% extends '/core/theme/core-admin/plugin.twig' %}
+
+{% block plugin_content %}
+
+<form name="tree-form" action="" method="get">
+    <div class="row bg-light p-2">
+        <div class="col-1 text-nowrap pt-1 text-end"><i18n>Zone</i18n></div>
+        <div class="col-2">
+            <select name="xcore_page_zone_id" class="form-select">
+            {% for z in zones %}
+                <option data-prefix="{{ z.website }}" value="{{ z.id }}" {% if z.id == xcore_page_zone_id %}selected{% endif %}><i18n>{{ z.name }}</i18n></option>
+            {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-1 text-nowrap pt-1 text-end"><i18n>Language</i18n></div>
+        <div class="col-2">
+            <select name="language" class="form-select">
+            {% for l in langs %}
+                <option value="{{ l[0] }}" {% if l[0] == language %}selected{% endif %}><i18n>{{ l[1] }}</i18n></option>
+            {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-1">
+            <input type="submit" class="btn btn-default" value="<i18n>Search</i18n>">
+        </div>
+    </div>
+</form>
+
+
+<div class="row">
+    <div class="col-12 py-4">
+
+        <a href="add/?xcore_page_zone_id={{ xcore_page_zone_id }}&language={{ language }}" class="btn btn-primary mb-3"><i class="bi bi-plus-circle me-1"></i> <i18n>New page</i18n></a>
+
+        <div id="pages" class="tree-wrapper user-select-none" data-delete-message="<i18n>Would you like to delete this page ?</i18n>" data-delete-message2="<i18n>All sub pages will be deleted</i18n>">
+
+            {% macro render_menu(pages, level) %}
+
+                <ul {% if level == 0 %}class="list-unstyled"{% endif %}>
+                    {% for page in pages %}
+                        <li>
+
+                            {% if page._childrens is empty %}
+                                <div class="single"></div>
+                            {% else %}
+                                <input type="checkbox" checked />
+                            {% endif %}
+
+                            <a data-url="{{ page.url }}" href="edit/{{ page.id }}/" data-locked="{{ page.locked }}" data-id="{{ page.id }}" data-type="{{ page.type }}" data-status="{{ page.status }}" data-menu-visible="{{ page.menu_visible }}" class="page {% if page._childrens is not empty %}is-parent{% endif %}" >
+                                <span class="page-name">{{ page.name }}</span>
+                            </a>
+
+                            {% if page._childrens is not empty %}
+                                {{ _self.render_menu(page._childrens, 1) }}
+                            {% endif %}
+
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endmacro %}
+
+            {{ _self.render_menu(pages, 0) }}
+
+        </div>
+
+    </div>
+</div>
+
+<div id="treepage_contextmenu">
+    <div class="treepage_contextmenu--caption">
+        <span class="page-title">Page</span> (ID: <span class="page-id">1</span>)
+    </div>
+    <ul>
+        <li>
+            <a href="#" class="btn-view"><i class="bi bi-eye"></i> <i18n>Preview</i18n></a>
+        </li>
+        <li>
+            <a href="#" class="btn-edit"><i class="bi bi-pencil"></i> <i18n>Edit</i18n></a>
+        </li>
+        <li>
+            <a href="#" class="btn-rename"><i class="bi bi-cursor-text"></i> <i18n>Rename</i18n></a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="add/?xcore_page_zone_id={{ xcore_page_zone_id }}&language={{ language }}" class="btn-add-page"><i class="bi bi-plus-circle"></i> <i18n>Add page</i18n></a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#" class="btn-cut"><i class="bi bi-scissors"></i> <i18n>Cut</i18n></a>
+        </li>
+        <li>
+            <a href="#" class="btn-copy"><i class="bi bi-copy"></i> <i18n>Copy</i18n></a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#" class="btn-paste btn-paste-children disabled"><i class="bi bi-clipboard"></i> <i18n>Paste as children</i18n></a>
+        </li>
+        <li>
+            <a href="#" class="btn-paste btn-paste-before disabled"><i class="bi bi-clipboard"></i> <i18n>Paste before</i18n></a>
+        </li>
+        <li>
+            <a href="#" class="btn-paste btn-paste-after disabled"><i class="bi bi-clipboard bi-clipboard-after"></i> <i18n>Paste after</i18n></a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#" class="btn-delete text-danger"><i class="bi bi-trash"></i> <i18n>Delete</i18n></a>
+        </li>
+    </ul>
+</div>
+
+
+
+<script src="@assets_js/tree.js"></script>
+
+{% endblock plugin_content %}

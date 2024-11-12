@@ -1,0 +1,16 @@
+.selectx-multiple {
+	height: 35px;
+}
+
+.selectx-multiple-canvas {
+
+	position: absolute;
+	z-index: 999999;
+	background-color: black;
+	
+}
+
+
+
+
+

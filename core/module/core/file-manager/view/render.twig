@@ -1,0 +1,206 @@
+{% extends '/core/theme/core-admin/base.twig' %}
+
+{% block title %}File manager{% endblock %}
+{% block body_class %}pt-2 px-4 ps-2{% endblock %}
+
+{% block content %}
+<div class="app--file-manager container-fluid transition-fade" id="swup"
+     data-path="{{ path|raw }}"
+     data-query-xpath="{{ query_xpath|raw }}"
+     data-query-xsort="{{ query_xsort|raw }}"
+     data-dropzone-exts-allowed="{{ dropzone_exts_allowed_str }}"
+     data-i18n-dropzone-default-message="<i18n>Drop files here to upload</i18n>"
+>
+
+    <div class="row mb-2">
+        <div class="col-4">
+            <h4>
+                <a href="?{{ query_xpath|raw }}">
+                    <i class="bi bi-folder-symlink-fill"></i> <i18n>My Files</i18n>
+                </a>
+            </h4>
+        </div>
+
+        <div class="col-4">
+            <input type="search" class="form-control" placeholder="<i18n>Search</i18n>..." oninput="ufmSearch(this)">
+        </div>
+
+
+        {% if error_path == false %}
+        <div class="col text-end">
+            <button onclick="ufmUploadImage()" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="<i18n>Upload images</i18n>..." class="btn btn-info" type="button"><i class="bi bi-images"></i></button>
+            <button onclick="ufmUpload()" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="<i18n>Upload files</i18n>..." class="btn btn-success" type="button"><i class="bi bi-upload"></i></button>
+            <button onclick="ufmFolderCreate()" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="<i18n>Create folder</i18n>..." class="btn btn-warning" type="button"><i class="bi bi-folder-plus"></i></button>
+            <button onclick="ufmIframeClose()" class="btn btn-dark btn-header-close d-none" type="button"><i class="bi bi-x-lg"></i></button>
+        </div>
+        {% endif %}
+
+    </div>
+
+    {% if error_path %}
+        <div class="bg-danger py-2 text-white text-center">
+            Error : path not correct
+        </div>
+    {% endif %}
+
+    {% if error_path == false %}
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="?{{ query_xpath }}"><i class="bi bi-hdd-fill me-1"></i> <i18n>Root</i18n></a>
+            </li>
+
+            {% if path is not empty %}
+                {% set cur_path = '' %}
+
+                {% for f in path|split('/') %}
+                    {% set cur_path = cur_path ~ (cur_path ? '/' : '') ~ f %}
+
+                    <li class="breadcrumb-item">
+                    <a href="?path={{ cur_path }}&{{ query_xpath }}"><i class="bi bi-folder me-1"></i> {{ f }}</a>
+                </li>
+                {% endfor %}
+            {% endif %}
+        </ol>
+    </nav>
+    {% endif %}
+
+    <div class="row">
+
+        <div class="col">
+            <div class="files">
+
+                {% if error_path == false %}
+                <table class="table table-sm shadow-none table-condensed">
+                    <colgroup>
+                        <col class="min">
+                        <col class="col">
+                        <col class="col-1">
+                        <col class="col-1">
+                        <col class="col-1">
+                        <col class="col-1">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th class="sortable min" onclick="ufmFileSort(this, 'name')">
+
+                            <i18n>Name</i18n>
+
+                            {% if sort == 'name-asc' %}
+                                <i class="bi bi-arrow-up"></i>
+                            {% elseif sort == 'name-desc' %}
+                                <i class="bi bi-arrow-down"></i>
+                            {% endif %}
+
+                        </th>
+                        <th></th>
+                        <th class="sortable" data-sortable="type" onclick="ufmFileSort(this, 'type')">
+                            <i18n>Type</i18n>
+
+                            {% if sort == 'type-asc' %}
+                                <i class="bi bi-arrow-up"></i>
+                            {% elseif sort == 'type-desc' %}
+                                <i class="bi bi-arrow-down"></i>
+                            {% endif %}
+
+                        </th>
+                        <th class="sortable" data-sortable="size"  onclick="ufmFileSort(this, 'size')">
+                            <i18n>Size</i18n>
+
+                            {% if sort == 'size-asc' %}
+                                <i class="bi bi-arrow-up"></i>
+                            {% elseif sort == 'size-desc' %}
+                                <i class="bi bi-arrow-down"></i>
+                            {% endif %}
+
+                        </th>
+                        <th class="sortable" data-sortable="date"  onclick="ufmFileSort(this, 'date')">
+
+                            <i18n>Modified</i18n>
+
+                            {% if sort == 'date-asc' %}
+                                <i class="bi bi-arrow-up"></i>
+                            {% elseif sort == 'date-desc' %}
+                                <i class="bi bi-arrow-down"></i>
+                            {% endif %}
+
+                        </th>
+
+                        <th class="text-center px-0">&nbsp;</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+
+
+                        {% for f in files %}
+                        <tr
+                                data-filename="{{ f.name }}"
+                                data-filename-noext="{{ f.name_noext }}"
+                                data-extension="{{ f.file_extension }}"
+                                data-type="{{ f.type }}"
+                                data-icon-url="{{ f.icon_uri }}"
+                                data-mime="{{ f.mime }}"
+                                data-size="{{ f.size }}"
+                                data-details="{{ f.details }}"
+                                data-link="{{ f.link }}"
+                                data-link-relative="{{ f.link_relative }}">
+
+                            <td class="td--icon">
+                                {% if f.type == 'folder' %}
+                                    <a href="?path={{ path }}/{{ f.name }}&{{ query_xpath }}"><img src="{{ f.thumbnail_uri }}"></a>
+                                {% else %}
+                                    <img src="{{ f.thumbnail_uri }}"  onclick="ufmFileInfoViewer(this)">
+                                {% endif %}
+                            </td>
+                            <td class="td--name">
+                                {% if f.type == 'folder' %}
+                                    <a class="d-block" href="?path={{ path }}/{{ f.name }}&{{ query_xpath }}">{{ f.name }}</a>
+                                {% else %}
+                                    <a class="d-block" href="javascript:void(0);" onclick="ufmFileInfoViewer(this)">{{ f.name }}</a>
+                                {% endif %}
+                            </td>
+
+                            <td class="td--type"><i18n>{{ f.type }}</i18n></td>
+                            <td class="td--size">{{ f.size }}</td>
+                            <td class="td--updated">{{ f.updated }}</td>
+                            <td class="td--action pl-0 text-end">
+                                <button data-bs-toggle="tooltip" data-bs-title="<i18n>Delete</i18n>" class="btn btn-sm btn-outline-danger" onclick="ufmItemDelete(this)"><i class="bi bi-trash"></i></button>
+                                <button data-bs-toggle="tooltip" data-bs-title="<i18n>Rename</i18n>" class="btn btn-sm btn-outline-secondary" onclick="ufmItemRename(this)"><i class="bi bi-pencil"></i></button>
+
+                                {% if target != '' %}
+                                    <button data-bs-toggle="tooltip" data-bs-title="<i18n>Select</i18n>" class="btn btn-sm btn-dark" onclick="ufmItemSelect(this, '{{ target }}')"><i class="bi bi-arrow-down"></i></button>
+                                {% endif %}
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+
+
+                </table>
+                {% endif %}
+
+
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+    <footer>
+
+    </footer>
+
+
+    <input type="hidden" id="ufm_path" value="{{ get('path') }}">
+
+</div>
+
+{% endblock content %}

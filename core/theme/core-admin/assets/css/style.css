@@ -1,0 +1,632 @@
+body {
+
+	padding: 0; margin: 0; overflow: scroll; overflow-x: hidden!important; overflow-y: scroll!important;
+	
+	font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+	/* font-size: 15.5px; */
+	/* font-size: 15px; */
+	font-weight: 400;
+
+	width: 100vw;
+	height: 100vh;
+	
+	text-rendering: optimizeLegibility;
+}
+
+
+
+
+.console {
+	background-color: black;
+	color: white;
+	padding: 10px;
+	padding-top: 0px;
+	font-size: 12px;
+	font-family: "Lucida Console";
+	overflow: auto;
+	max-height: 400px;
+	white-space: pre-line;
+}
+
+code {
+	text-align: center;
+	background-color: #111;
+	color: white;
+	padding: 5px 10px;
+	font-size: 11px;
+	font-family: "Lucida Console";
+	white-space: nowrap;
+	display: block;
+}
+
+
+.console error {color: red;}
+.console success {color: lawngreen;}
+.console warning {color: orange;}
+
+caption {padding-top: 0.5rem; padding-bottom: 0.5rem;}
+b, strong {font-weight: 600;}
+.bold {font-weight: 600;}
+.bolder {font-weight: bolder;}
+
+a {text-decoration: none!important;}
+
+.row-hover:hover > * {
+	background-color: #e5e5e5;
+}
+
+.img-avatar {border-radius: 50%; width: 42px; height: 42px; object-fit: cover;}
+.img-avatar-sm {width: 35px; height: 35px;}
+.img-avatar-xs {width: 28px; height: 28px;}
+
+.ucfirst {text-transform: lowercase;}
+.ucfirst:first-letter {text-transform: uppercase;}
+
+.form-control.ucfirst {text-transform: none!important;}
+.form-control.ucfirst:first-letter {text-transform: none!important;}
+
+.lower {text-transform: lowercase;}
+.upper {text-transform: uppercase;}
+
+
+
+
+.dropdown {outline: none!important; }
+.dropdown-menu {min-width: 200px; border-radius: 3px}
+.dropdown-item {font-size: 0.95rem}
+.dropdown-item i {margin-right: 5px;}
+.dropdown-divider {border-color: #e5e5e5!important;}
+
+.dropdown-item-with-action {
+	width: calc(100% - 40px);
+	display: inline-block;
+	float: left;
+}
+
+.dropdown-item-with-action:hover {
+	background-color: transparent!important;
+	color: var(--bs-blue);
+}
+
+.dropdown-item-action {
+	display: inline-block;
+	float: left;
+	width: 40px;
+	height: 39px;
+	text-align: center;
+	padding: 8px 0;
+}
+
+.li-dropdown-item-with-action:hover, .li-dropdown-item-with-action:hover a {
+	background: #e5e5e5!important;
+}
+
+.dropdown-item-action-delete {}
+.dropdown-item-action-delete:hover {color: var(--bs-danger);}
+
+
+
+
+.bootbox .modal-title {white-space: nowrap}
+.bootbox .modal-content {border-radius: 0px;}
+.bootbox .modal-footer {background: none}
+.bootbox-confirm .bootbox-body {text-align: center; padding-bottom: 20px;}
+.bootbox-close-button {
+
+	/*
+	background: none; border: 0;
+	font-size: 36px;
+	position: relative;
+	top: -6px;
+	text-align: right;
+	display: block;
+	width: 100%;
+	 */
+}
+
+.modal-image-zoomable {
+	max-height: 95%;
+	overflow-y: hidden;
+}
+
+.modal-image-zoomable .modal-body {
+	/* background: #111; */
+}
+
+.modal-image-zoomable .modal-content {
+	border: 1px solid #aaa;
+}
+
+.modal-image-zoomable .bootbox-close-button {
+	color: white;
+}
+
+#scrolly {position: fixed; right: 10px; bottom: 40px; z-index: 101; display: none;}
+#scrolly a {font-size: 36px; color: #ccc}
+#scrolly a:hover {color: royalblue}
+
+body.scrolled #scrolly {display: block}
+
+
+.swup-progress-bar {height: 2px; background-color: magenta;}
+html.is-animating {
+	cursor: wait;
+	pointer-events: none;
+}
+
+
+
+/* interface */
+.backend {
+	background-color: #F9FAFD;
+	padding-top: var(--app-header-height);
+}
+
+
+.backend .app-header {
+	
+	position: fixed;
+	left: 0px;
+	top: 0;
+	z-index: var(--app-header-zindex);
+	
+	background-color: var(--app-header-background-color);
+	/* box-shadow: 0px 0px 35px 0px rgba(154, 161, 171, 0.15); */
+	
+	height: var(--app-header-height);
+	box-sizing: border-box;
+	
+	border-bottom: 1px solid var(--app-header-border-bottom-color);;
+	padding: 0;
+	color: var(--app-header-color);
+}
+
+.backend .app-header .col-logo {
+	width: var(--app-header-logo-width);
+}
+.backend .app-header .col-logo a {
+	display: inline-block;
+	position: relative;
+	top: 4px;
+}
+
+.backend .app-header .button-menu-mobile {
+	display: none;
+	
+	border: none;
+	color: #313a46;
+	
+	width: 60px;
+	height: 70px;
+	
+	background-color: transparent;
+	font-size: 24px;
+	cursor: pointer;
+	position: relative;
+}
+
+.backend .app-header .app-search {
+	display: none;
+	position: relative;
+	top: 12px;
+	
+	border: none;
+	height: calc(1.5em + 0.9rem + 2px);
+	padding-left: 40px;
+	padding-right: 20px;
+	box-shadow: none;
+	width: 300px;
+	
+	background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>') no-repeat 10px center;
+	background-color: #f1f3fa;
+}
+
+.backend .app-header .col-user {
+	padding-right: 0;
+}
+
+.backend .app-header .btn {
+	float:right;
+	
+	outline: none!important;
+	border: none;
+	width: auto;
+	cursor: pointer;
+	
+	height: 60px;
+	color: #ccc;
+	background-color: transparent;
+	font-size: 24px;
+}
+
+.backend .app-header .btn:hover {
+	color: var(--app-header-a-color-hover);
+}
+
+.backend .app-header .btn-group-icon {
+	margin-top: 8px;
+	width: auto;
+}
+
+
+.backend .app-header .btn-bookmarks {
+	position: relative;
+	top:-6px;
+}
+
+.backend .app-header .btn-group-user {
+	border-radius: 0!important;
+	height: 68px;
+	margin-right: 12px;
+	padding-left: 10px;
+	padding-right: 10px;
+	
+}
+
+.backend .app-header .btn-user {
+	width: auto;
+	min-width: 150px;
+	font-size: 16px;
+	white-space: nowrap;
+	border-radius: 0;
+	margin-right: 0;
+	
+	background-color: var(--app-header-btn-user-background-color);
+	color: var(--app-header-btn-user-color);
+}
+
+
+.backend .app-header .btn-user:hover {
+	color: var(--app-header-btn-user-hover-color);
+}
+
+.backend .app-header .btn-bookmarks {
+	color: var(--app-header-btn-bookmarks-color);
+}
+
+.backend .app-header .btn-bookmarks:hover {
+	color: var(--app-header-btn-bookmarks-hover-color);
+}
+
+.backend .app-header .btn-icon:hover {
+	color: var(--app-header-btn-bookmarks-hover-color);
+}
+
+
+.backend .app-header .user-group {
+	font-size: smaller;
+	white-space: nowrap;
+	color: var(--app-header-btn-group-color);
+
+	margin-top: 3px;
+	margin-left: -4px;
+}
+
+.backend .app-header .btn-user.dropdown-toggle::after {
+	margin-left: 15px;
+	margin-top: 20px;
+}
+
+.backend-popup {padding-top: 0!important;}
+.backend-popup .app-header {display: none;}
+.backend-popup .app-menu {display: none;}
+.backend-popup .app-content {padding: 0!important; left: 30px!important; top: 15px!important; width: calc(100% - 30px)!important;}
+.backend-popup .app-plugin-title {margin-top: 0;}
+
+
+
+/** menu *************************************************************************************************************/
+.backend .app-menu {
+
+	box-shadow: 0 0 0.875rem 0 rgb(41 48 66 / 5%);
+	width: 50px;
+	height: 100%;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+
+	z-index: var(--app-menu-zindex);
+	background: var(--app-menu-background-color);
+	padding-top: var(--app-menu-padding-top);
+	border-right:1px solid var(--app-menu-border-color);
+
+	/*transition: all 0.3s ease-in-out;*/
+}
+
+
+.backend .app-menu:hover {
+	/*width: auto;*/
+	width: var(--app-menu-width);
+}
+
+
+
+
+.backend .app-menu .app-menu-search {display: none;}
+.backend .app-menu .sidebar-text {display: none;}
+.backend .app-menu ul ul {display: none;}
+.backend .app-menu ul {list-style: none; padding: 0; margin: 0;}
+
+
+.backend .app-menu a.sidebar-parent {
+	display: block;
+	font-size: var(--app-menu-parent-font-size);
+	letter-spacing: var(--app-menu-parent-letter-spacing);
+	font-weight: var(--app-menu-parent-font-weight);
+	padding: var(--app-menu-parent-padding);
+	text-transform: var(--app-menu-parent-text-transform);
+	background: var(--app-menu-parent-background-color);
+	color: var(--app-menu-parent-color);
+
+
+
+}
+
+
+.backend .app-menu a.sidebar-parent i, .backend .app-menu .sidebar-item-dashboard i {
+	font-size: 20px;
+}
+
+.backend .app-menu a.sidebar-item {
+	display: block;
+	font-size: var(--app-menu-item-font-size);
+	font-weight: var(--app-menu-item-font-weight);
+	text-transform: var(--app-menu-item-text-transform);
+	letter-spacing: var(--app-menu-item-letter-spacing);
+	padding: var(--app-menu-item-padding);
+	color: var(--app-menu-item-color);
+	background-color: var(--app-menu-item-background-color);
+}
+
+
+
+.backend .app-menu:hover .sidebar-text {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.backend .app-menu:hover .sidebar-parent.active + ul {
+	display: block;
+	margin-left: 5px;
+}
+
+.backend .app-menu a.sidebar-parent:hover {
+	color: var(--app-menu-parent-hover-color);
+	background-color: var(--app-menu-parent-hover-background-color);
+}
+
+.backend .app-menu a.sidebar-parent.active {
+	color: var(--app-menu-parent-active-color)!important;
+	background-color: var(--app-menu-parent-active-background-color);
+}
+
+.backend .app-menu a.sidebar-item:hover
+{
+	color: var(--app-menu-item-hover-color)!important;
+	background-color: var(--app-menu-item-hover-background-color);
+}
+
+
+
+
+
+/** breadcrumbs *******************************************************************************************************/
+.backend .app-breadcrumbs .breadcrumb {
+	border: 0;
+	box-shadow: none;
+	padding: 0;
+	margin: 0;
+}
+
+.breadcrumb-item {
+	padding-top: 0px;
+	padding-right: 0px;
+}
+
+.breadcrumb-item a {
+	color: #999;
+	font-weight: normal;
+}
+
+.breadcrumb-item a:hover {
+	color: #000;
+}
+
+.backend .app-breadcrumbs .breadcrumb li {
+	padding-bottom: 0;
+}
+
+
+
+
+
+/** content ***********************************************************************************************************/
+.backend .app-content-container {
+	padding: 0 12px;
+}
+
+.backend .app-content-container .card-body {
+	overflow-x: auto;
+	min-height: calc(100vh - 140px);
+}
+
+
+
+
+.backend .app-content {
+	position: absolute;
+	left: 50px;
+	width: calc(100% - 50px);
+	/* width: calc(100% - 250px); */
+
+	top: 50px;
+	
+	
+	height: auto;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+.backend .app-plugin-title {
+	font-size: 20px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+.backend .app-plugin-title a {
+	color: #666;
+}
+
+.backend .app-plugin-title a:hover {
+	color: #2D6BCF;
+}
+
+
+.backend .app-plugin-icon {
+	/*display: none;*/
+}
+
+.backend .app-plugin-title a i {
+	color: #2D6BCF;
+}
+
+.backend .link-plugin-action-favorite {
+	font-size: 18px;
+}
+
+.backend .plugin-box {
+	min-height: calc(100vh - 200px);
+}
+
+
+
+/** footer ************************************************************************************************************/
+.backend .app-footer {
+	position: fixed;
+	z-index: 101;
+	bottom: 8px;
+	right: 10px;
+	text-align: right;
+	color: #999;
+	font-size: 12px;
+	padding-right: 10px;
+}
+
+
+
+
+
+/** widget */
+.backend .widget {height:200px; width:100%}
+.backend .widget-large {height:400px}
+.backend .widget-small {height:150px}
+.backend .widget h5 {font-size: 16px; font-weight: 400;}
+.backend .widget .card-title img {height: 25px;}
+.backend .widget .card-title a:hover img {opacity: 0.5;}
+
+.backend .widget a {transition: all ease-in 0.3s}
+.backend .widget a:hover {opacity: 0.6;}
+
+.backend .widget-bookmarks {height: 125px}
+.backend .widget-bookmarks .widget-bookmarks-wrapper a {display: inline-block; width: 150px; height: 90px; font-size: 14px; text-align: center; color: #333; line-height: normal;
+	position: relative;
+	float: left;
+}
+.backend .widget-bookmarks .widget-bookmarks-wrapper a i {display: block; text-align: center; font-size: 22px; width:100%}
+
+.ui-state-highlight {
+	width: 150px; height: 90px;
+	background-color: #e5e5e5;
+	margin-right: 15px;
+}
+
+
+
+.backend .widget-bookmarks .widget-bookmarks-wrapper a .dragHandle {
+	cursor: move;
+	display: block;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	right: 5px;
+	color: #ccc;
+}
+
+.backend .widget-bookmarks .widget-bookmarks-wrapper a .dragHandle i {
+	font-size: 12px;
+}
+
+
+
+.btn-icon:hover {border-color:black!important; background-color: #f5f5f5;}
+
+
+body.body-widget {
+	background-color: white;
+	padding: 10px 10px;
+}
+
+body.body-simple {
+	background-color: white!important;
+	padding: 10px 10px!important;
+}
+
+body.body-simple .app-content {
+	position: relative;
+	width: auto!important;
+	left:0!important;
+	top:0!important;
+	padding: 0!important;
+}
+
+.dropzone {
+	background: #eee!important;
+	border-radius: 5px!important;
+}
+.dropzone input[type="file"] {display: none;}
+
+
+/** page **************************************************************************************************************/
+.backend .page-breadcrumb {
+	background-color: #e5e5e5;
+	padding: 0px 5px;
+	border-radius: 5px;
+	margin-top: -20px;
+	margin-bottom: 20px;
+
+	font-size: 14px;
+
+}
+
+.backend .page-breadcrumb ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.backend .page-breadcrumb li {
+	display: inline;
+}
+
+.backend .page-breadcrumb li:not(:last-child)::after {
+	content: " » ";
+	margin: 0 5px;
+	color: #999;
+}
+
+.backend .page-breadcrumb a {
+	text-decoration: none;
+	color: #0066cc;
+	padding: 0px 5px;
+}
+
+.backend .page-breadcrumb a:hover {
+	color: black;
+}
+
+
+.backend .page-breadcrumb a:hover {
+	text-decoration: underline;
+}

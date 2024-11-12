@@ -1,0 +1,35 @@
+<!-- slider #{{ slider.id }} -->
+<div id="unee-slider-{{ slider.id }}" class="unee-slider {{ slider.class }}">
+
+    <swiper-container
+
+            {% for p_name,p_value in parameters %}
+                {{ p_name }} = "{{ p_value }}"
+            {% endfor %} >
+
+    {% for card in cards %}
+        <swiper-slide>
+            <div class="swiper-zoom-container">
+                <img src="{{ card.image }}">
+            </div>
+
+            <div class="slide-info">
+                {% if card.title is not empty %}
+                    <div class="slide-title {{ card.title_color }}">{{ card.title }}</div>
+                {% endif %}
+
+                {% if card.text is not empty %}
+                    <div class="slide-text {{ card.text_color }}">{{ card.text }}</div>
+                {% endif %}
+
+                {% if card.button_text is not empty %}
+                    <a class="slide-button  bg-{{ card.button_bg_color }} {{ card.button_text_color }} {{ card.button_class }}" href="{{ card.button_href }}">{{ card.button_text }}</a>
+                {% endif %}
+            </div>
+            
+        </swiper-slide>
+    {% endfor %}
+    </swiper-container>
+
+</div>
+<!-- /slider #{{ slider.id}} -->

@@ -1,0 +1,160 @@
+.app--file-manager {
+
+}
+
+.app--file-manager .breadcrumb-item + .breadcrumb-item::before {
+
+    padding: 5px 0;
+    margin: 0;
+    background: #e5e5e5;
+
+}
+
+
+.app--file-manager nav {
+    --bs-breadcrumb-divider:"> ";
+}
+.app--file-manager .breadcrumb {
+    padding: 0px;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+}
+
+.app--file-manager .breadcrumb-item {
+    display: inline-block;
+    padding: 0;
+
+}
+
+.app--file-manager .breadcrumb-item a {
+    display: inline-block;
+    padding: 5px 10px;
+    background: #e5e5e5;
+    color: black;
+    white-space: nowrap;
+}
+
+.app--file-manager .breadcrumb-item a:hover {
+    background: cornflowerblue;
+    color: white;
+}
+
+.app--file-manager .dirs li {
+    list-style: none;
+}
+
+.app--file-manager .dirs li a {
+    color: #666;
+}
+
+.app--file-manager .dirs li a:hover {
+    color: cornflowerblue;
+}
+
+.app--file-manager .dirs li ul {
+
+    padding: 0px;
+    padding-left: 20px;
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.app--file-manager .files thead th {
+    background: transparent;
+}
+
+.app--file-manager .files td {
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.app--file-manager .files .td--name
+{
+    vertical-align: middle;
+}
+
+.app--file-manager .files .td--icon {
+    padding: 4px 5px;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+}
+
+.app--file-manager .files .td--icon i {
+    font-size: 40px;
+}
+
+.app--file-manager .files .td--icon img {
+    min-width: 50px;
+    max-width: 50px;
+    max-height: 50px;
+    object-fit: contain;
+}
+
+.app--file-manager .files tr[data-type="folder"] .td--name a {}
+.app--file-manager .files tr[data-type="file"] .td--name a {
+    color: black;
+    padding: 12px 0;
+}
+
+.app--file-manager .files .min {
+    width: 10px;
+    white-space: nowrap;
+}
+
+.app--file-manager .files th.sortable:hover {
+    cursor: pointer;
+}
+
+.app--file-manager .files tbody tr:hover {
+    cursor: pointer;
+}
+
+.app--file-manager .files tbody tr:hover> td {
+    background: #eee;
+}
+
+.ufm-fileinfo-modal {}
+.ufm-fileinfo-modal .wrapper {
+    text-align: center;
+    padding: 20px;
+    background: #eee;
+}
+
+.ufm-fileinfo-modal .wrapper .file-icon {
+    width: 156px;
+}
+
+.ufm-fileinfo-modal .wrapper--video {
+    background: #333;
+}
+
+.ufm-fileinfo-modal .table-info {width: 100%; font-size: 14px; margin-top: 10px; margin-bottom: 10px;}
+
+.ufm-fileinfo-modal .table-info th {padding: 3px 10px;}
+.ufm-fileinfo-modal .table-info td {padding: 3px 10px;}
+
+.ufm-fileinfo-modal .table-info .input-file-link {border: 0!important;}
+
+.ufm-fileinfo-modal video {
+    max-width: 100%;
+    height: auto;
+    max-height: 350px;
+    background: black;
+}
+
+.ufm-fileinfo-modal audio {
+    width: 100%;
+    padding: 5px;
+    margin: auto;
+}
+
+
+
+
+
+
+

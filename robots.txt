@@ -1,0 +1,8 @@
+# Disallow all crawlers from accessing a specific directory
+User-agent: *
+Disallow: /vendor/
+Disallow: /core/
+
+
+# Sitemap - uncomment line below
+# Sitemap: https://website.com/sitemap.xml

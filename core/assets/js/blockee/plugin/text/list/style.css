@@ -1,0 +1,39 @@
+ul.blockee-editor-block-element {
+    outline: none;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+ol.blockee-editor-block-element {
+    outline: none;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+ul.blockee-editor-block-element li {
+    margin-bottom: 15px;
+}
+
+ol.blockee-editor-block-element li {
+    margin-bottom: 15px;
+}
+
+ul.blockee-editor-block-element ul {
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+
+}
+
+ol.blockee-editor-block-element ol {
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+
+}

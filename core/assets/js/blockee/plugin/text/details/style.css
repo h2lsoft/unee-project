@@ -1,0 +1,43 @@
+details.blockee-editor-block-element {
+    user-select: none;
+    outline: none;
+    margin-bottom: 20px;
+}
+
+details.blockee-editor-block-element summary {
+    background-color: #e5e5e5;
+    padding: 15px 20px;
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+
+
+    border-radius: 5px;
+
+    outline: none;
+    user-select: none;
+}
+
+details.blockee-editor-block-element summary:hover {
+    background-color: #ccc;
+}
+
+details.blockee-editor-block-element[open] > summary {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+
+details.blockee-editor-block-element .details-contents {
+
+    padding: 15px 20px;
+    border: 1px solid #ddd;
+}
+
+
+details.blockee-editor-block-element[open] .details-contents {
+
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+}

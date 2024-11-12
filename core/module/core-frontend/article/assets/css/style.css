@@ -1,0 +1,107 @@
+.unee-article-listing {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.unee-article-listing .norecord {
+    text-align: center;
+    padding: 60px 10px;
+
+}
+
+.unee-article-listing  .article-item {
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+
+}
+
+.unee-article-listing .article-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.unee-article-listing  .article-image img {
+    border-radius: 5px;
+}
+
+.unee-article-listing  .article-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.unee-pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.unee-pagination a {
+    margin: 0 5px;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #007bff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.unee-pagination a:hover {
+    background-color: #f0f0f0;
+    border-color: #666;
+    color: #000!important;
+}
+
+.unee-pagination a.active {
+    background-color: #007bff;
+    color: white!important;
+    border: 1px solid #007bff;
+}
+
+.unee-pagination .unee-pagination-btn {
+    font-size: 26px;
+    padding: 0px 16px;
+}
+
+
+
+.unee-article {}
+.unee-article .article-image {float: left; margin-right: 40px; margin-bottom: 20px;}
+.unee-article .article-image img {
+    max-width: 400px;
+    border-radius: 5px;
+}
+
+.unee-article .article-author a {}
+.unee-article .article-content {padding-bottom: 10px;}
+
+.unee-article .article-tags {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.unee-article .article-tags .article-tag {
+    padding: 5px 10px;
+    margin-right: 5px;
+
+    /* border: 1px solid #ddd; */
+    background: #eee;
+    border-radius: 5px;
+
+}
+
+.unee-article .article-tags .article-tag::before {
+    content: "🏷️";
+
+    filter: invert(100%);
+    padding-right: 5px;
+
+}
+
+
+
+
+

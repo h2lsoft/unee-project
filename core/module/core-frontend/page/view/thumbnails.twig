@@ -1,0 +1,22 @@
+<div class="unee-page-thumbnails">
+
+    {% if sub_pages|length > 0 %}
+
+        <ul>
+        {% for sp in sub_pages %}
+        <li data-id="{{ sp.id }}">
+            <a href="{{ sp.url }}" style="background-image: url('{{ sp.thumb_url }}')">
+
+                <div class="page-featured-image">
+                    <img alt="{{ sp.name }}" src="{{ sp.thumb_url }}" />
+                </div>
+
+                <div class="page-name">{{ sp.name }}</div>
+            </a>
+        </li>
+        {% endfor %}
+        </ul>
+
+    {% endif %}
+
+</div>

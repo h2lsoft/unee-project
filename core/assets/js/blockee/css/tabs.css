@@ -1,0 +1,45 @@
+.blockee-editor-tabs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    margin-bottom: 10px;
+}
+
+.blockee-editor-tabs li {
+    display: inline-block;
+}
+
+.blockee-editor-tabs li a {
+
+
+    font-size: 14px;
+    font-weight: normal;
+    display: inline-block;
+    text-align: center;
+    padding: 5px 15px;
+    text-decoration: none;
+    color: #000;
+    background-color: #fff;
+
+    margin-bottom: 8px;
+}
+
+.blockee-editor-tabs li a.active {
+    color: #fff;
+
+    background-color: rgb(96, 111, 209);
+    /* background-color: #006ce7; */
+
+    border-radius: 5px;
+
+}
+
+.blockee-editor-tab--content  {
+    display: none;
+}
+
+.blockee-editor-tab--content.active {
+    display: block;
+}
+

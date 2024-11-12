@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="generator" content="Unee v.{{ core_version }}">
+    <title><i18n>{% block title %}Admin{% endblock %}</i18n> - {{ APP_TITLE }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <link type="image/png" sizes="16x16" rel="icon" href="/core/theme/core-admin/assets/img/favicon/abstract-basicons-—-color-16.png">
+    <link type="image/png" sizes="32x32" rel="icon" href="/core/theme/core-admin/assets/img/favicon/abstract-basicons-—-color-32.png">
+    <link type="image/png" sizes="128x128" rel="icon" href="/core/theme/core-admin/assets/img/favicon/abstract-basicons-—-color-128.png">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css">
+
+
+
+
+    <link rel="stylesheet" href="https://bootswatch.com/5/zephyr/bootstrap.css">
+    <link rel="stylesheet" href="/core/component/datagrid/assets/css/datagrid.css">
+    <link rel="stylesheet" href="/core/module/core-backend/page-manager/assets/css/style.css">
+    <link rel="stylesheet" href="/core/assets/js/loader/loader.css">
+    <link rel="stylesheet" href="/core/assets/js/form-ajax/form-ajax.css">
+    <link rel="stylesheet" href="/core/assets/js/input-tag-manager/input-tag-manager.css">
+    <link rel="stylesheet" href="/core/module/core/auth/assets/css/style.css">
+    <link rel="stylesheet" href="/core/theme/core-admin/assets/css/_vars.css">
+    <link rel="stylesheet" href="/core/theme/core-admin/assets/css/style.css">
+
+    {% for file in config_css %}
+        <link rel="stylesheet" href="{{ file }}">
+    {% endfor %}
+
+    <script src="/core/assets/js/php.js"></script>
+    <script src="/core/assets/js/http.js"></script>
+    <script src="/core/assets/js/utils.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script src="https://unpkg.com/swup@4"></script>
+    <script src="https://unpkg.com/@swup/progress-plugin@3"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/6.0.0/bootbox.min.js"></script>
+    <script src="/core/assets/js/bootbox.locales.min.js"></script>
+    <script src="/core/assets/js/bootstrap-5-toast-snackbar/src/toast.js"></script>
+
+    {% for file in config_js_head %}
+        <script src="{{ file }}"></script>
+    {% endfor %}
+
+    <script>
+    var QUERY_STRING = "{{ url_get_query_string() }}";
+    const APP_BACKEND_DIRNAME = '@backend';
+    const APP_LOCALE = '@locale';
+    const _I18N_CANCEL = '<i18n>Cancel</i18n>';
+    const _I18N_I_CONFIRM = '<i18n>Yes, I confirm</i18n>';
+    const _I18N_MESSAGE_SAVED = '<i18n>Your information has been correctly saved</i18n>';
+    </script>
+
+</head>
+<body class="backend {% block body_class %}{% endblock %} {% if get('_popup') == 1 %}backend-popup{% endif %}">
+
+{% block content %}
+{% endblock content %}
+
+<div id="loader">
+    <div class="spinner-border text-warning"></div>
+</div>
+
+
+{# js script #}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+<script src="/core/component/datagrid/assets/js/datagrid.js"></script>
+<script src="/core/component/form/assets/js/form.js"></script>
+
+<script src="/core/assets/js/loader/loader.js"></script>
+<script src="/core/assets/js/btn-action/btn-action.js"></script>
+<script src="/core/assets/js/form-ajax/form-ajax.js"></script>
+<script src="/core/assets/js/parent-togglable/parent-togglable.js"></script>
+<script src="/core/assets/js/input-tag-manager/input-tag-manager.js"></script>
+<script src="/core/module/core-backend/user-bookmark/assets/js/func.js"></script>
+<script src="/core/module/core-backend/log/assets/js/func.js"></script>
+
+<script src="/core/theme/core-admin/assets/js/app-func.js"></script>
+<script src="/core/theme/core-admin/assets/js/app.js"></script>
+
+{% for file in config_js_body %}
+    <script src="{{ file }}"></script>
+{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% extends '/core/theme/core-admin/plugin.twig' %}
+
+{% set plugin_box = false %}
+{% set plugin_bookmark = false %}
+
+{% block plugin_content %}
+
+    Your version : {{ core_version }} ({{ core_canal }})<br>
+    Last version : {{ core_last_version }}<br>
+
+    {% if console_output != '' %}
+    <div class="console my-2">
+        {{ console_output|raw }}
+    </div>
+    {% endif %}
+
+
+
+    {% if core_version >= core_last_version %}
+    <div class="border bg-success text-white border-success my-2 p-4 text-center">
+        <i class="bi bi-check-circle-fill me-1"></i>
+        You have the latest version
+    </div>
+    {% else %}
+    <div class="text-black bg-warning bg-opacity-10 border border-warning my-2 p-4 text-center">
+        <i class="bi bi-cloud-arrow-down-fill me-1"></i>
+        You can update to next version {{ next_version }}
+
+        <a target="_self" href="/@backend/live-updater/?ajaxer=1&ajaxer-action=update" class="ms-2 btn btn-primary">update <i class="bi bi-arrow-right-circle ms-1"></i> </a>
+
+    </div>
+    {% endif %}
+
+
+
+
+
+
+<script defer src="@assets_js/func.js"></script>
+{% endblock plugin_content %}
+

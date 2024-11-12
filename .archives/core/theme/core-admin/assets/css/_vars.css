@@ -1,0 +1,85 @@
+:root {
+	
+	--bs-border-radius: 0!important;
+	
+	/* header */
+	--app-header-zindex: 100;
+	--app-header-border-bottom-color: #555;
+	--app-header-height: 60px;
+	/* --app-header-background-color: #222; */
+	--app-header-background-color: rgba(14,0,100,1);
+	--app-header-color: white;
+	--app-header-a-color-hover: #ccc;
+	
+	--app-header-logo-background-color:transparent;
+	--app-header-logo-width: 240px;
+	
+	--app-header-btn-bookmarks-color: #ccc;
+	--app-header-btn-bookmarks-hover-color: white;
+	
+	--app-header-btn-user-background-color:transparent;
+	
+	--app-header-btn-user-color: lightcyan;
+	--app-header-btn-user-hover-color: lightcyan;
+	
+	--app-header-btn-group-color:#bbb;
+
+	/* menu */
+	--app-menu-zindex: 99;
+	--app-menu-width:250px;
+	--app-menu-padding-top:70px;
+	--app-menu-background-color: #fff;
+	--app-menu-border-color: #e5e5e5;
+	
+	--app-menu-parent-font-size:17px;
+	--app-menu-parent-letter-spacing:1px;
+	--app-menu-parent-font-weight:normal;
+	--app-menu-parent-padding:6px 15px;
+	--app-menu-parent-text-transform:uppercase;
+	--app-menu-parent-background-color: transparent;
+	--app-menu-parent-color: #000;
+	--app-menu-parent-hover-background-color: transparent;
+	--app-menu-parent-hover-color: #888;
+	--app-menu-parent-active-background-color: #e5e5e5;
+	--app-menu-parent-active-color: #000;
+	
+	--app-menu-item-font-size:14.5px;
+	--app-menu-item-letter-spacing:0px;
+	--app-menu-item-font-weight:normal;
+	--app-menu-item-padding: 6px 15px;
+	--app-menu-item-text-transform:normal;
+	--app-menu-item-background-color: transparent;
+	--app-menu-item-color: #000;
+	--app-menu-item-hover-background-color: transparent;
+	--app-menu-item-hover-color: #888;
+	--app-menu-item-active-background-color: transparent;
+	--app-menu-item-active-color: royalblue;
+
+	/* footer */
+	--app-footer-zindex: 101;
+	--app-footer-background-color: transparent;
+
+
+
+}
+
+.card {box-shadow: 0 0 0.875rem 0 rgb(41 48 66 / 5%); border-radius: 0; border:0}
+.form-check-input {cursor: pointer}
+.btn, button  {--bs-btn-border-radius: 0; line-height: 17px; --bs-btn-padding-x: 1rem; --bs-btn-padding-y: 0.5rem; outline: none!important; box-shadow:none!important; --bs-btn-font-size:0.9rem }
+.nav-tabs .nav-link {font-size:0.9rem; padding: 10px 20px; text-transform: uppercase; font-weight: normal;}
+.nav-tabs .nav-link.active {background-color: royalblue; color: white; font-weight: normal;}
+.form-control  {--bs-btn-border-radius: 0; border-radius: 0; padding: 4px 8px!important; box-shadow:none; line-height: 18px; height: 35px;}
+.form-select  {--bs-btn-border-radius: 0; border-radius: 0!important; padding: 6px 8px; box-shadow:none; min-width: 80px; cursor: pointer}
+textarea.form-control {min-height: 7em;}
+.input-group .btn {height: 35px; line-height: 35px; padding-top: 0; padding-bottom: 0;}
+.input-group-text {line-height: 0.5}
+.input-group-text-after {padding: 0;}
+
+.form-check-inline {margin-top: 5px;}
+
+label {font-size: 15px;}
+
+.input-group-text .btn {height: 100%!important; line-height: normal!important;}
+.form-control[type=file] {line-height: 24px}
+.form-check-label {cursor: pointer}
+

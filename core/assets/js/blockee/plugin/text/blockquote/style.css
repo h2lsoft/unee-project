@@ -1,0 +1,35 @@
+blockquote.blockee-editor-block-element {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+blockquote.blockee-editor-block-element [contenteditable] {
+    outline: none;
+}
+
+blockquote.blockee-editor-block-element p {
+
+    text-align: center;
+
+    color: #555555;
+    padding: 1.2em 75px 1.2em 75px;
+    border-left: 15px solid #78C0A8;
+    line-height: 1.6;
+    position: relative;
+    background: #EDEDED;
+    text-align: center;
+
+    font-size: 24px;
+}
+
+blockquote.blockee-editor-block-element footer {
+    margin-top: 10px;
+    text-align: right;
+}
+
+
+blockquote.blockee-editor-block-element footer:empty::before {
+    content:"No author";
+    color: #ccc;
+    font-style: italic;
+}

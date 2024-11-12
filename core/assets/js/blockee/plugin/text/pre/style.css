@@ -1,0 +1,9 @@
+pre.blockee-editor-block-element {
+    outline: none;
+
+    padding: 20px;
+    border-radius: 5px;
+    white-space: preserve;
+    line-height: 24px;
+
+}
