@@ -3,7 +3,7 @@ var blockeeEditorFileManagerUrl = false;
 var blockeeEditorInstances = [];
 var blockeeEditorPlugins = {
 
-    'heading': ['h1', 'h2', 'h3', 'h4', 'h5'],
+    'heading': ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
     'text': ['p', 'list', 'table', 'hr',  'blockquote', 'details', 'html', 'code', 'pre'],
     'media' : ['img', 'audio', 'embed', 'iframe'],
     'unee' : ['block', 'slider', 'gallery', 'thumbpage', 'plugin'],
