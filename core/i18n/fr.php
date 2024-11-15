@@ -198,6 +198,7 @@ return [
 
 	"View" => "Voir",
 	"Preview" => "Prévisualiser",
+	"Add page" => "Ajouter une page",
 	"Add page last" => "Ajouter une page à la fin",
 	"Add page first" => "Ajouter une page en début",
 
