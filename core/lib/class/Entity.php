@@ -7,8 +7,24 @@ class Entity
 	static public string $table = '';
 	static public string $fields = "*";
 	static public string $where_added = "";
-	
-	
+
+	/**
+	 * Insert multiple lines into table
+	 *
+	 * @param array $data
+	 * @param string $created_by
+	 * @return array
+	 */
+	public static function hydrate(array $data, string $created_by=""):array
+	{
+		$result = [];
+		foreach($data as $row)
+		{
+			$result[] = DB(static::$table)->insert($row, $created_by);
+		}
+		return $result;
+	}
+
 	/**
 	 * insert record
 	 *
