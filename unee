@@ -8,6 +8,7 @@ use Symfony\Component\Console\CommandLoader\FactoryCommandLoader;
 require __DIR__.'/vendor/autoload.php';
 include "core/lib/function/core.php";
 include "core/lib/function/string.php";
+include "core/lib/function/array.php";
 require __DIR__.'/core/bootstrap.php';
 // init DB
 $pg = $config['db']['package']['default'];

@@ -17,6 +17,7 @@ use Symfony\Component\Routing\RouteCollection;
 include 'vendor/autoload.php';
 include "core/lib/function/core.php";
 include "core/lib/function/string.php";
+include "core/lib/function/array.php";
 include "core/lib/function/http.php";
 include "core/bootstrap.php";
 
