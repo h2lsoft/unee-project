@@ -237,7 +237,9 @@
     <div class="row form-footer my-5 pt-5 border-top border-primary">
 
         <div class="col-6 text-center">
-            <button type="button" onclick="history.back();" class="btn btn-secondary"><i18n>Cancel</i18n></button>
+            <button type="button" class="btn btn-secondary" onclick="{% if get('_popup') == 1 and get('_popup-cancel-close') == 1 %}window.close(){% else %}history.back();{% endif %}">
+                <i18n>Cancel</i18n>
+            </button>
         </div>
 
         <div class="col-6 text-center">

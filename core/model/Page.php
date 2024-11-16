@@ -337,6 +337,22 @@ class Page extends \Core\Entity
 
 			$response->setContent($content);
 		}
+		
+		// frontbar
+		if(\Model\User::isLogon() && \Model\User::hasRight('edit', 'page'))
+		{
+			$content = $response->getContent();
+
+			$frontbar = file_get_contents(APP_PATH."/core/module/core-frontend/page/view/toolbar.html");
+			$frontbar = str_replace('[PAGE_ID]', $page['id'], $frontbar);
+			$frontbar = str_replace('[BACKEND_DIR]', \Core\Config::get('backend/dirname'), $frontbar);
+			$content = str_replace('</body>', "{$frontbar}</body>", $content);
+			
+			
+			$response->setContent($content);
+		}
+		
+		
 
 		// tracking visitor
 		$current_url = (!isset($_SERVER['REQUEST_URI'])) ? '' : $_SERVER['REQUEST_URI'];

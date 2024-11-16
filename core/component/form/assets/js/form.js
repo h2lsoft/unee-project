@@ -104,3 +104,16 @@ $('body').on('drop', '.file-image--placeholder', function(e) {
 
 
 });
+
+// escape close
+const urlParams = new URLSearchParams(window.location.search);
+if(urlParams.get('_popup') === '1')
+{
+	// Listen for the 'keypress' event on the body
+	document.body.addEventListener('keydown', function(e) {
+		if (e.key === 'Escape') {
+			window.close();
+		}
+	});
+}
+
