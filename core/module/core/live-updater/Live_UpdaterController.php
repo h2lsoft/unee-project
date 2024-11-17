@@ -191,9 +191,11 @@ class Live_UpdaterController extends Controller {
 		if($target_files_errors)
 			return trim($output);
 
-
-
-
+		// remove dir
+		$cmd = "rmdir -rf {$tmp_dir}";
+		if(strtolower(PHP_OS_FAMILY) === 'windows')
+			$cmd = "rmdir /s /q \"{$tmp_dir}\"";
+		shell_exec($cmd);
 
 		// update version
 		$current_version = \Model\Live_Updater::$version;

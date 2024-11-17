@@ -82,8 +82,6 @@ if(isset($_GET['_format']) && in_array($_GET['_format'], ['json', 'text', 'html'
 // routes **************************************************************************************************************
 $routes = new RouteCollection();
 
-
-
 // customer routes include
 $custom_routes = \Core\Config::get('routes', []);
 foreach($custom_routes as $route_file)
