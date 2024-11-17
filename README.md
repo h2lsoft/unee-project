@@ -52,6 +52,10 @@ Follow these steps to set up the UNEE framework:
    php unee install 
     ```
 
+4. **Install cron every 5 minutes (edit your path)**
+   ```bash
+   cd /path/to/directory && php index.php /cron/
+   ```
 
 ## Documentation
 
