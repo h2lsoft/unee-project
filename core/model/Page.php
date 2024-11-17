@@ -77,8 +77,6 @@ class Page extends \Core\Entity
 
 		$page = Page::findOne($where, $where_params, "*");
 
-
-
 		// default values
 		$theme_uri = "/theme/".\Core\Config::get('frontend/theme');
 		$theme_path = $theme_uri;
@@ -121,6 +119,7 @@ class Page extends \Core\Entity
 				}
 			}
 
+			$data['unee_version'] = \Model\Live_Updater::$version;
 			$data['page'] = $page;
 			$data['theme_path'] = $theme_path;
 		}
@@ -209,6 +208,7 @@ class Page extends \Core\Entity
 			// reload pattern
 			foreach($patterns as $pattern)
 				$content = str_replace($pattern['pattern'], $pattern['content'], $content);
+
 
 			$content = str_replace("@theme_url", $theme_uri, $content);
 			$content = str_replace("@theme_assets_css", "{$theme_uri}/assets/css", $content);
@@ -349,13 +349,10 @@ class Page extends \Core\Entity
 			if(!empty(\Model\Page::$page_edit_url))
 				$page_edit_url = \Model\Page::$page_edit_url;
 
-
 			$frontbar = file_get_contents(APP_PATH."/core/module/core-frontend/page/view/toolbar.html");
 			$frontbar = str_replace('[PAGE_ID]', $page['id'], $frontbar);
 			$frontbar = str_replace('[BACKEND_DIR]', \Core\Config::get('backend/dirname'), $frontbar);
 			$frontbar = str_replace('[BACKEND_PAGE_EDIT_URL]', $page_edit_url, $frontbar);
-
-
 
 			$content = str_replace('</body>', "{$frontbar}</body>", $content);
 			
