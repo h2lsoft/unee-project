@@ -2,6 +2,7 @@
 
 namespace Plugin\Core;
 
+use AppendIterator;
 use \Model\Cron;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,7 +18,10 @@ class CronController extends \Core\Controller {
 	public function list() {
 		
 		$datagrid = new \Component\DataGrid($this->object_label, $this->table, 25);
-		
+
+		$path = str_replace('\\', '/', APP_PATH);
+		$datagrid->addHeaderMessage("Don't forget to install cron in your scheduler : <em>`cd {$path} && php index.php /cron/`</em>");
+
 		// search
 		$datagrid->searchAddNumber('id');
 		$datagrid->searchAddSelectSql('category');
