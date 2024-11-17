@@ -384,16 +384,55 @@ SQL;
 	 */
 	public function add_direct():JsonResponse {
 
+		$this->validator->input('xcore_page_id')->required();
 		$this->validator->input('xcore_page_zone_id')->required();
 		$this->validator->input('language')->required();
 		$this->validator->input('page_name')->required();
 
+		$page_id = false;
+		$page_name = ucfirst(trim(post('page_name')));
+		$page_url = "";
+
 		if($this->validator->success())
 		{
+			$sql = "SELECT 
+							MAX(position) 
+					FROM 
+							xcore_page 
+					WHERE 
+							deleted = 'no' AND 
+							language = :language AND 
+							xcore_page_zone_id = :xcore_page_zone_id AND 
+							xcore_page_id = :xcore_page_id";
+
+			$binds = [];
+			$binds[':language'] = post('language');
+			$binds[':xcore_page_zone_id'] = post('xcore_page_zone_id');
+			$binds[':xcore_page_id'] = post('xcore_page_id');
+			$position = DB()->query($sql, $binds)->fetchOne();
+			$position = (int)$position + 1;
+
+			$row = [];
+			$row['language'] = post('language');
+			$row['xcore_page_zone_id'] = post('xcore_page_zone_id');
+			$row['xcore_page_id'] = post('xcore_page_id');
+			$row['name'] = $page_name;
+			$row['menu_visible'] = 'no';
+			$row['status'] = 'draft';
+			$row['xcore_user_id'] = \model\User::getUID();
+			$row['position'] = $position;
+
+			$page_id = \Model\Page::insert($row);
+			$page_url = \Model\Page::getUrl("", post('language'), $page_id);
 
 		}
 
-		return new JsonResponse($this->validator->result());
+		$response = $this->validator->result();
+		$response['page_id'] = $page_id;
+		$response['page_name'] = $page_name;
+		$response['page_url'] = $page_url;
+
+		return new JsonResponse($response);
 	}
 
 

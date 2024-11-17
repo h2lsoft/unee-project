@@ -250,6 +250,7 @@ return [
 	"Upload files" => "Uploader des fichiers",
 	"Create folder" => "Créer un dossier",
 	"Rename" => "Renommer",
+	"Rename page" => "Renommer la page",
 
 	"Would you like to delete this folder?" => "Voulez-vous supprimer cette dossier ?",
 	"Would you like to delete this file?" => "Voulez-vous supprimer ce fichier ?",

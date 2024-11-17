@@ -23,18 +23,28 @@ $(function(){
 
     });
 
-
-    $('.tree-wrapper ul li a.page').on('click', function(e){
+    $('.btn-new-page').on('click', function(e){
 
         e.preventDefault();
 
+        let language = $('select[name="language"]').val();
+        let xcore_zone_id = $('select[name="xcore_page_zone_id"]').val();
+        let xcore_page_id = 0;
+
+        pageAdd(language, xcore_zone_id, xcore_page_id);
+
+    });
+
+
+    $('body').on('click', '.tree-wrapper ul li a.page', function(e){
+        e.preventDefault();
         if($(this).hasClass('active'))return;
         $('.tree-wrapper ul li a').removeClass('active');
         $(this).addClass('active');
     });
 
 
-    $('.tree-wrapper ul li a.page').on('dblclick', function(){
+    $('body').on('dblclick', '.tree-wrapper ul li a.page', function(e){
 
         uri = $(this).attr('href');
         /*if(swup)
@@ -43,7 +53,7 @@ $(function(){
             document.location.href = uri;
     });
 
-    $('.tree-wrapper ul li a.page').on('contextmenu', function(e){
+    $('body').on('contextmenu', '.tree-wrapper ul li a.page', function(e){
 
         e.preventDefault();
         $(this).click();
@@ -177,7 +187,7 @@ $(function(){
                                         bootbox.hideAll();
 
                                         // remove node
-                                        $tree_node.parents("li").remove();
+                                        pagesReload();
 
                                     }
 
@@ -216,7 +226,7 @@ $(function(){
         if($(this).hasClass('btn-rename'))
         {
             let current_name = $tree_node.find('.page-name').text();
-            let msg = "Rename page";
+            let msg = $(this).data('i18n');
 
             bootbox.prompt({
 
@@ -239,7 +249,6 @@ $(function(){
                 onShow: function() {
                     const input = this.querySelector('input[type="text"]');
                     input.select();
-
                 },
 
                 callback: function(result){
@@ -300,8 +309,14 @@ $(function(){
         // btn-add-page
         if($(this).hasClass('btn-add-page'))
         {
-            href = $(this).attr('href')+"&xcore_page_id="+page_id;
-            document.location.href = href;
+            // href = $(this).attr('href')+"&xcore_page_id="+page_id;
+            // document.location.href = href;
+
+            let language = $('select[name="language"]').val();
+            let xcore_page_zone_id = $('select[name="xcore_page_zone_id"]').val();
+
+            pageAdd(language, xcore_page_zone_id, page_id);
+
         }
 
         // btn-cut && btn-copy
@@ -363,3 +378,104 @@ $(function(){
 
 
 });
+
+
+function pagesReload()
+{
+    const language = $('select[name="language"]').val();
+    const xcore_page_zone_id = $('select[name="xcore_page_zone_id"]').val();
+
+    uri = '/'+APP_BACKEND_DIRNAME+'/page/?xcore_page_zone_id='+xcore_page_zone_id+'&language='+language;
+
+    $.get(uri, function(response){
+
+        var tempDiv = $('<div>').html(response);
+        $('#pages').html(tempDiv.find('#pages').html());
+
+    });
+
+
+}
+
+function pageAdd(language, xcore_page_zone_id, xcore_page_id)
+{
+    let msg = $('.btn-new-page').text();
+
+    const cur_language = language;
+    const cur_xcore_page_zone_id = xcore_page_zone_id;
+    const cur_xcore_page_id = xcore_page_id;
+
+    bootbox.prompt({
+
+        size: 'normal',
+        className : 'modal-add-page',
+        closeButton: true,
+        centerVertical: false,
+        title: msg,
+        onEscape: true,
+        required: true,
+        buttons: {
+            cancel: {
+                className: 'd-none',
+                callback: function(){}
+            },
+        },
+
+        onShow: function() {
+            const input = this.querySelector('input[type="text"]');
+            input.select();
+        },
+
+        callback: function(result){
+
+            if(!result)return;
+
+            $('.modal-add-page .btn-primary').attr('disabled', true);
+            $('.modal-add-page .btn-primary i').removeClass('d-none');
+            loaderShow();
+
+            let formData = new FormData();
+            formData.append("_format", 'json');
+            formData.append("language", cur_language);
+            formData.append("xcore_page_zone_id", cur_xcore_page_zone_id);
+            formData.append("xcore_page_id", cur_xcore_page_id);
+            formData.append("page_name", result);
+
+            fetch("add_direct/", {method: 'post', body: formData})
+                .then((response) => {
+                    if(response.ok)return response.json();
+                    throw new Error(`${response.status} : ${response.statusText}`);
+                })
+                .then((response) => {
+
+                    if(response.error)
+                    {
+                        msg = response.error_stack_html;
+                        msg = msg.replace("&bull;", " - ");
+                        throw new Error(msg);
+                    }
+
+                    pagesReload();
+
+                    bootbox.hideAll();
+                    loaderHide();
+
+                })
+                .catch((error)  => {
+
+                    error = error.toString().replace('Error:', '');
+                    alert(error);
+                    loaderHide();
+                    $('.modal-rename .btn-primary i').addClass('d-none');
+                    $('.modal-rename .btn-primary').attr('disabled', false);
+
+                });
+
+            return false;
+
+
+
+        }
+
+    });
+}
