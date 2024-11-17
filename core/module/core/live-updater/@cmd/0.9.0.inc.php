@@ -1,0 +1,4 @@
+<?php
+
+DB()->query("update xcore_plugin set actions = 'list\nadd_direct\nedit\ndelete\nrename' where name='Page'");
+DB()->query("INSERT INTO `xcore_crontask` (`category`, `name`, `description`, `script_path`, `script_parameters`, `repetition_months`, `repetition_days`, `repetition_hours`, `repetition_minutes`, `email_report`, `email_report_subject`, `email_report_recipients`, `email_report_failure`, `status`, `locked`, `locked_date`, `last_error_message`, `last_execution_date_start`, `last_execution_date_end`, `priority`, `active`, `deleted`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES ('Core', 'Reset page and article status', '', '/core/cron/system/page.inc.php', '', '*', '*', '*', '0,5,10,15,20,25,30,35,40,45,50,55', 'no', '', '', 'no', 'waiting', 'no', NOW, '', NULL, NULL, 0, 'yes', 'no', NULL, 'superadmin', NULL, '', NULL, NULL);");

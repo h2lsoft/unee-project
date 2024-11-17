@@ -184,8 +184,8 @@ class Live_UpdaterController extends Controller {
 		}
 
 		// execute file /core/module/live-updater/@cmd/{$next_version}.inc.php
-		if(file_exists(APP_PATH."/core/module/live-updater/@cmd/{$next_version}.inc.php"))
-			include(APP_PATH."/core/module/live-updater/@cmd/{$next_version}.inc.php");
+		if(file_exists(APP_PATH."/core/module/core/live-updater/@cmd/{$next_version}.inc.php"))
+			include(APP_PATH."/core/module/core/live-updater/@cmd/{$next_version}.inc.php");
 
 
 		if($target_files_errors)
