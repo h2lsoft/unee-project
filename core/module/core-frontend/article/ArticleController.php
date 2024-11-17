@@ -229,6 +229,7 @@ SQL;
 			$article['tags'] = DB()->query("SELECT DISTINCT tag FROM xcore_tag WHERE deleted = 'no' AND signature = 'xcore_article' AND record_id = {$article_id} ORDER BY tag")->fetchAllOne();
 
 		\Model\Page::addPattern('@article_title', $article['title']);
+		\Model\Page::$page_edit_url = \Core\Config::get("backend/dirname")."/article/edit/{$article_id}/";
 
 		$data = [];
 		$data['blog_listing_url'] = \Core\Config::get('frontend/blog/listing/url');

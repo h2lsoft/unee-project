@@ -11,6 +11,8 @@ class Page extends \Core\Entity
 	public static string $route_tmp_current_lang = '';
 	public static bool $route_tmp_current_lang_is_default = false;
 
+	public static string $page_edit_url = '';
+
 	private static $pattern = [];
 	private static $id = false;
 	private static $data = [];
@@ -343,9 +345,18 @@ class Page extends \Core\Entity
 		{
 			$content = $response->getContent();
 
+			$page_edit_url = \Core\Config::get('backend/dirname')."/page/edit/{$page['id']}/";
+			if(!empty(\Model\Page::$page_edit_url))
+				$page_edit_url = \Model\Page::$page_edit_url;
+
+
 			$frontbar = file_get_contents(APP_PATH."/core/module/core-frontend/page/view/toolbar.html");
 			$frontbar = str_replace('[PAGE_ID]', $page['id'], $frontbar);
 			$frontbar = str_replace('[BACKEND_DIR]', \Core\Config::get('backend/dirname'), $frontbar);
+			$frontbar = str_replace('[BACKEND_PAGE_EDIT_URL]', $page_edit_url, $frontbar);
+
+
+
 			$content = str_replace('</body>', "{$frontbar}</body>", $content);
 			
 			

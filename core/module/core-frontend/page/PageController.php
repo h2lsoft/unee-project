@@ -380,6 +380,24 @@ SQL;
 	}
 
 	/**
+	 * @route /@backend/@module/add_direct/ {method:"POST", controller:"add_direct"}
+	 */
+	public function add_direct():JsonResponse {
+
+		$this->validator->input('xcore_page_zone_id')->required();
+		$this->validator->input('language')->required();
+		$this->validator->input('page_name')->required();
+
+		if($this->validator->success())
+		{
+
+		}
+
+		return new JsonResponse($this->validator->result());
+	}
+
+
+	/**
 	 * @route /@backend/@module/paste/ {method:"POST", controller:"paste"}
 	 */
 	public function paste()
