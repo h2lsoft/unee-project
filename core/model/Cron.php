@@ -98,6 +98,11 @@ class Cron extends \Core\Entity
 		}
 		
 	}
+
+	public static function writeHR()
+	{
+		echo "------------------------------------\n";
+	}
 	
 	
 	public static function getParameterValue(string $param_name):bool|string

@@ -37,14 +37,14 @@ function App(string $key=''):mixed
  */
 function DB(string $table="")
 {
-	global $app;
-	
+	global $app, $DB;
+
 	if(!empty($table))
-	{
 		$app->db->table($table);
-	}
-	
 	return $app->db;
+
+
+
 }
 
 /**
