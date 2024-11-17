@@ -5,6 +5,8 @@
 /.tmp/*
 /.archives/*
 /.assets/*
+/.bin/*
+/@version/*
 composer.lock
 test.php
 config/default/app.php
