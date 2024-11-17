@@ -189,6 +189,7 @@ return [
 	"only on failure" => "seulement en cas d'erreur",
 	"comma separated or semi-columns for multiple values" => "séparés par des virgules ou des points-virgules pour plusieurs valeurs",
 	"one parameter by line, ex: `param_name = param_value`" => "un paramètre par ligne, ex: `param_nom = param_valeur`",
+	"lower will be executed first" => "le moins élevé sera exécuté en premier",
 
 	// plugin:page
 	"Language" => "Langage",

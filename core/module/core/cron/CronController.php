@@ -119,7 +119,7 @@ class CronController extends \Core\Controller {
 
 		$form->addHr();
 		
-		$form->addNumber('priority', '', true, ["class" => 'text-center'])->setInputSize(1);
+		$form->addNumber('priority', '', true, ["class" => 'text-center'])->setInputSize(1)->setHelp("lower will be executed first");
 		$form->addSwitch('active', '', false)->setValue('yes');
 		$form->addSwitch('locked', '', false);
 		
