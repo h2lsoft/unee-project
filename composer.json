@@ -16,8 +16,10 @@
     "symfony/finder": "^7",
     "symfony/html-sanitizer": "^7",
     "symfony/console": "^7",
-    "symfony/event-dispatcher": "^7.0",
-    "h2lsoft/validator": "^1.2"
+    "symfony/event-dispatcher": "^7",
+    "h2lsoft/validator": "^1",
+    "kint-php/kint-helpers": "^5",
+    "kint-php/kint-twig": "^5"
   },
   "require-dev": {
     "kint-php/kint": "^5"
