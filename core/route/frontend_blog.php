@@ -14,6 +14,8 @@ Router::get($article_pattern, function($slug, $id){
 		return \Model\Page::error404("article not found");
 	}
 
+	\Model\Page::$page_edit_url = "/@backend/article/edit/{$article['id']}/";
+
 	$container = \Core\Config::get('frontend/blog/page_container_id');
 	return \Model\Page::render("", "id = :id", [':id' => $container], ['article' => $article]);
 });
