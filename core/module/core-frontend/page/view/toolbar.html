@@ -1,35 +1,35 @@
 <!-- unee frontbar -->
 <style type="text/css">
-#frontbar {
-    z-index: 99999;
-    position: fixed;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    text-align: center;
-    padding: 0;
-    margin: 0;
-}
+    #frontbar {
+        z-index: 99999;
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        text-align: center;
+        padding: 0;
+        margin: 0;
+    }
 
-#frontbar a {
-    display: block;
-    color: black;
-    padding: 5px 15px;
-    background: #e5e5e5;
-}
+    #frontbar a {
+        display: block;
+        color: black;
+        padding: 5px 15px;
+        background: #e5e5e5;
+    }
 
-#frontbar a:first-child {border-top-left-radius: 5px;}
-#frontbar a:last-child {border-bottom-left-radius: 5px;}
+    #frontbar a:first-child {border-top-left-radius: 5px;}
+    #frontbar a:last-child {border-bottom-left-radius: 5px;}
 
-#frontbar a:hover {
-    background: darkviolet;
-    color: white;
-}
+    #frontbar a:hover {
+        background: darkviolet;
+        color: white;
+    }
 
 </style>
 <div id="frontbar">
 
-    <a class="button-frontbar-edit-page" href="/[BACKEND_DIR]/page/edit/[PAGE_ID]/?_popup=1&_popup-cancel-close=1" title="Edit">
+    <a class="button-frontbar-edit-page" href="[BACKEND_PAGE_EDIT_URL]?_popup=1&_popup-cancel-close=1" title="Edit">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
             <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
@@ -46,24 +46,24 @@
 <!-- /unee frontbar -->
 
 <script>
-document.querySelector('.button-frontbar-edit-page').addEventListener('click', function(e) {
-    e.preventDefault(); // Prevent the default behavior of the link
+	document.querySelector('.button-frontbar-edit-page').addEventListener('click', function(e) {
+		e.preventDefault(); // Prevent the default behavior of the link
 
-    const uri = this.getAttribute('href'); // Get the URL from the 'href' attribute
+		const uri = this.getAttribute('href'); // Get the URL from the 'href' attribute
 
-    // Calculate the dimensions of the popup (90% of the available screen size)
-    const width = Math.floor(window.innerWidth * 0.9);
-    const height = Math.floor(window.innerHeight * 0.9);
+		// Calculate the dimensions of the popup (90% of the available screen size)
+		const width = Math.floor(window.innerWidth * 0.9);
+		const height = Math.floor(window.innerHeight * 0.9);
 
-    // Use screen.availWidth and screen.availHeight to calculate the position
-	const left = (window.top.outerWidth / 2) + (window.top.screenX) - ( width / 2);
-	const top =( window.top.outerHeight / 2) + (window.top.screenY) - ( height / 2);
+		// Use screen.availWidth and screen.availHeight to calculate the position
+		const left = (window.top.outerWidth / 2) + (window.top.screenX) - ( width / 2);
+		const top =( window.top.outerHeight / 2) + (window.top.screenY) - ( height / 2);
 
-    // Open a new popup window with the specified dimensions and position
-    window.open(
-        uri, // The URL to open
-        'unee_live_editor', // A name for the new window
-        `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes` // Popup options
-    );
-});
+		// Open a new popup window with the specified dimensions and position
+		window.open(
+			uri, // The URL to open
+			'unee_live_editor', // A name for the new window
+			`width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes` // Popup options
+		);
+	});
 </script>

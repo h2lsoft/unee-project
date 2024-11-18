@@ -346,8 +346,14 @@ class Page extends \Core\Entity
 			$content = $response->getContent();
 
 			$page_edit_url = \Core\Config::get('backend/dirname')."/page/edit/{$page['id']}/";
+
 			if(!empty(\Model\Page::$page_edit_url))
+			{
 				$page_edit_url = \Model\Page::$page_edit_url;
+				if($page_edit_url[0] != '/' && !str_starts_with($page_edit_url, 'http'))
+					$page_edit_url = '/'.$page_edit_url;
+			}
+
 
 			$frontbar = file_get_contents(APP_PATH."/core/module/core-frontend/page/view/toolbar.html");
 			$frontbar = str_replace('[PAGE_ID]', $page['id'], $frontbar);
