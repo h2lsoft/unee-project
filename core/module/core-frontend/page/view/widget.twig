@@ -1,0 +1,58 @@
+<div class="widget widget-small card w-100 mt-2 h-auto">
+    <div class="card-body">
+        <h5 class="card-title"><i18n>RECENT PAGES</i18n></h5>
+        <div class="card-text">
+            <table class="datagrid table table-hover table-sm table-condensed">
+                <thead>
+                <tr>
+                    <th><i18n>Page</i18n></th>
+                    <th class="min"><i18n>Status</i18n></th>
+                    <th class="min"><i18n>Last update</i18n></th>
+                    <th class="min"><i18n>Author</i18n></th>
+                    <th class="min"><i18n>Actions</i18n></th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                {% for p in pages %}
+                <tr>
+                    <td>
+                        <a href="/@backend/page/edit/{{ p.id }}/">
+                            <img style="height:50px" class="border me-2" src="{{ p.featured_image }}">
+                        </a>
+
+                        {{ p.name }}
+                    </td>
+
+                    <td class="min">
+
+                        <small class="px-2 py-1 rounded {{ p.status_class }}">
+                            <i18n>{{ p.status_label }}</i18n>
+                        </small>
+                    </td>
+
+                    <td class="min">
+                        {% if session('auth.format_datetime') is empty %}
+                            {{ p.updated_at|date(config('format/datetime')) }}
+                        {% else %}
+                            {{ p.updated_at|date(session('auth.format_datetime')) }}
+                        {% endif %}
+                    </td>
+
+                    <td class="min">
+                        <img class="img-avatar img-avatar-sm border me-1" src="{{ p.user_avatar }}">
+                        {{ p.author }}
+                    </td>
+
+                    <td class="min center">
+                        <a href="/@backend/page/edit/{{ p.id }}/" class="btn btn-sm" title="<i18n>Edit</i18n>"><i class="bi bi-pencil"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

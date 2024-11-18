@@ -228,6 +228,12 @@ return [
 
 	"add subpages list" => "Ajouter liste sous-pages",
 
+	"RECENT PAGES" => "PAGES RECENTES",
+	"Status" => "Statut",
+	"Last update" => "Dernière maj",
+	"Author" => "Auteur",
+	"Actions" => "Actions",
+
 
 	// frontend
 	"Error 404: page not found" => "Erreur 404: page non trouvée",

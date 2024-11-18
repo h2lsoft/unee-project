@@ -764,6 +764,55 @@ SQL;
 	}
 
 
+	/**
+	 * @route /@backend/page/widget/
+	 */
+	public static function widgetRender(): string
+	{
+		$limit = \Core\Globals::get('page::widget-recent-limit', 5);
+
+		$data = [];
+
+		$fields = "    *,
+						IF(updated_at='0000-00-00 00:00:00', created_at, updated_at) as updated_at,
+						(select login from xcore_user where id = xcore_user_id) as author, 
+						(select avatar from xcore_user where id = xcore_user_id) as user_avatar
+					";
+		$pages = \Model\Page::all('', [], $fields, '', 'updated_at desc', $limit);
+
+		for($i=0; $i < count($pages); $i++)
+		{
+			$page = $pages[$i];
+
+			if(empty($page['featured_image']))
+				$page['featured_image'] = get_absolute_path(Config::get('dir/page')."/0.png");
+
+			if(empty($page['user_avatar']))
+				$page['user_avatar'] = get_absolute_path(Config::get('dir/avatar')."/0.png");
+
+			$page['status_label'] = $page['status'];
+			$page['status_class'] = '';
+			foreach(\Core\Config::get('frontend/blog/status') as $s)
+			{
+				if($s['value'] == $page['status'])
+				{
+					$page['status_class'] = $s['class'];
+					$page['status_label'] = $s['label'];
+					break;
+				}
+
+			}
+
+			$pages[$i] = $page;
+		}
+
+
+		$data['pages'] = $pages;
+
+		$content = View('widget', $data, false);
+		return $content;
+	}
+
 }
 
 
