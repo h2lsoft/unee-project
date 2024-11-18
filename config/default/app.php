@@ -83,8 +83,8 @@ return [
 			],
 			
 			'schema' => [
-				'default_charset' => 'utf8mb4', // for example  `utf8mb4_unicode_ci`
-				'default_collate' => 'utf8mb4_general_ci', // for example  `utf8mb4_unicode_ci`
+				'default_charset' => 'utf8mb4', // for example  `utf8mb4`
+				'default_collate' => 'utf8mb4_general_ci', // for example  `utf8mb4_general_ci`
 				'default_engine' => 'MYISAM', // default engine
 				'default_auto_increment' => 1, // default auto-increment
 			],
