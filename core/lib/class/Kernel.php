@@ -62,21 +62,6 @@ class Kernel extends HttpKernel {
 			{
 				$this->locale = \Core\Session::get('auth.language', 'en');
 				if(empty(trim($this->locale)))$this->locale = 'en';
-
-				// force page link
-				if(\Model\User::hasRight('list', 'page'))
-				{
-					$cur_menu = ['name' => 'page', 'text' => 'New page', 'icon' => 'bi bi-pencil-square', 'action' => '/@backend/page/', 'attributes' => []];
-					$GLOBALS['config']['backend']['menu']['user'][] = $cur_menu;
-				}
-
-				// force article link
-				if(\Model\User::hasRight('list', 'article'))
-				{
-					$cur_menu = ['name' => 'article', 'text' => 'New article', 'icon' => 'bi bi-newspaper', 'action' => '/@backend/article/', 'attributes' => []];
-					$GLOBALS['config']['backend']['menu']['user'][] = $cur_menu;
-				}
-
 			}
 		}
 		else
@@ -251,6 +236,35 @@ class Kernel extends HttpKernel {
 					@$rec['breadcrumbs'] = $tmp;
 					
 					$this->plugin = $rec;
+				}
+
+				// force page link
+				$found = $this->db->table(\Model\Plugin::$table)
+					->select("id")
+					->where('route_prefix_name = :route_prefix_name')
+					->where("actions LIKE '%list%'")
+					->executeSQL([':route_prefix_name' => 'page'])
+					->limit(1)
+					->fetch();
+
+				if($found)
+				{
+					$cur_menu = ['name' => 'page', 'text' => 'New page', 'icon' => 'bi bi-pencil-square', 'action' => '/@backend/page/', 'attributes' => []];
+					$GLOBALS['config']['backend']['menu']['user'][] = $cur_menu;
+				}
+
+				// force article link
+				$found = $this->db->table(\Model\Plugin::$table)
+					->select("id")
+					->where('route_prefix_name = :route_prefix_name')
+					->where("actions LIKE '%list%'")
+					->executeSQL([':route_prefix_name' => 'article'])
+					->limit(1)
+					->fetch();
+				if($found)
+				{
+					$cur_menu = ['name' => 'article', 'text' => 'New article', 'icon' => 'bi bi-newspaper', 'action' => '/@backend/article/', 'attributes' => []];
+					$GLOBALS['config']['backend']['menu']['user'][] = $cur_menu;
 				}
 			}
 		}
