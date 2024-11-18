@@ -54,9 +54,10 @@ return [
 				'gc_maxlifetime' => (int)(60*60*24*90), // 90 days
 				'cookie_path' => '/',
 				'cookie_domain' => '',
+				'cookie_secure' => false,
 				'cookie_lifetime' => (int)(60*60*24*90), // 90 days
 				'cookie_httponly' => true,
-				'cookie_secure' => false, // https only
+				'cookie_samesite' => 'Lax',
 				'cache_limiter' => 'nocache',
 				'cache_expire' => 0,
 			],
