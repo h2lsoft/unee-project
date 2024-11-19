@@ -148,29 +148,26 @@ SQL;
 
 		$form->addTabEnd();
 
-		// SEO *********************************************************************************************************
-		$form->addTab('SEO');
-		$form->addText('meta_title', 'meta title', false);
-		$form->addText('meta_description', 'meta description', false);
-		$form->addText('meta_keywords', 'meta keywords', false);
-		$form->addSelect('meta_robot', 'meta robot', false, ['noindex', 'nofollow', 'noindex, follow', 'noindex, nofollow']);
-
-		$form->addText('sitemap_priority', 'sitemap priority', false);
-		$form->addSelectEnum('sitemap_change_freq', 'sitemap change freq', false);
-		$form->addText('sitemap_pagination_pattern', 'sitemap pagination pattern', false)->setHelp("ex: `/news/page/[:page]/`");
-		$form->addText('sitemap_follow_url_pattern', 'sitemap follow url pattern', false)->setHelp("ex: `/article/[:slug]`");
-		$form->addText('sitemap_follow_url_priority', 'sitemap follow url priority', false);
-
-		$form->addTabEnd();
 
 
 		// OPTION ******************************************************************************************************
 		$form->addTab('Options');
-		$form->addSwitch('menu_visible', 'menu visible', false)->setValue('yes');
-		$form->addSwitch('list_subpage', 'add subpages list', false);
-		$form->addSwitch('is_homepage', 'homepage', false);
 
-		$form->addSwitch('locked', '', false)->setAfter("Page won't be editable");
+		// tpl
+		$tpl_dir = APP_PATH.'/theme/'.\Core\Config::get('frontend/theme')."/*.twig";
+		$tpl_dirs = glob($tpl_dir);
+
+		$templates = [];
+		foreach($tpl_dirs as $tpl_dir)
+		{
+			$tpl_file = basename($tpl_dir);
+			$tpl_file = str_erase('.twig', $tpl_file);
+
+			if(empty($tpl_file) || $tpl_file[0] == '@' || $tpl_file == 'index'  || $tpl_file[0] == '_')continue;
+			$templates[] = ['label' => $tpl_file, 'value' => $tpl_file.".twig"];
+		}
+
+		$form->addSelect('template', '', false, $templates);
 
 		/*
 		$form->addFileImage(
@@ -188,22 +185,33 @@ SQL;
 		$form->addFileBrowser('featured_image', "image", false, "x-page/featured_image", 'image')->setHelp("<i18n>Recommended size</i18n>".": 1920 x 600");
 
 
-		$tpl_dir = APP_PATH.'/theme/'.\Core\Config::get('frontend/theme')."/*.twig";
-		$tpl_dirs = glob($tpl_dir);
+		$form->addSwitch('menu_visible', 'menu visible', false)->setValue('yes');
+		$form->addSwitch('list_subpage', 'add subpages list', false);
+		$form->addSwitch('is_homepage', 'homepage', false);
 
-		$templates = [];
-		foreach($tpl_dirs as $tpl_dir)
-		{
-			$tpl_file = basename($tpl_dir);
-			$tpl_file = str_erase('.twig', $tpl_file);
+		$form->addSwitch('locked', '', false)->setAfter("Page won't be editable");
 
-			if(empty($tpl_file) || $tpl_file[0] == '@' || $tpl_file == 'index'  || $tpl_file[0] == '_')continue;
-			$templates[] = ['label' => $tpl_file, 'value' => $tpl_file.".twig"];
-		}
-
-		$form->addSelect('template', '', false, $templates);
 
 		$form->addTabEnd();
+
+
+		// SEO *********************************************************************************************************
+		$form->addTab('SEO');
+		$form->addText('meta_title', 'meta title', false);
+		$form->addText('meta_description', 'meta description', false);
+		$form->addText('meta_keywords', 'meta keywords', false);
+		$form->addSelect('meta_robot', 'meta robot', false, ['noindex', 'nofollow', 'noindex, follow', 'noindex, nofollow']);
+
+		$form->addHr();
+		$form->addText('sitemap_priority', 'sitemap priority', false);
+		$form->addSelectEnum('sitemap_change_freq', 'sitemap change freq', false);
+		$form->addText('sitemap_pagination_pattern', 'sitemap pagination pattern', false)->setHelp("ex: `/news/page/[:page]/`");
+		$form->addText('sitemap_follow_url_pattern', 'sitemap follow url pattern', false)->setHelp("ex: `/article/[:slug]`");
+		$form->addText('sitemap_follow_url_priority', 'sitemap follow url priority', false);
+
+		$form->addTabEnd();
+
+
 		$form->addTabMenuEnd();
 		$form->addHr();
 
