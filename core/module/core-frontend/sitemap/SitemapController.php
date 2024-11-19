@@ -2,6 +2,8 @@
 
 namespace Plugin\Core_Frontend;
 
+use Symfony\Component\ErrorHandler\Debug;
+
 class SitemapController extends \Core\Controller {
 
 	/**
@@ -10,7 +12,7 @@ class SitemapController extends \Core\Controller {
 	 */
 	public function generate():\Core\Response
 	{
-
+		\Core\Debugbar::disable();
 
 		$languages = \Core\Config::get("frontend/langs");
 
