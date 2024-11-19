@@ -345,19 +345,23 @@ class Page extends \Core\Entity
 		{
 			$content = $response->getContent();
 
-			$page_edit_url = "/".\Core\Config::get('backend/dirname')."/page/edit/{$page['id']}/";
+			$page_edit_url = \Core\Config::get('url')."/".\Core\Config::get('backend/dirname')."/page/edit/{$page['id']}/";
 			if(!empty(\Model\Page::$page_edit_url))
 			{
 				$page_edit_url = \Model\Page::$page_edit_url;
 				if($page_edit_url[0] != '/' && !str_starts_with($page_edit_url, 'http'))
 					$page_edit_url = '/'.$page_edit_url;
+
+				$page_edit_url = \Core\Config::get('url').$page_edit_url;
 			}
 
+			$pages_zone_url = \Core\Config::get('url')."/".\Core\Config::get('backend/dirname')."/page/?xcore_page_zone_id={$page['xcore_page_zone_id']}&language={$page['language']}&auto_select_id={$page['id']}";
 
 			$frontbar = file_get_contents(APP_PATH."/core/module/core-frontend/page/view/toolbar.html");
 			$frontbar = str_replace('[PAGE_ID]', $page['id'], $frontbar);
 			$frontbar = str_replace('[BACKEND_DIR]', \Core\Config::get('backend/dirname'), $frontbar);
 			$frontbar = str_replace('[BACKEND_PAGE_EDIT_URL]', $page_edit_url, $frontbar);
+			$frontbar = str_replace('[BACKEND_PAGE_ZONE_URL]', $pages_zone_url, $frontbar);
 
 			$content = str_replace('</body>', "{$frontbar}</body>", $content);
 			
