@@ -5,11 +5,12 @@
             <table class="datagrid table table-hover table-sm table-condensed">
                 <thead>
                 <tr>
-                    <th><i18n>Page</i18n></th>
+                    <th class="min"><i18n>Page</i18n></th>
+                    <th></th>
                     <th class="min"><i18n>Status</i18n></th>
                     <th class="min"><i18n>Last update</i18n></th>
                     <th class="min"><i18n>Author</i18n></th>
-                    <th class="min"><i18n>Actions</i18n></th>
+                    <th class="min text-center"><i18n>Actions</i18n></th>
                 </tr>
                 </thead>
 
@@ -19,10 +20,12 @@
                     <tr>
                         <td>
                             <a href="/@backend/page/edit/{{ p.id }}/">
-                                <img style="width:100px; height:50px; object-fit:cover" class="border me-2" src="{{ p.featured_image }}">
+                                <img style="width:100px; height:50px; object-fit:cover" class="border" src="{{ p.featured_image }}">
                             </a>
-
-                            {{ p.name }}
+                        </td>
+                        <td>
+                            {{ p.name }}<br>
+                            <a href="{{ p.absolute_url }}" target="_blank"><small class="text-muted">{{ p.absolute_url }}</small></a>
                         </td>
 
                         <td class="min">
@@ -45,7 +48,7 @@
                             {{ p.author }}
                         </td>
 
-                        <td class="min center">
+                        <td class="min text-center">
                             <a href="/@backend/page/edit/{{ p.id }}/" class="btn btn-sm" title="<i18n>Edit</i18n>"><i class="bi bi-pencil"></i></a>
                         </td>
                     </tr>

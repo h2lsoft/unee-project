@@ -431,7 +431,7 @@ SQL;
 			$row['position'] = $position;
 
 			$page_id = \Model\Page::insert($row);
-			$page_url = \Model\Page::getUrl("", post('language'), $page_id);
+			$page_url = \Model\Page::getUrl("", post('language'), $page_id, $page_name);
 
 		}
 
@@ -786,7 +786,8 @@ SQL;
 		$fields = "    *,
 						IF(updated_at='0000-00-00 00:00:00', created_at, updated_at) as updated_at,
 						(select login from xcore_user where id = xcore_user_id) as author, 
-						(select avatar from xcore_user where id = xcore_user_id) as user_avatar
+						(select avatar from xcore_user where id = xcore_user_id) as user_avatar,
+						(select website from xcore_page_zone where id = xcore_page_zone_id) as zone_website
 					";
 		$pages = \Model\Page::all($where, $where_params, $fields, '', 'updated_at desc', $limit);
 
@@ -812,6 +813,8 @@ SQL;
 				}
 
 			}
+
+			$page['absolute_url'] = \Model\Page::getUrl($page['url'], $page['language'], $page['id'], $page['name'], $page['zone_website']);
 
 			$pages[$i] = $page;
 		}

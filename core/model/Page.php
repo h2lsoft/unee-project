@@ -341,12 +341,11 @@ class Page extends \Core\Entity
 		}
 		
 		// frontbar
-		if(\Model\User::isLogon() && \Model\User::hasRight('edit', 'page'))
+		if($page && \Model\User::isLogon() && \Model\User::hasRight('edit', 'page'))
 		{
 			$content = $response->getContent();
 
-			$page_edit_url = \Core\Config::get('backend/dirname')."/page/edit/{$page['id']}/";
-
+			$page_edit_url = "/".\Core\Config::get('backend/dirname')."/page/edit/{$page['id']}/";
 			if(!empty(\Model\Page::$page_edit_url))
 			{
 				$page_edit_url = \Model\Page::$page_edit_url;
@@ -578,42 +577,25 @@ class Page extends \Core\Entity
 	 * @param string $name
 	 * @return string
 	 */
-	public static function getUrl(string $url='', string $language='', int $id=0, string $name=''):string
+	public static function getUrl(string $url='', string $language='', int $id=0, string $name='', string $website=''):string
 	{
 		if(!empty($url))return $url;
 
-		if(empty($name))
-		{
-			$uri = "/node/{$id}/";
-		}
-		else
-		{
-			$slug = slugify($name);
-			$uri = "/{$language}/{$slug}-{$id}.html";
-		}
+		$slug = slugify($name);
+		$page_pattern = \Core\Config::get('frontend/page/url_pattern');
+
+		$uri = $page_pattern;
+		$uri = str_replace('{locale}', $language, $uri);
+		$uri = str_replace('{id}', $id, $uri);
+		$uri = str_replace('{slug}', $slug, $uri);
+
+		if(!empty($website))
+			$uri = rtrim($website, '/').$uri;
 
 		return $uri;
 	}
 
-	public static function getAbsoluteUrl(int $id, string $url, string $website=''):string
-	{
-		$uri = $url;
-		if(empty($url))
-			$uri = "/node/{$id}/";
 
-		if(empty($website))
-			$website = \Core\Config::get('url');
-
-		$website = rtrim($website, '/');
-
-		if($uri[0] != '/')
-			$uri = "/{$uri}";
-
-		$uri = "{$website}{$uri}";
-
-
-		return $uri;
-	}
 
 
 	/**
@@ -625,7 +607,15 @@ class Page extends \Core\Entity
 	{
 		$pages = [];
 
-		if(empty($fields))$fields = "id, type, name, status, xcore_page_id, url";
+		if(empty($fields))
+		{
+			$fields = "id, type, name, status, xcore_page_id, url, (select website from xcore_page_zone where id = xcore_page_zone_id) as zone_website";
+		}
+		else
+		{
+			if(!str_contains($fields, 'zon_website'))
+				$fields .= ", (select website from xcore_page_zone where id = xcore_page_zone_id) as zone_website";
+		}
 
 		$params = $params_added;
 		$params[':zone_id'] = $zone_id;
@@ -641,7 +631,7 @@ class Page extends \Core\Entity
 
 			if(isset($p['url']))
 			{
-				$p['url'] = self::getUrl($p['url'], $language, $p['id'], $p['name']);
+				$p['url'] = self::getUrl($p['url'], $language, $p['id'], $p['name'], $p['zone_website']);
 			}
 
 			$pages[] = $p;

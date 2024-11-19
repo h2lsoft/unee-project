@@ -28,7 +28,7 @@ for($i=0; $i < count($langs); $i++)
 	}, "homepage-{$cur_lang}");
 
 
-	// by id => /@locale/@id.html
+	// by id => /@locale/slug-@id.html
 	Router::get("/{$cur_lang}/{slug}.html", function($slug){
 		$id = explode("-", $slug);
 		$id = (int)end($id);

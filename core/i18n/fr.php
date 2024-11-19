@@ -110,6 +110,7 @@ return [
 	"company" => "société",
 	"lastname" => "nom",
 	"firstname" => "prénom",
+	"birthdate" => "date de naissance",
 	"password" => "mot de passe",
 	"address" => "adresse",
 	"address 2" => "adresse 2",
@@ -195,6 +196,7 @@ return [
 	"Language" => "Langage",
 	"resume" => "résumé",
 	"content" => "contenu",
+	"Content" => "Contenu",
 	"New page" => "Nouvelle page",
 
 	"View" => "Voir",
@@ -302,6 +304,9 @@ return [
 	// block
 	'date start' => 'date début',
 	'date end' => 'date fin',
+
+	// widget
+	'refresh' => 'rechargement',
 
 
 

@@ -49,7 +49,7 @@ class SitemapController extends \Core\Controller {
 						$website_host = explode('/', $website);
 						$website_host = "{$website_host[0]}//{$website_host[2]}";
 
-						$p['url'] = \Model\Page::getAbsoluteUrl($p['id'], $p['url'], $website_host);
+						$p['url'] = \Model\Page::getUrl($p['url'], $p['language'], $p['id'], $p['name'], $website_host);
 
 						$xml .= "  <url>\n";
 						$xml .= "    <loc>{$p['url']}</loc>\n";
