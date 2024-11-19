@@ -175,16 +175,20 @@ class Kernel extends HttpKernel {
 			$cfg['APP_MAIL_PACKAGE'] = APP_MAIL_PACKAGE;
 			$cfg['APP_DB_PACKAGE'] = APP_DB_PACKAGE;
 			$cfg['APP_ENV'] = APP_ENV;
-			
 			ksort($cfg);
 			$this->debugbar->addCollector(new \DebugBar\DataCollector\ConfigCollector($cfg, 'CONFIG'));
-			
+
+
+
+			$server = (array)$_SERVER;
+			ksort($server);
+			$this->debugbar->addCollector(new \DebugBar\DataCollector\ConfigCollector($server, 'SERVER'));
+
 			
 			$this->debugbar->addCollector(new \DebugBar\DataCollector\ConfigCollector($this->globals, 'GLOBALS'));
 			
 			
-			$server = (array)$_SERVER;
-			ksort($server);
+
 			
 			$cookie = (array)$_COOKIE;
 			ksort($cookie);
@@ -193,10 +197,10 @@ class Kernel extends HttpKernel {
 			ksort($__files);
 
 			$session = (array)\Core\Session::get();
-			$session['_cookie_parameters'] = session_get_cookie_params();
-			ksort($session);
+			$session['@cookie-parameters'] = session_get_cookie_params();
+			ksort($session, SORT_STRING);
 			
-			$this->debugbar->addCollector(new \DebugBar\DataCollector\ConfigCollector($server, 'SERVER'));
+
 			$this->debugbar->addCollector(new \DebugBar\DataCollector\ConfigCollector($session, 'SESSION'));
 			$this->debugbar->addCollector(new \DebugBar\DataCollector\ConfigCollector($cookie, 'COOKIE'));
 			$this->debugbar->addCollector(new \DebugBar\DataCollector\ConfigCollector($request->query->all(), 'GET'));
