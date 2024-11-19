@@ -769,7 +769,7 @@ SQL;
 	 */
 	public static function widgetRender(): string
 	{
-		$limit = \Core\Globals::get('page::widget-recent-limit', 5);
+		$limit = \Core\Globals::get('page::widget-recent-limit', 20);
 
 		$data = [];
 

@@ -1,7 +1,7 @@
 <div class="widget widget-small card w-100 mt-2 h-auto">
     <div class="card-body">
         <h5 class="card-title"><i18n>RECENT PAGES</i18n></h5>
-        <div class="card-text">
+        <div class="card-text" style="max-height: 400px; overflow-y: auto">
             <table class="datagrid table table-hover table-sm table-condensed">
                 <thead>
                 <tr>
@@ -19,7 +19,7 @@
                     <tr>
                         <td>
                             <a href="/@backend/page/edit/{{ p.id }}/">
-                                <img style="width:120px; height:60px; object-fit:cover" class="border me-2" src="{{ p.featured_image }}">
+                                <img style="width:100px; height:50px; object-fit:cover" class="border me-2" src="{{ p.featured_image }}">
                             </a>
 
                             {{ p.name }}
