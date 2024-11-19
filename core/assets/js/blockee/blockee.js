@@ -50,7 +50,7 @@ class blockeeEditor {
     static i18n(key) {
 
         let language = $('html').attr('lang');
-        return blockeeEditorI18n[key][language] ?? key.replace(' ', ' ');
+        return (blockeeEditorI18n[key] && blockeeEditorI18n[key][language]) ? blockeeEditorI18n[key][language] : key.replace(' ', ' ');
     }
 
     constructor(name, node) {
@@ -95,12 +95,18 @@ class blockeeEditor {
         $('div.blockee-editor').append(canvas);
 
         // init menu
+        let search_label = blockeeEditor.i18n('search');
+
         render = `<div class="blockee-editor__menu blockee-editor__menu-plugin">`;
-        render += `<input type="search" placeholder="Search...">`;
+        render += `<input type="search" placeholder="${search_label}...">`;
 
         Object.keys(blockeeEditorPlugins).forEach(function(group) {
 
-            let groupX = group.charAt(0).toUpperCase() + group.slice(1);
+
+            let groupX = blockeeEditor.i18n(group).toUpperCase();
+            // let groupX = group.charAt(0).toUpperCase() + group.slice(1);
+
+
             render += `<div class="blockee-editor__menu-group">${groupX}</div>`;
             render += `<ul>`;
 
@@ -133,6 +139,7 @@ class blockeeEditor {
 
         render += `
                     <div class="blockee-editor__menu blockee-editor__menu-block">
+                        <div class="blockee-editor__menu--header"></div>
                         <ul>
                             <li class="blockee-editor__menu-block--li-add" onclick="blockeeEditor.blockAdd()">${text_add}</li>
                             <li class="blockee-editor__menu-block--li-duplicate" onclick="blockeeEditor.blockDuplicate()">${text_duplicate}</li>
@@ -745,6 +752,8 @@ class blockeeEditor {
         const signature = 'BlockeePlugin__'+current_block_type;
         let info = eval(signature+".info()");
 
+        $('.blockee-editor__menu.blockee-editor__menu-block .blockee-editor__menu--header').text(info.name);
+
         if(info.settings === true)
             $('.blockee-editor__menu-block--li-configure').removeClass('disabled');
         else
@@ -797,6 +806,8 @@ class blockeeEditor {
         const signature = 'BlockeePlugin__'+current_block_type;
         let info = eval(signature+".info()");
         let render;
+        const advanced_label = blockeeEditor.i18n('advanced');
+        const select_file = blockeeEditor.i18n('select_file');
 
 
         try {
@@ -817,7 +828,7 @@ class blockeeEditor {
         // tab advanced
         if(render.tab_advanced)
         {
-            contents += `<li><a href="#">ADVANCED</a></li>`;
+            contents += `<li><a href="#">${advanced_label}</a></li>`;
         }
 
         contents += `</ul>`;
@@ -1199,7 +1210,7 @@ class blockeeEditor {
                    <div class="blockee-editor-form-row">                                
                         <div class="blockee-editor-form-label">Bg image</div>
                         <input type="text" name="bg_image" value="${bg_image}"> 
-                        <button type="button" class="blockee-editor-form-button blockee-editor-form-button-filemanager" onclick="blockeeEditor.fileManagerOpen('bg_image', '&filter=image')">Select file...</button> 
+                        <button type="button" class="blockee-editor-form-button blockee-editor-form-button-filemanager" onclick="blockeeEditor.fileManagerOpen('bg_image', '&filter=image')">${select_file}...</button> 
                    </div>                                                         
                                    
                    <div class="blockee-editor-form-row">                                

@@ -6,6 +6,10 @@ const blockeeEditorI18n = {
 	fullscreen: {en:"Fullscreen", fr:"Plein écran"},
 
 	heading: {en:"Heading", fr:"Titre"},
+	text: {en:"Text", fr:"Texte"},
+	search: {en:"Search", fr:"Rechercher"},
+	advanced: {en:"ADVANCED", fr:"AVANCÉ"},
+	select_file: {en:"Select file", fr:"Fichier"},
 
 	paste_code_here: {en:"Paste your code here", fr:"Coller votre code"},
 	embed: {en:"Embed", fr:"Code intégré"},
@@ -46,6 +50,7 @@ const blockeeEditorI18n = {
 	delete : {en:"Delete", fr:"Supprimer"},
 
 	link_properties : {en:"Link properties", fr:"Propriétés du lien"},
+
 
 
 

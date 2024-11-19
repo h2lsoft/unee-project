@@ -3,13 +3,19 @@ textarea.blockee-editor {
 }
 
 .blockee-editor .blockee-editor__content:empty:after {
-    content: "Press key `/` to open blocks \A\A alt + T => insert text \A alt + L => insert list \A alt + I => insert image \A alt + - => insert hr \A\A alt + 1 => insert h1 \A alt + 2 => insert h2 \A alt + 3 => insert h3 \A alt + 4 => insert h4 \A alt + 5 => insert h5";
+    content: "Press key `/` to open blocks \A\A alt + T => insert text \A alt + L => insert list \A alt + I => insert image \A alt + - => insert hr \A\A alt + 1 => insert h1 \A alt + 2 => insert h2 \A alt + 3 => insert h3 \A alt + 4 => insert h4 \A alt + 5 => insert h5 \A alt + 6 => insert h6";
     white-space: pre-wrap;
 
     position: absolute;
     color: #ccc;
     font-size: 14px;
 }
+
+html[lang='fr'] .blockee-editor .blockee-editor__content:empty:after {
+    content: "Appuyer sur `/` pour ouvrir les blocs \A\A alt + T => insérer texte \A alt + L => insérer liste \A alt + I => insérer image \A alt + - => insérer hr \A\A alt + 1 => insérer h1 \A alt + 2 => insérer h2 \A alt + 3 => insérer h3 \A alt + 4 => insérer h4 \A alt + 5 => insérer h5 \A alt + 6 => insérer h6";
+}
+
+
 
 .blockee-editor::-webkit-scrollbar, .blockee-editor__content::-webkit-scrollbar, .blockee-editor__menu::-webkit-scrollbar {width: 12px;}
 .blockee-editor::-webkit-scrollbar-track, .blockee-editor__content::-webkit-scrollbar-track, .blockee-editor__menu::-webkit-scrollbar-track {
