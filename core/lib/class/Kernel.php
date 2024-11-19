@@ -161,9 +161,13 @@ class Kernel extends HttpKernel {
 			
 			$__files = (array)$_FILES;
 			ksort($__files);
+
+			$session = (array)\Core\Session::get();
+			$session['_cookie_parameters'] = session_get_cookie_params();
+			ksort($session);
 			
 			$this->debugbar->addCollector(new \DebugBar\DataCollector\ConfigCollector($server, 'SERVER'));
-			$this->debugbar->addCollector(new \DebugBar\DataCollector\ConfigCollector(\Core\Session::get(), 'SESSION'));
+			$this->debugbar->addCollector(new \DebugBar\DataCollector\ConfigCollector($session, 'SESSION'));
 			$this->debugbar->addCollector(new \DebugBar\DataCollector\ConfigCollector($cookie, 'COOKIE'));
 			$this->debugbar->addCollector(new \DebugBar\DataCollector\ConfigCollector($request->query->all(), 'GET'));
 			$this->debugbar->addCollector(new \DebugBar\DataCollector\ConfigCollector($_POST, 'POST'));
