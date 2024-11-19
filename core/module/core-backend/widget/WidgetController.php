@@ -25,7 +25,8 @@ class WidgetController extends \Core\Controller {
 		$datagrid->addColumn('id');
 		$datagrid->addColumn('parent_plugin', 'parent plugin', false, 'min');
 		$datagrid->addColumn('name', '', false, '');
-		
+		$datagrid->addColumn('refresh', '', false, 'min center');
+
 		// $datagrid->addColumnHtml('url', '', false, 'min');
 		$datagrid->addColumnBoolean('active');
 		
@@ -34,7 +35,10 @@ class WidgetController extends \Core\Controller {
 			
 			// $url = str_replace('[BACKEND]', \Core\Config::get('backend/dirname'), $row['url']);
 			// $row['url'] = Html::A(Html::Icon("bi bi-globe"), $url, ['target' => '_blank']);
-			
+
+			$row['refresh'] = $row['autorefresh_seconds'];
+			$row['refresh'] = (!$row['refresh']) ? '-' : "{$row['refresh']} s";
+
 			return $row;
 		});
 		
