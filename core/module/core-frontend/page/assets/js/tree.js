@@ -375,6 +375,13 @@ $(function(){
     });
 
 
+    // auto_selected_id
+    const urlParams = new URLSearchParams(window.location.search);
+    const auto_select_id = urlParams.get('auto_select_id');
+
+    if(auto_select_id)
+        $('#pages a[data-id="'+auto_select_id+'"]').click();
+
 
 
 });
