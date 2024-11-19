@@ -1,25 +1,11 @@
-div.phpdebugbar {
-    border:0!important;
-    font-family:Consolas,"Courier New",monospace;
-}
+div.phpdebugbar {border:0!important; font-family:Consolas,"Courier New",monospace;}
+div.phpdebugbar *:not(i) {font-family:Consolas,"Courier New",monospace!important;}
+div.phpdebugbar dl {display:inline;}
 
-div.phpdebugbar *:not(i) {
-    font-family:Consolas,"Courier New",monospace!important;
-}
+dl.phpdebugbar-widgets-kvlist dt {min-width: auto;}
 
-div.phpdebugbar dl {
-    display:inline;
-}
-
-dl.phpdebugbar-widgets-kvlist dt {
-    min-width: auto;
-}
-
-.phpdebugbar-fa-database,
-.phpdebugbar-fa-tasks,
-.phpdebugbar-fa-list-alt
+.phpdebugbar-fa-database, .phpdebugbar-fa-tasks, .phpdebugbar-fa-list-alt
 {
-
     display: inline-block!important;
     margin-right:8px!important;
 }
@@ -34,9 +20,14 @@ a.phpdebugbar-minimize-btn {
     background: url(data:image/svg+xml,%3Csvg%20viewBox=%220%200%201792%201792%22%20fill=%22%23ffffff%22%20xmlns=%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d=%22m1683%20653.5-742%20741c-12.667%2012.67-27.667%2019-45%2019s-32.333-6.33-45-19l-742-741c-12.667-12.667-19-27.833-19-45.5s6.333-32.833%2019-45.5l166-165c12.667-12.667%2027.667-19%2045-19s32.333%206.333%2045%2019l531%20531%20531-531c12.67-12.667%2027.67-19%2045-19s32.33%206.333%2045%2019l166%20165c12.67%2012.667%2019%2027.833%2019%2045.5s-6.33%2032.833-19%2045.5Z%22%20fill=%22%23ffffff%22%2F%3E%3C%2Fsvg%3E) no-repeat center / 16px 16px;
     opacity: 0.5;
 }
-a.phpdebugbar-close-btn {
-    display: none;
+
+a.phpdebugbar-maximize-btn {
+    background: url(data:image/svg+xml,%3Csvg%20viewBox=%220%200%201792%201792%22%20fill=%22%23ffffff%22%20xmlns=%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d=%22m1683%201229.5-166%20165c-12.67%2012.67-27.67%2019-45%2019s-32.33-6.33-45-19l-531-531-531%20531c-12.667%2012.67-27.667%2019-45%2019s-32.333-6.33-45-19l-166-165c-12.667-12.67-19-27.83-19-45.5s6.333-32.83%2019-45.5l742-741c12.667-12.667%2027.667-19%2045-19s32.333%206.333%2045%2019l742%20741c12.67%2012.67%2019%2027.83%2019%2045.5s-6.33%2032.83-19%2045.5Z%22%20fill=%22%23555%22%2F%3E%3C%2Fsvg%3E) no-repeat center / 16px 16px;
+    opacity: 0.5;
 }
+
+
+a.phpdebugbar-close-btn {display: none;}
 
 a.phpdebugbar-minimize-btn:hover,
 a.phpdebugbar-maximize-btn:hover
@@ -45,13 +36,11 @@ a.phpdebugbar-maximize-btn:hover
 }
 
 
-div.phpdebugbar-header {
-    color: #ccc;
-    background: #333;
-}
+div.phpdebugbar-header {color: #ccc; background: #333;}
 
 a.phpdebugbar-restore-btn,
-span.phpdebugbar-indicator, a.phpdebugbar-indicator
+span.phpdebugbar-indicator,
+a.phpdebugbar-indicator
 {
     border-right-color: #666;
     border-right: 0;
@@ -64,9 +53,7 @@ div.phpdebugbar-header > div > * {
     color: #aaa;
 }
 
-div.phpdebugbar-header > div > *:hover {
-    color: white;
-}
+div.phpdebugbar-header > div > *:hover {color: white;}
 
 a.phpdebugbar-tab.phpdebugbar-active {
     background-image: none;
@@ -78,33 +65,20 @@ a.phpdebugbar-tab.phpdebugbar-active {
 
 div.phpdebugbar code,
 div.phpdebugbar pre,
-div.phpdebugbar samp {
+div.phpdebugbar samp
+{
     text-align: left;
 }
 
-dd.phpdebugbar-widgets-value.phpdebugbar-widgets-pretty {
-    background: #e5e5e5;
-}
+dd.phpdebugbar-widgets-value.phpdebugbar-widgets-pretty {background: #e5e5e5;}
+.phpdebugbar-widgets-sql {text-align: left;}
 
-
-.phpdebugbar-widgets-sql {
-    text-align: left;
-}
-
-div.phpdebugbar-widgets-sqlqueries table.phpdebugbar-widgets-params td {
-    font-size: 0.85em;
-    vertical-align: middle;
-}
+div.phpdebugbar-widgets-sqlqueries table.phpdebugbar-widgets-params td {font-size: 0.85em;  vertical-align: middle;}
 div.phpdebugbar-widgets-sqlqueries table.phpdebugbar-widgets-params td.phpdebugbar-widgets-name {
     padding: 3px;
     background: #ccc;
 }
 
-div.phpdebugbar-widgets-sqlqueries table.phpdebugbar-widgets-params td.phpdebugbar-widgets-value {
-    padding: 3px;
-}
+div.phpdebugbar-widgets-sqlqueries table.phpdebugbar-widgets-params td.phpdebugbar-widgets-value {padding: 3px;}
+dl.phpdebugbar-widgets-varlist, dl.phpdebugbar-widgets-htmlvarlist {font-size: 0.85em;}
 
-dl.phpdebugbar-widgets-varlist, dl.phpdebugbar-widgets-htmlvarlist
-{
-    font-size: 0.85em;
-}
