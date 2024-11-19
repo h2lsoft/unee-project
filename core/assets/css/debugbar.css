@@ -1,5 +1,27 @@
 div.phpdebugbar {
     border:0!important;
+    font-family:Consolas,"Courier New",monospace;
+}
+
+div.phpdebugbar *:not(i) {
+    font-family:Consolas,"Courier New",monospace!important;
+}
+
+div.phpdebugbar dl {
+    display:inline;
+}
+
+dl.phpdebugbar-widgets-kvlist dt {
+    min-width: auto;
+}
+
+.phpdebugbar-fa-database,
+.phpdebugbar-fa-tasks,
+.phpdebugbar-fa-list-alt
+{
+
+    display: inline-block!important;
+    margin-right:8px!important;
 }
 
 a.phpdebugbar-restore-btn {
