@@ -226,8 +226,8 @@ class User extends \Core\Entity
                        xcore_plugin.route_prefix_name = :route
                 LIMIT
                        1";
-		
-		$route = \Model\Plugin::extractName();
+
+		$route = (empty($plugin)) ? \Model\Plugin::extractName() : $plugin;
 		$rec = Db()->query($sql, [':action' => $right, ':route' => $route, ':group' => \Core\Session::get('auth.xcore_group_id')])->fetch();
 
 
