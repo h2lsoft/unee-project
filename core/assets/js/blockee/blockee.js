@@ -1846,6 +1846,12 @@ class blockeeEditor {
             return;
         }
 
+        if(e.altKey && e.key === '6') {
+            e.preventDefault();
+            BlockeePlugin__h6.insert();
+            return;
+        }
+
         // insert hr
         if(e.altKey && e.key === '-') {
             e.preventDefault();
