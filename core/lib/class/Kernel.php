@@ -139,6 +139,36 @@ class Kernel extends HttpKernel {
 			$this->debugbar = new \DebugBar\DebugBar();
 			
 			$cfg = (array)\Core\Config::get();
+
+
+			// mask data sensitive
+			$stack = [&$cfg];
+
+			while (!empty($stack)) {
+				$current_array = &$stack[array_key_last($stack)];
+				array_pop($stack);
+
+				foreach ($current_array as $key => &$value)
+				{
+					if(in_array($key, ['password', 'pass', 'pwd', 'api_key']) || str_contains($key, '.password'))
+					{
+						if (!is_array($value))
+							$value = '*******';
+						else
+							$stack[] = &$value;
+
+					}
+					elseif(is_array($value))
+					{
+						$stack[] = &$value;
+					}
+
+				}
+
+				unset($value);
+			}
+
+
 			
 			$cfg['APP_PATH'] = APP_PATH;
 			$cfg['APP_PACKAGE'] = APP_PACKAGE;
