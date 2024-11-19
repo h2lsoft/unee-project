@@ -27,6 +27,10 @@
 
     border: 1px solid #ddd;
     border-radius: 5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+
+
     box-shadow: 0 0 10px #ccc;
 
     padding: 0px 0px;
@@ -43,9 +47,9 @@
 }
 
 .blockee-editor__menu--header {
-    text-align: center;
+    text-align: left;
     background: #ddd;
-    padding: 2px 5px;
+    padding: 2px 8px;
     font-weight: bold;
     font-size: 11px;
 }
