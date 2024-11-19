@@ -13,6 +13,12 @@ return [
 		// PAGE MANAGER ################################################################################################
 		'page' => [
 
+					'widget' => [
+									'limit' => 20,
+									'where' => "",
+									'where_parameters' => [],
+					],
+
 					'type' => [
 									'page', 'article', 'dynamic', 'url', 'url external'
 					],

@@ -777,7 +777,9 @@ SQL;
 	 */
 	public static function widgetRender(): string
 	{
-		$limit = \Core\Globals::get('page::widget-recent-limit', 20);
+		$limit = \Core\Config::get('frontend/page/widget/limit', 20);
+		$where = \Core\Config::get('frontend/page/widget/where', '');
+		$where_params = \Core\Config::get('frontend/page/widget/where_parameters', []);
 
 		$data = [];
 
@@ -786,7 +788,7 @@ SQL;
 						(select login from xcore_user where id = xcore_user_id) as author, 
 						(select avatar from xcore_user where id = xcore_user_id) as user_avatar
 					";
-		$pages = \Model\Page::all('', [], $fields, '', 'updated_at desc', $limit);
+		$pages = \Model\Page::all($where, $where_params, $fields, '', 'updated_at desc', $limit);
 
 		for($i=0; $i < count($pages); $i++)
 		{
