@@ -25,7 +25,8 @@ $dispatcher->addListener('kernel.response', function(ResponseEvent $event) {
 	
 	$bar = "\n".$debugbarRenderer->renderHead();
 	$bar .= "\n".$debugbarRenderer->render();
-	
+	$bar .= "\n<link rel=\"stylesheet\" type=\"text/css\" href=\"/core/assets/css/debugbar.css\">";
+
 	// check if there is a body envlop
 	if(!str_contains($c, '</body>'))
 		$c .= $bar;
