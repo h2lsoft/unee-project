@@ -252,6 +252,7 @@ class User extends \Core\Entity
 	public static function getAvatarBadge(int $id, string|null $avatar_img, string $lastname_or_login, string $firstname=""):string
 	{
 		if(empty($avatar_img))$avatar_img = '0.png';
+		$avatar_img = basename($avatar_img);
 		$avatar_img_url = \Core\Config::get('dir/avatar')."/{$avatar_img}";
 		$avatar_img_url = get_absolute_path($avatar_img_url);
 
