@@ -14,12 +14,17 @@
         </div>
 
         <div class="col-1 text-nowrap pt-1 text-end"><i18n>Language</i18n></div>
-        <div class="col-2">
+        <div class="col-1">
             <select name="language" class="form-select">
             {% for l in langs %}
                 <option value="{{ l[0] }}" {% if l[0] == language %}selected{% endif %}><i18n>{{ l[1] }}</i18n></option>
             {% endfor %}
             </select>
+        </div>
+
+        <div class="col-1 text-nowrap pt-1 text-end">Page id</div>
+        <div class="col-1">
+            <input type="number" id="page_id" class="form-control text-center">
         </div>
 
         <div class="col-1">

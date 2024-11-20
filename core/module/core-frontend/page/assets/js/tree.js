@@ -6,6 +6,9 @@ $(function(){
 
         uri = "?"+$(this).serialize();
 
+        if($('#page_id').val() != '')
+            uri = "edit/"+$('#page_id').val()+"/";
+
         if(swup)
             swup.navigate(uri);
         else
