@@ -1,5 +1,7 @@
 class BlockeePlugin__h5 {
 
+    static mount(){}
+
     static info(){
         return {
             name: 'H5',
@@ -8,7 +10,6 @@ class BlockeePlugin__h5 {
             settings: true
         }
     }
-
 
     static insert() {
 

@@ -34,9 +34,10 @@ const blockeeEditorI18n = {
 	align_right: {en:"Align right", fr:"Aligner à droite"},
 
 	paste_table: {en:"Paste table from clipboard", fr:"Coller table du presse papier"},
-	gallery: {en:"Gallery", fr:"Galery"},
+	gallery: {en:"Gallery", fr:"Galerie"},
 
-	parent_page_help: {en:"Parent page (empty = current page)", fr:"Page parente (vide = page courante)"},
+	parent_page_help: {en:"Parent page", fr:"Page parente"},
+	parent_page_empty: {en:"(empty=current page)", fr:"(vide = page en cours)"},
 
 
 	clear_all_confirmation_msg : {en:"Would you like to erase all blocks ?", fr:"Voulez-vous supprimer tous les blocks ?"},

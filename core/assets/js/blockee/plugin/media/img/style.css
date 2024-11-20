@@ -14,3 +14,7 @@
 
 
 
+.blockee-editor .blockee-editor-block-element--img img:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}

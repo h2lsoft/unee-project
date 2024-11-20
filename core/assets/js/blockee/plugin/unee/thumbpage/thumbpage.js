@@ -1,5 +1,17 @@
 class BlockeePlugin__thumbpage {
 
+    static mount(){
+
+        $('body').on('click', '[data-blockee-type="thumbpage"]', function(e){
+
+            $('.blockee-editor-block').removeClass('active');
+            $(this).parents('.blockee-editor-block').addClass('active');
+            $('.blockee-editor__menu-block').data('blockee-type', 'thumbpage');
+            blockeeEditor.blockSettingsOpen();
+        });
+
+    }
+
     static info(){
         return {
             name: 'Thumbpage',
@@ -23,10 +35,11 @@ class BlockeePlugin__thumbpage {
         let parent_page = $node.data('parent-page') ?? '';
 
         const text_parent_page =  blockeeEditor.i18n('parent_page_help');
+        const text_parent_page_empty =  blockeeEditor.i18n('parent_page_empty');
 
         let form = `<div class="blockee-editor-form-row">                                
                                 <div class="blockee-editor-form-label">${text_parent_page}</div>
-                                <input type="text" name="parent_page" value="${parent_page}" placeholder="name - #parent_page_id (empty=current page)">
+                                <input type="text" name="parent_page" value="${parent_page}" placeholder="name - #parent_page_id ${text_parent_page_empty}">
                              </div>`;
 
 

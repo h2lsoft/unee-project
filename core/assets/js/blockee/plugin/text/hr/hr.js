@@ -1,5 +1,7 @@
 class BlockeePlugin__hr {
 
+    static mount(){}
+
     static info(){
         return {
                     name: 'hr',

@@ -1,5 +1,7 @@
 class BlockeePlugin__table {
 
+	static mount(){}
+
 	static focused_element = null;
 
 	static info(){

@@ -33,5 +33,9 @@
     padding: 3px;
     font-size: 12px;
     margin-left: -10px;
+}
 
+.blockee-editor-block-element--xplugin:hover {
+    background-color: #ddd;
+    cursor: pointer;
 }

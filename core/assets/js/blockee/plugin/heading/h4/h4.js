@@ -1,5 +1,7 @@
 class BlockeePlugin__h4 {
 
+    static mount(){}
+
     static info(){
         return {
             name: 'H4',

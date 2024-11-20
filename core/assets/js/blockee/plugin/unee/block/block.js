@@ -1,5 +1,16 @@
 class BlockeePlugin__block {
 
+    static mount()
+    {
+        $('body').on('click', '[data-blockee-type="block"]', function(e){
+
+            $('.blockee-editor-block').removeClass('active');
+            $(this).parents('.blockee-editor-block').addClass('active');
+            $('.blockee-editor__menu-block').data('blockee-type', 'block');
+            blockeeEditor.blockSettingsOpen();
+        });
+    }
+
     static info(){
         return {
             name: 'Block',

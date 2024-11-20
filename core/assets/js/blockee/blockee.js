@@ -120,6 +120,9 @@ class blockeeEditor {
 
                 let plugin_keywords = info.keywords;
 
+                // mount detected
+                let mount = eval(signature+".mount()");
+
                 render += `<li data-blockee-group="${group}" data-blockee-plugin-keywords="${plugin_keywords}" data-blockee-plugin="${plugin_name}" onclick="BlockeePlugin__${plugin_name}.insert(); "><img src="${blockeeEditorUrl}/${plugin_path}/icon.svg"> ${info.title}</li>`;
 
             });
@@ -214,6 +217,7 @@ class blockeeEditor {
 
         // init link text toolbar
         let text_link_properties = blockeeEditor.i18n('link_properties');
+        let select_file = blockeeEditor.i18n('select_file');
 
         render += `
         <div class="blockee-editor-window blockee-editor-window--link">
@@ -225,7 +229,7 @@ class blockeeEditor {
                     <div class="blockee-editor-form-row">
                         <div class="blockee-editor-form-label">Href</div>                        
                         <input type="text" name="text_link_href" value="">
-                        <button type="button" class="blockee-editor-form-button blockee-editor-form-button-filemanager" onclick="blockeeEditor.fileManagerOpen('text_link_href')">Select file...</button>                                                                              
+                        <button type="button" class="blockee-editor-form-button blockee-editor-form-button-filemanager" onclick="blockeeEditor.fileManagerOpen('text_link_href')">${select_file}...</button>                                                                              
                    </div>
                    
                    <div class="blockee-editor-form-row">

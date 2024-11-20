@@ -1,5 +1,8 @@
 class BlockeePlugin__iframe {
 
+    static mount(){
+    }
+
     static info(){
         return {
                     name: 'Iframe',

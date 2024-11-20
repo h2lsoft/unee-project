@@ -30,3 +30,8 @@
     padding: 3px;
     font-size: 12px;
 }
+
+.blockee-editor-block-element--xthumbpage:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}

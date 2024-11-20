@@ -32,3 +32,8 @@
     font-size: 12px;
 
 }
+
+.blockee-editor-block-element--xgallery:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}

@@ -1,5 +1,7 @@
 class BlockeePlugin__details {
 
+    static mount(){}
+
     static info(){
         return {
             name: 'Details',

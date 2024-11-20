@@ -1,5 +1,7 @@
 class BlockeePlugin__audio {
 
+    static mount(){}
+
     static info(){
         return {
             name: 'Audio',

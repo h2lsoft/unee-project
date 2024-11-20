@@ -1,5 +1,7 @@
 class BlockeePlugin__html {
 
+    static mount(){}
+
     static info(){
         return {
             name: 'Html',

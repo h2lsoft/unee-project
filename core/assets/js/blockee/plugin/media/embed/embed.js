@@ -1,5 +1,18 @@
 class BlockeePlugin__embed {
 
+    static mount(){
+
+        $('body').on('click', '[data-blockee-type="embed"]', function(e){
+
+            $('.blockee-editor-block').removeClass('active');
+            $(this).parents('.blockee-editor-block').addClass('active');
+            $('.blockee-editor__menu-block').data('blockee-type', 'embed');
+            blockeeEditor.blockSettingsOpen();
+        });
+
+
+    }
+
     static info(){
         return {
                     name: 'Embed',

@@ -13,6 +13,12 @@
     position: relative;
 
     margin-bottom: 10px;
+
+}
+
+.blockee-editor-block-element--xblock:hover {
+    background-color: #ddd;
+    cursor: pointer;
 }
 
 .blockee-editor-block-element--xblock::after {

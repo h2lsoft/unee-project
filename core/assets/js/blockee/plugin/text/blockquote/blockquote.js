@@ -1,5 +1,7 @@
 class BlockeePlugin__blockquote {
 
+    static mount(){}
+
     static info(){
         return {
                     name: 'Blockquote',

@@ -1,5 +1,16 @@
 class BlockeePlugin__gallery {
 
+    static mount(){
+
+        $('body').on('click', '[data-blockee-type="gallery"]', function(e){
+            $('.blockee-editor-block').removeClass('active');
+            $(this).parents('.blockee-editor-block').addClass('active');
+            $('.blockee-editor__menu-block').data('blockee-type', 'gallery');
+            blockeeEditor.blockSettingsOpen();
+        });
+
+    }
+
     static info(){
         return {
             name: 'Gallery',

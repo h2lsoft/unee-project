@@ -1,5 +1,7 @@
 class BlockeePlugin__pre {
 
+    static mount(){}
+
     static info(){
         return {
                     name: 'Pre',

@@ -1,5 +1,20 @@
 class BlockeePlugin__img {
 
+    static mount(){
+
+        $('body').on('click', '[data-blockee-type="img"] img', function(e){
+
+            $('.blockee-editor-block').removeClass('active');
+            $(this).parents('.blockee-editor-block').addClass('active');
+            $('.blockee-editor__menu-block').data('blockee-type', 'img');
+            blockeeEditor.blockSettingsOpen();
+
+        });
+
+
+
+    }
+
     static info(){
         return {
             name: 'Img',
@@ -44,6 +59,8 @@ class BlockeePlugin__img {
         let a_class = $node.parent('a').attr('class') ?? '';
         let a_style = $node.parent('a').attr('style') ?? '';
 
+        let select_file = blockeeEditor.i18n('select_file');
+
         let render =
             {
                 tab_advanced: true,
@@ -53,7 +70,7 @@ class BlockeePlugin__img {
                             contents: `<div class="blockee-editor-form-row">                                
                                             <div class="blockee-editor-form-label">Src</div>
                                             <input type="text" name="src" value="${src}">
-                                            <button type="button" class="blockee-editor-form-button blockee-editor-form-button-filemanager" onclick="blockeeEditor.fileManagerOpen('src', '&filter=image')">Select file...</button>
+                                            <button type="button" class="blockee-editor-form-button blockee-editor-form-button-filemanager" onclick="blockeeEditor.fileManagerOpen('src', '&filter=image')">${select_file}...</button>
                                        </div>
                                        
                                        <div class="blockee-editor-form-row">                                

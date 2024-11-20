@@ -1,5 +1,17 @@
 class BlockeePlugin__slider {
 
+    static mount(){
+
+        $('body').on('click', '[data-blockee-type="slider"]', function(e){
+
+            $('.blockee-editor-block').removeClass('active');
+            $(this).parents('.blockee-editor-block').addClass('active');
+            $('.blockee-editor__menu-block').data('blockee-type', 'slider');
+            blockeeEditor.blockSettingsOpen();
+        });
+
+    }
+
     static info(){
         return {
             name: 'Slider',

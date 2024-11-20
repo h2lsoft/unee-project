@@ -22,5 +22,10 @@
     background-repeat: no-repeat;
     background-position: center center;
 
+
 }
 
+.blockee-editor .blockee-editor-block-element--embed:empty:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}
