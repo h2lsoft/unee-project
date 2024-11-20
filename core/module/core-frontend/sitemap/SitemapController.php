@@ -40,7 +40,7 @@ class SitemapController extends \Core\Controller {
 			{
 				foreach($languages as $lang)
 				{
-					$fields = "id, name, url, sitemap_priority, sitemap_change_freq, sitemap_pagination_pattern, sitemap_follow_url_pattern, sitemap_follow_url_priority";
+					$fields = "id, language, name, url, sitemap_priority, sitemap_change_freq, sitemap_pagination_pattern, sitemap_follow_url_pattern, sitemap_follow_url_priority";
 
 					$where = "language = :lang and xcore_page_zone_id = :zone_id and status = 'published' and sitemap_priority not in('', 0)";
 					$params = [':lang' => $lang[0], ':zone_id' => $zone_id];
@@ -63,8 +63,6 @@ class SitemapController extends \Core\Controller {
 						// pagination detected
 						if(!empty($p['sitemap_pagination_pattern']))
 						{
-
-
 							// get all pagination
 							$max_page = 1;
 							if($contents = file_get_contents($p['url']))
