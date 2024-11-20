@@ -158,11 +158,13 @@ return [
 
 
 		// MAINTENANCE #################################################################################################
-		'maintenance' => false,
-		'maintenance.sentence' => "", # if empty display default, if http or slash => redirect
+		'maintenance' => true,
+		'maintenance.information' => "", # if empty display default, if http or slash => redirect
+		'maintenance.information.logo_url' => "/public/default/assets/img/logo.png",
+		'maintenance.template' => "/core/module/core-frontend/page/view/maintenance.twig", # if empty display default template
 		'maintenance.ips_allowed' => [],
-		'maintenance.ips_allowed_include_debug' => false,
-		'maintenance.url_exclude' => [],
+		'maintenance.ips_allowed_include_debug' => false, // aloso add debug ip allowed
+		'maintenance.url_exclude_patterns' => [], // patterns url to exclude
 
 		// ASSETS ######################################################################################################
 		'minify' => false,

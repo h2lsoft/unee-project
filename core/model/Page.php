@@ -1,6 +1,7 @@
 <?php
 namespace Model;
 
+use Core\Debugbar;
 use Symfony\Component\HttpFoundation\Response;
 
 
@@ -36,6 +37,63 @@ class Page extends \Core\Entity
 
 	public static function render(string|array $url, string $where_add="", array $where_add_params=[], array $data=[]):Response
 	{
+
+		// maintenance mode
+		$cur_ip = getVisitorIp();
+		$ips_allowed = \Core\Config::get('frontend/maintenance.ips_allowed');
+
+		if(\Core\Config::get('frontend/maintenance.ips_allowed_include_debug') && count(\Core\Config::get('debug_for_ip')))
+			$ips_allowed = array_merge($ips_allowed, \Core\Config::get('debug_for_ip'));
+
+
+		if(\Core\Config::get('frontend/maintenance') && !in_array($cur_ip, $ips_allowed))
+		{
+			// url exlude ?
+			$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443 ? "https://" : "http://";
+			$cur_url = $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
+			$url_exclude_patterns = \Core\Config::get('frontend/maintenance.url_exclude_patterns');
+			$url_exclude_found = false;
+			foreach($url_exclude_patterns as $url_exclude_pattern)
+			{
+				if(preg_match($url_exclude_pattern, $cur_url))
+				{
+					$url_exclude_found = true;
+					break;
+				}
+			}
+
+			if(!$url_exclude_found)
+			{
+				Debugbar::disable();
+
+				$maintenance_info = \Core\Config::get('frontend/maintenance.information');
+
+				// redirect url
+				if(str_starts_with($maintenance_info, 'http') || str_starts_with($maintenance_info, '/'))
+				{
+					http_redirect($maintenance_info);
+					die();
+				}
+
+				if(empty($maintenance_info))
+				{
+					$tpl = \Core\Config::get('frontend/maintenance.template');
+					return View($tpl, ['locale' => App()->locale, 'logo_url' => \Core\Config::get('frontend/maintenance.information.logo_url')], 503);
+
+				}
+				else
+				{
+					return new \Core\Response($maintenance_info, 503);
+				}
+
+			}
+
+
+		}
+
+
+		// normal mode
 		$where = "";
 
 		if(!User::isLogon() || !User::hasRight('edit', 'page'))

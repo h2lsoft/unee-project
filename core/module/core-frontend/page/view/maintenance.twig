@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        {% if locale == 'fr' %}
+            Site Maintenance
+        {% else %}
+            Under Maintenance
+        {% endif %}
+    </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f3f4f6;
+            line-height: 1.5;
+            padding: 20px;
+            overflow: hidden;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #1f2937;
+            font-size: 28px;
+            margin: 0 0 20px;
+        }
+        p {
+            color: #4b5563;
+            margin: 0 0 15px;
+        }
+
+        .logo {
+            margin-bottom: 30px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+
+    {% if logo_url is not empty %}
+    <div class="logo">
+        <img src="{{ logo_url }}" alt="Logo" style="height: 150px;" />
+    </div>
+    {% endif %}
+
+    <h1>
+        {% if locale == 'fr' %}
+            Site Maintenance
+        {% else %}
+            Under Maintenance
+        {% endif %}
+
+    </h1>
+    <p style="color: cornflowerblue">
+        <strong>
+        {% if locale == 'fr' %}
+            Nous procédons actuellement à une maintenance programmée
+        {% else %}
+            We're currently performing scheduled maintenance
+        {% endif %}
+        </strong>
+    </p>
+    <p>
+        {% if locale == 'fr' %}
+            Nous travaillons pour améliorer nos services et serons de retour sous peu.
+            Nous vous remercions de votre patience.
+        {% else %}
+            We're working hard to improve our services and will be back shortly.
+            Thank you for your patience.
+        {% endif %}
+
+    </p>
+
+</div>
+</body>
+</html>
