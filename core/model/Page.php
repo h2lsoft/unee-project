@@ -417,7 +417,7 @@ class Page extends \Core\Entity
 
 			$frontbar = file_get_contents(APP_PATH."/core/module/core-frontend/page/view/toolbar.html");
 			$frontbar = str_replace('[PAGE_ID]', $page['id'], $frontbar);
-			$frontbar = str_replace('[BACKEND_DIR]', \Core\Config::get('backend/dirname'), $frontbar);
+			$frontbar = str_replace('[BACKEND_URL]', \Core\Config::get('frontend/toolbar_url_prefix')."/".\Core\Config::get('backend/dirname')."/", $frontbar);
 			$frontbar = str_replace('[BACKEND_PAGE_EDIT_URL]', $page_edit_url, $frontbar);
 			$frontbar = str_replace('[BACKEND_PAGE_ZONE_URL]', $pages_zone_url, $frontbar);
 
