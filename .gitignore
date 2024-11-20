@@ -2,7 +2,6 @@
 /vendor/*
 /config/*
 /.tests/*
-/.tmp/*
 /.archives/*
 /.assets/*
 /.bin/*
