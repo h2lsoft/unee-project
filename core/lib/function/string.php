@@ -405,6 +405,7 @@ function file_get_extension(string $file, bool $lowercase=true):string
 function get_absolute_path(string $str):string
 {
 	$str = str_erase(APP_PATH, $str);
+	$str = str_replace('//', '/', $str);
 	return $str;
 }
 
