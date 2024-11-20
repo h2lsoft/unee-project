@@ -149,12 +149,33 @@ a {text-decoration: none!important;}
 body.scrolled #scrolly {display: block}
 
 
-.swup-progress-bar {height: 2px; background-color: magenta;}
-html.is-animating {
-	cursor: wait;
-	pointer-events: none;
+/* swup */
+.transition-main {
+	transition-property: opacity, transform;
+	transition-duration: 250ms;
+	transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+	transform: translateX(0);
+	opacity: 1;
 }
 
+html.is-animating .transition-main {
+	opacity: 0;
+	transform: translateX(-1em);
+}
+
+html.is-leaving .transition-main {
+	transform: translateX(1em);
+}
+
+
+html.is-animating.to-left .transition-main {
+	opacity: 0;
+	transform: translateX(1em);
+}
+
+html.is-leaving.to-left .transition-main {
+	transform: translateX(-1em);
+}
 
 
 /* interface */

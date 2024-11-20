@@ -41,26 +41,13 @@ $('body').on('click', '.app-menu .sidebar-item', function(e){
 });
 */
 
-/*
-$('.app-menu .sidebar-item').each(function(){
-	
-	cur_path = document.location.pathname;
-	tmp = explode('/', cur_path);
-	if(tmp.length >=  3)
-	{
-		cur_path = '/'+tmp[1]+'/'+tmp[2];
-	}
-	
-	cur_href = $(this).attr('href');
-	
-	if(cur_href.indexOf(cur_path) != -1)
-	{
-		$(this).addClass('active');
-		$(this).parents('ul').prev('.sidebar-parent').addClass('active');
-		return false;
-	}
+$('body').on('click', '.app-menu .sidebar-item', function(e){
+	$('.app-menu').css('width', '50px');
+	setTimeout(function(){
+		$('.app-menu').css('width', 'auto');
+	}, 300);
 });
-*/
+
 
 
 // misc
@@ -313,16 +300,9 @@ const linkSelector = linkInclude.map(include => `${include}${exclude}`).join(','
 const swup_options = {
 	cache: false,
 	linkSelector:linkSelector,
-
-	animationSelector: false,
-
-	plugins: [new SwupProgressPlugin({
-		className: 'swup-progress-bar',
-		transition: 300,
-		delay: 300,
-		initialValue: 0.25,
-		finishAnimation: true
-	})]
+	containers: ["#swup"],
+	// animationSelector: false,
+	plugins: []
 };
 const swup = new Swup(swup_options);
 

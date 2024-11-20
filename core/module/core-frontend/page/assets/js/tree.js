@@ -50,9 +50,9 @@ $(function(){
     $('body').on('dblclick', '.tree-wrapper ul li a.page', function(e){
 
         uri = $(this).attr('href');
-        /*if(swup)
+        if(swup)
             swup.navigate(uri);
-        else*/
+        else
             document.location.href = uri;
     });
 
