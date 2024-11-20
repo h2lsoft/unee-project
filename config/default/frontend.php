@@ -10,6 +10,8 @@ return [
 			// ['fr', 'Français'],
 		],
 
+		'toolbar_url_prefix' => '',
+
 		// PAGE MANAGER ################################################################################################
 		'page' => [
 					'url_pattern' => "/{locale}/{slug}-{id}.html", // {locale} will be replaced by language, {id} by id and {slug} by slugify page name

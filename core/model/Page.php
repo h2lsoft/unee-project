@@ -397,23 +397,23 @@ class Page extends \Core\Entity
 
 			$response->setContent($content);
 		}
-		
+
 		// frontbar
 		if($page && \Model\User::isLogon() && \Model\User::hasRight('edit', 'page'))
 		{
 			$content = $response->getContent();
 
-			$page_edit_url = \Core\Config::get('url')."/".\Core\Config::get('backend/dirname')."/page/edit/{$page['id']}/";
+			$page_edit_url = \Core\Config::get('frontend/toolbar_url_prefix')."/".\Core\Config::get('backend/dirname')."/page/edit/{$page['id']}/";
 			if(!empty(\Model\Page::$page_edit_url))
 			{
 				$page_edit_url = \Model\Page::$page_edit_url;
 				if($page_edit_url[0] != '/' && !str_starts_with($page_edit_url, 'http'))
 					$page_edit_url = '/'.$page_edit_url;
 
-				$page_edit_url = \Core\Config::get('url').$page_edit_url;
+				$page_edit_url = \Core\Config::get('frontend/toolbar_url_prefix').$page_edit_url;
 			}
 
-			$pages_zone_url = \Core\Config::get('url')."/".\Core\Config::get('backend/dirname')."/page/?xcore_page_zone_id={$page['xcore_page_zone_id']}&language={$page['language']}&auto_select_id={$page['id']}";
+			$pages_zone_url = \Core\Config::get('frontend/toolbar_url_prefix')."/".\Core\Config::get('backend/dirname')."/page/?xcore_page_zone_id={$page['xcore_page_zone_id']}&language={$page['language']}&auto_select_id={$page['id']}";
 
 			$frontbar = file_get_contents(APP_PATH."/core/module/core-frontend/page/view/toolbar.html");
 			$frontbar = str_replace('[PAGE_ID]', $page['id'], $frontbar);
@@ -422,8 +422,8 @@ class Page extends \Core\Entity
 			$frontbar = str_replace('[BACKEND_PAGE_ZONE_URL]', $pages_zone_url, $frontbar);
 
 			$content = str_replace('</body>', "{$frontbar}</body>", $content);
-			
-			
+
+
 			$response->setContent($content);
 		}
 		
@@ -641,7 +641,12 @@ class Page extends \Core\Entity
 	 */
 	public static function getUrl(string $url='', string $language='', int $id=0, string $name='', string $website=''):string
 	{
-		if(!empty($url))return $url;
+		if(!empty($url))
+		{
+			if(!empty($website))
+				$url = rtrim($website, '/').$url;
+			return $url;
+		}
 
 		$slug = slugify($name);
 		$page_pattern = \Core\Config::get('frontend/page/url_pattern');
