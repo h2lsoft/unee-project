@@ -18,8 +18,7 @@
     "symfony/console": "^7",
     "symfony/event-dispatcher": "^7",
     "h2lsoft/validator": "^1",
-    "kint-php/kint-helpers": "^5",
-    "kint-php/kint-twig": "^5"
+    "hybridauth/hybridauth": "^3"
   },
   "require-dev": {
     "kint-php/kint": "^5"
