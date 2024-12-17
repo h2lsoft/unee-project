@@ -814,12 +814,26 @@ SQL;
 
 			}
 
+
 			$page['absolute_url'] = \Model\Page::getUrl($page['url'], $page['language'], $page['id'], $page['name'], $page['zone_website']);
 
 			$pages[$i] = $page;
 		}
 
+		// header buttons
+		$header_buttons = [];
+		$statuses = \Core\Config::get('frontend/page/status');
+		foreach($statuses as $ps)
+		{
+			$count = \Model\Page::count("status = :status", ["status" => $ps['value']]);
+			if(!$count)continue;
 
+			$ps['class'] = str_replace(' bg-', 'text-', $ps['class']);
+			$header_buttons[] = ['label' => $ps['label'], 'count' => $count, 'icon' => $ps['icon'], 'class' => $ps['class']];
+		}
+
+
+		$data['header_buttons'] = $header_buttons;
 		$data['pages'] = $pages;
 
 		$content = View('widget', $data, false);

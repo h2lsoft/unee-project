@@ -6,11 +6,21 @@
                 <i18n>RECENT PAGES</i18n>
             </h5>
 
-            <a style="margin-top: -15px" href="/@backend/page/" class="btn py-1 btn-sm btn-primary"><i18n>New page</i18n></a>
+            <div style="margin-top: -15px" class="widget-header-actions">
+
+                {% for b in header_buttons %}
+                    <a href="/@backend/page/" class="fw-normal btn py-1 btn-sm {{ b.class }}"><i class="{{ b.icon }}"></i> {{ b.count }} <i18n>{{ b.label }}</i18n></a>
+                {% endfor %}
+
+                <a href="/@backend/page/" class="btn py-1 btn-sm btn-primary"><i class="bi bi-plus"></i> <i18n>New page</i18n></a>
+            </div>
+
+
         </div>
 
 
         <div class="card-text pt-2" style="max-height: 400px; overflow-y: auto">
+
 
             <table class="datagrid table table-hover table-sm table-condensed">
                 <thead>
