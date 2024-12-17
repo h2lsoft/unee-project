@@ -17,7 +17,7 @@ class DataGrid {
 	private array $attributes = [];
 	
 	private int $record_per_page;
-	private array $per_page_options = [25, 50, 100, 500, 1000];
+	private array $per_page_options = [25, 50, 100, 250, 500, 1000];
 	private bool $pagination = true;
 	
 	private bool $batch_mode = false;
