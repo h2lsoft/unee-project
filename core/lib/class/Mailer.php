@@ -62,7 +62,7 @@ class Mailer
 	 *
 	 * @return bool
 	 */
-	public static function send(string|array $from, string $to, string $subject, string $body, array $attachments=[], array $options=[], array $data=[]):bool
+	public static function send(string|array $from, string $to, string $subject, string $body, array $attachments=[], array $options=[], array $data=[], array $headers=[]):bool
 	{
 		global $request;
 		
@@ -83,6 +83,12 @@ class Mailer
 		
 		if(!isset($options['charset']))$options['charset'] = 'utf-8';
 		$mail->CharSet = $options['charset'];
+
+		// add headers
+		foreach($headers as $header_name => $header_value)
+		{
+			$mail->addCustomHeader($header_name, $header_value);
+		}
 		
 		// html
 		$html_mode = (isset($options['html'])) ? $options['html'] : true;
@@ -157,8 +163,7 @@ class Mailer
 			foreach($to as $email)
 				$mail->addBCC($email);
 		}
-		
-		
+
 		$mail->Subject = $subject;
 		
 		// add envelop
