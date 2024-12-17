@@ -126,14 +126,17 @@
 
 
                         <select name="{{ f.name }}" id="{{ f.name }}" class="form-select {{ f.class }}" {% for attr_name, attr_value in f.attributes %}{{ attr_name }}="{{ attr_value }}"{% endfor %}>
-                            <option value=""><i18n>{{ f.caption }}</i18n></option>
+
+                            {% if f.caption != false %}
+                                <option value=""><i18n>{{ f.caption }}</i18n></option>
+                            {% endif %}
 
                             {% for o in f.options %}
 
                                 {% if o.optgroup is defined and o.optgroup == 1 %}
                                     <optgroup label="{{ o.label }}">
                                 {% else %}
-                                    <option value="{{ o.value }}" {% if f.value == o.value %}selected{% endif %}>{{ o.label }}</option>
+                                    <option value="{{ o.value }}" {% if f.value == o.value or (o.selected is defined and o.selected == true) %}selected{% endif %}>{{ o.label }}</option>
                                 {% endif %}
 
 

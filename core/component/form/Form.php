@@ -115,7 +115,7 @@ class Form {
 		$this->title = $title;
 	}
 	
-	public function initValue(string $col, string $value):void
+	public function initValue(string $col, string|array $value):void
 	{
 		$this->values[$col] = $value;
 	}
@@ -865,7 +865,7 @@ class Form {
 		return $this->validator->inputGet($name, $default);
 	}
 	
-	public function inputSet(string $name, string $value):void
+	public function inputSet(string $name, string|array $value):void
 	{
 		$this->validator->inputSet($name, $value);
 	}
