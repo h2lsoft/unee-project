@@ -101,10 +101,12 @@ class ArticleController extends \Core\Controller {
 	 */
 	public function getForm(int $id=0)
 	{
+
 		$theme_url = "/theme/".\Core\Config::get('frontend/theme');
 
+		$form_attr = (get('_popup') != 1) ? [] : ['data-success-notification' => 'ok'];
+		$form = new \Component\Form("", $form_attr);
 
-		$form = new \Component\Form();
 		$form->loadAssetsJs(['form.js']);
 		$form->linkController($this, $id);
 
