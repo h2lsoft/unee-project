@@ -9,3 +9,5 @@
 composer.lock
 test.php
 config/default/app.php
+/public/default/upload/avatar/1.jpg
+/public/default/upload/avatar/1_thumb.jpg
