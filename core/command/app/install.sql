@@ -789,7 +789,8 @@ INSERT INTO `xcore_plugin` (`id`, `xcore_menu_id`, `name`, `type`, `icon`, `rout
 INSERT INTO `xcore_plugin` (`id`, `xcore_menu_id`, `name`, `type`, `icon`, `route_prefix_name`, `actions`, `url`, `xcore_plugin_id`, `position`, `visible`, `versioning`, `active`, `deleted`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES (35, 2, 'Gallery card', 'normal', 'bi bi-file-image-fill', 'gallery-card', 'list\nadd\nedit\ndelete', '', 0, 16, 'no', 'no', 'yes', 'no', NOW(), 'superadmin', NULL, NULL, NULL, NULL);
 INSERT INTO `xcore_plugin` (`id`, `xcore_menu_id`, `name`, `type`, `icon`, `route_prefix_name`, `actions`, `url`, `xcore_plugin_id`, `position`, `visible`, `versioning`, `active`, `deleted`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES (36, 3, 'Mailing-list', 'normal', 'bi bi-person-lines-fill', 'mailinglist', 'list\nadd\nedit\ndelete\ndownload', '', 0, 17, 'yes', 'yes', 'yes', 'no', NOW(), 'superadmin', NOW(), '', NULL, NULL);
 INSERT INTO `xcore_plugin` (`id`, `xcore_menu_id`, `name`, `type`, `icon`, `route_prefix_name`, `actions`, `url`, `xcore_plugin_id`, `position`, `visible`, `versioning`, `active`, `deleted`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES (37, 3, 'Mailing-list subscriber', 'normal', 'bi bi-person-lines-fill', 'mailinglist-subscriber', 'list\nadd\nedit\ndelete', '', 0, 18, 'no', 'no', 'yes', 'no', NOW(), 'superadmin', NOW(), 'superadmin', NULL, NULL);
-
+INSERT INTO `xcore_plugin` (`id`, `xcore_menu_id`, `name`, `type`, `icon`, `route_prefix_name`, `actions`, `url`, `xcore_plugin_id`, `position`, `visible`, `versioning`, `active`, `deleted`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES (38, 4, 'Analytics', 'normal', 'bi bi-bar-chart-line-fill', 'analytics', 'exec', '', 0, 19, 'yes', 'no', 'yes', 'no', '2024-11-21 17:16:29', 'superadmin', '2024-12-08 14:37:35', 'superadmin', NULL, NULL);
+INSERT INTO `xcore_plugin` (`id`, `xcore_menu_id`, `name`, `type`, `icon`, `route_prefix_name`, `actions`, `url`, `xcore_plugin_id`, `position`, `visible`, `versioning`, `active`, `deleted`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES (39, 3, 'Newsletter', 'normal', 'bi bi-envelope-at-fill', 'newsletter', 'list\r\nadd\r\nedit\r\ndelete', '', 0, 20, 'yes', 'no', 'yes', 'no', '2024-12-16 11:54:21', 'superadmin', '2024-12-16 11:54:48', 'superadmin', NULL, NULL);
 
 
 INSERT INTO `xcore_widget` (`id`, `xcore_plugin_id`, `name`, `method`, `autorefresh`, `autorefresh_seconds`, `position`, `active`, `deleted`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES (1, 10, 'User bookmarks', '\\Core_Backend\\DashboardController::widgetBookmarkRender()', 'no', 0, 2, 'yes', 'no', '2024-05-28 16:25:13', 'superadmin', '2024-05-28 16:25:13', '', NULL, NULL);
@@ -797,10 +798,6 @@ INSERT INTO `xcore_widget` (`id`, `xcore_plugin_id`, `name`, `method`, `autorefr
 INSERT INTO `xcore_widget` (`id`, `xcore_plugin_id`, `name`, `method`, `autorefresh`, `autorefresh_seconds`, `position`, `active`, `deleted`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES (4, 24, 'Updater', '\\Core\\Live_UpdaterController::widgetRender()', 'no', 0, 1, 'yes', 'no', '2024-05-28 16:25:13', 'superadmin', '2024-05-28 16:25:13', '', NULL, NULL);
 
 INSERT INTO `xcore_page_zone` (`id`, `name`, `website`, `position`, `deleted`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES (1, 'MAIN MENU', '', 1, 'no', NOW(), 'superadmin', NULL, NULL, NULL, NULL);
-
-INSERT INTO `xcore_crontask` VALUES (1, 'System', 'Cleaner', '', '/core/cron/maintenance.inc.php', '', '*', '*', '4', '0', 'no', '', '', 'no', '', 'no', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 'yes', 'no', '2024-07-04 09:05:59', 'superadmin', '2024-07-04 09:10:27', 'superadmin', NULL, NULL);
-INSERT INTO `xcore_crontask` VALUES (2, 'System', 'Page and article', '', '/core/cron/system/page.inc.php', '', '*', '*', '*', '0,10,20,30,40,50', 'no', '', '', 'no', '', 'no', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 'yes', 'no', '2024-11-17 20:17:19', 'superadmin', '2024-12-16 22:49:01', 'superadmin', NULL, NULL);
-INSERT INTO `xcore_crontask` VALUES (3, 'System', 'Newsletter', '', '/core/cron/newsletter.inc.php', '', '*', '*', '*', '0', 'no', '', '', 'no', '', 'no', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 'yes', 'no', '2024-12-16 22:47:20', 'superadmin', NULL, NULL, NULL, NULL);
 
 
 
@@ -866,3 +863,9 @@ CREATE TABLE `xcore_newsletter_data` (
 )
 COLLATE='utf8mb4_general_ci'
 ENGINE=MyISAM;
+
+
+INSERT INTO `xcore_crontask` VALUES (1, 'System', 'Cleaner', '', '/core/cron/maintenance.inc.php', '', '*', '*', '4', '0', 'no', '', '', 'no', '', 'no', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 'yes', 'no', '2024-07-04 09:05:59', 'superadmin', '2024-07-04 09:10:27', 'superadmin', NULL, NULL);
+INSERT INTO `xcore_crontask` VALUES (2, 'System', 'Page and article', '', '/core/cron/system/page.inc.php', '', '*', '*', '*', '0,10,20,30,40,50', 'no', '', '', 'no', '', 'no', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 'yes', 'no', '2024-11-17 20:17:19', 'superadmin', '2024-12-16 22:49:01', 'superadmin', NULL, NULL);
+INSERT INTO `xcore_crontask` VALUES (3, 'System', 'Newsletter', '', '/core/cron/newsletter.inc.php', '', '*', '*', '*', '0', 'no', '', '', 'no', '', 'no', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 'yes', 'no', '2024-12-16 22:47:20', 'superadmin', NULL, NULL, NULL, NULL);
+
