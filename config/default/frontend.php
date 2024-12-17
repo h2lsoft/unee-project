@@ -27,12 +27,13 @@ return [
 					],
 
 
+
 					'status' => [
-									['label' => 'Draft', 'value' => 'draft', 'icon' => "bi bi-pencil"],
-									['label' => 'Waiting validation', 'value' => 'waiting validation'],
-									['label' => 'Scheduled', 'value' => 'scheduled'],
-									['label' => 'Published', 'value' => 'published'],
-								],
+						['label' => 'Draft', 'value' => 'draft', 'icon' => "bi bi-pencil", 'class' => 'text-white bg-warning'],
+						['label' => 'Waiting validation', 'value' => 'waiting validation', 'icon' => "bi bi-exclamation-triangle-fill", 'class' => 'text-white bg-info'],
+						['label' => 'Scheduled', 'value' => 'scheduled', 'icon' => "bi bi-clock", 'class' => 'text-white bg-dark'],
+						['label' => 'Published', 'value' => 'published', 'icon' => "bi bi-eye", 'class' => 'text-white bg-success'],
+					],
 
 					'featured' => [
 										'upload_max_size' => "1MB",
