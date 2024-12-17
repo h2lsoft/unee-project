@@ -38,7 +38,6 @@
     <script src="https://unpkg.com/htmx.org@2"></script>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
     <script src="https://unpkg.com/swup@4"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/6.0.0/bootbox.min.js"></script>
@@ -56,32 +55,36 @@
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <!-- /dropzone -->
 
+    <!-- chart -->
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- /chart -->
+
     {% for file in config_js_head %}
         <script src="{{ file }}"></script>
     {% endfor %}
 
     <script>
-    var QUERY_STRING = "{{ url_get_query_string() }}";
-    const APP_BACKEND_DIRNAME = '@backend';
-    const APP_LOCALE = '@locale';
-    const _I18N_CANCEL = '<i18n>Cancel</i18n>';
-    const _I18N_SUBMIT = '<i18n>Submit</i18n>';
-    const _I18N_I_CONFIRM = '<i18n>Yes, I confirm</i18n>';
-    const _I18N_MESSAGE_SAVED = '<i18n>Your information has been correctly saved</i18n>';
-    const _I18N_CONFIRMATION = '<i18n>Confirmation</i18n>';
-    const _I18N_CONFIRMATION_DELETE_FOLDER = '<i18n>Would you like to delete this folder?</i18n>';
-    const _I18N_CONFIRMATION_DELETE_FILE = '<i18n>Would you like to delete this file?</i18n>';
-    const _I18N_ENTER_NAME = '<i18n>Please fill a name</i18n>';
-    const _I18N_FINISH = '<i18n>Finish</i18n>';
+		var QUERY_STRING = "{{ url_get_query_string() }}";
+		const APP_BACKEND_DIRNAME = '@backend';
+		const APP_LOCALE = '@locale';
+		const _I18N_CANCEL = '<i18n>Cancel</i18n>';
+		const _I18N_SUBMIT = '<i18n>Submit</i18n>';
+		const _I18N_I_CONFIRM = '<i18n>Yes, I confirm</i18n>';
+		const _I18N_MESSAGE_SAVED = '<i18n>Your information has been correctly saved</i18n>';
+		const _I18N_CONFIRMATION = '<i18n>Confirmation</i18n>';
+		const _I18N_CONFIRMATION_DELETE_FOLDER = '<i18n>Would you like to delete this folder?</i18n>';
+		const _I18N_CONFIRMATION_DELETE_FILE = '<i18n>Would you like to delete this file?</i18n>';
+		const _I18N_ENTER_NAME = '<i18n>Please fill a name</i18n>';
+		const _I18N_FINISH = '<i18n>Finish</i18n>';
 
-    const _I18N_FILE = '<i18n>File</i18n>';
-    const _I18N_TYPE = '<i18n>Type</i18n>';
-    const _I18N_SIZE = '<i18n>Size</i18n>';
-    const _I18N_DETAILS = '<i18n>Details</i18n>';
-    const _I18N_COPY_LINK = '<i18n>Copy link</i18n>';
-    const _I18N_OPEN_FILE = '<i18n>Open file</i18n>';
-    const _I18N_DOWNLOAD = '<i18n>Download</i18n>';
-    const _I18N_SELECT = '<i18n>Select</i18n>';
+		const _I18N_FILE = '<i18n>File</i18n>';
+		const _I18N_TYPE = '<i18n>Type</i18n>';
+		const _I18N_SIZE = '<i18n>Size</i18n>';
+		const _I18N_DETAILS = '<i18n>Details</i18n>';
+		const _I18N_COPY_LINK = '<i18n>Copy link</i18n>';
+		const _I18N_OPEN_FILE = '<i18n>Open file</i18n>';
+		const _I18N_DOWNLOAD = '<i18n>Download</i18n>';
+		const _I18N_SELECT = '<i18n>Select</i18n>';
 
     </script>
 
@@ -113,6 +116,8 @@
 
 <script src="/core/theme/core-admin/assets/js/app-func.js"></script>
 <script src="/core/theme/core-admin/assets/js/app.js"></script>
+
+
 
 {% for file in config_js_body %}
     <script src="{{ file }}"></script>
