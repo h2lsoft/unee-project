@@ -24,6 +24,7 @@ class Mailinglist_SubscriberController extends \Core\Controller {
 		$datagrid->searchAddSelectSql('language');
 		$datagrid->searchAddText('lastname');
 		$datagrid->searchAddText('firstname');
+		$datagrid->searchAddText('email');
 		$datagrid->searchAddDatetime('date');
 
 
