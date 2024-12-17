@@ -1,7 +1,7 @@
 <?php
 
 return [
-	
+
 	// menu
 	'WEBSITE' => 'SITE INTERNET',
 	'TOOLS' => 'OUTILS',
@@ -45,9 +45,9 @@ return [
 	"parent plugin" => "plugin parent",
 	"Last connected" => "Dernière connexion",
 	"connected at" => "connecté(e) à",
-	
-	
-	
+
+
+
 	// component:datagrid
 	"Search" => "Rechercher",
 	"category" => "Catégorie",
@@ -76,7 +76,7 @@ return [
 	"Saved searches" => "Mes recherches enregistrées",
 	"no search found" => "aucune recherche trouvée",
 	"Please, enter a name for your search" => "Merci de renseigner le nom de votre recherche",
-	
+
 	// plugin:login
 	"Sign In" => "Connexion",
 	"Username" => "Nom utilisateur",
@@ -87,14 +87,14 @@ return [
 	"credentials not found" => "identifiants non trouvés",
 	"email not found or user not active" => "Email non trouvé ou utilisateur non actif",
 	"Your credentials has been correctly sent, please follow instructions inside" => "Vos informations d'identification ont bien été envoyées, merci de suivre les instructions à l'intérieur",
-	
+
 	// plugin:group
 	"Group" => "Groupe",
 	"group" => "groupe",
 	"Users" => "Utilisateurs",
 	"priority" => "priorité",
 	"active" => "actif",
-	
+
 	"Backend access" => "Accès backend",
 	"Frontend access" => "Accès frontend",
 	"You can't deactivate your group" => "Vous ne pouvez pas désactiver votre groupe",
@@ -102,7 +102,7 @@ return [
 	"You can't delete your group" => "Vous ne pouvez pas supprimer votre groupe",
 	"You can't delete superadmin group" => "Vous ne pouvez pas supprimer le groupe superadmin",
 	"All users will be also deleted" => "Tous les utilisateurs de ce group vont être également supprimés",
-	
+
 	// plugin:user
 	"User" => "Utilisateur",
 	"user" => "utilisateur",
@@ -149,29 +149,29 @@ return [
 	"website" => "site internet",
 	"Delivery note" => "Bon de livraison",
 	"Press enter to add a tag" => "Appuyer sur entrée pour ajouter un tag",
-	
-	
+
+
 	// plugin:log
 	"Log viewer" => "Journal des logs",
 	"values" => "valeurs",
 	"Purge all logs" => "Vider les logs",
 	"Would you like to purge all logs ?" => "Voulez-vous purger les logs ?",
 	"author" => "auteur",
-	
+
 	// plugin:mail_template
 	"Mail template" => "Modèle de mails",
 	"template" => "modèle",
-	
+
 	// plugin:right
 	"Right" => "Gestion des droits",
 	"User group" => "Groupe d'utilisateur",
 	"Your information has been saved" => "Vos information ont bien été enregistrées",
-	
+
 	// plugin:plugins
 	"Please, search by menu to reorder plugins" => "Merci de lancer une recherche pour réorganiser vos icônes",
 	"one action by line" => "une action par ligne",
 	"name of your plugin" => "nom de votre plugin",
-	
+
 	// plugin:crontask
 	"task" => "Tâche",
 	"locked" => "verrouillé",
@@ -309,6 +309,36 @@ return [
 	'refresh' => 'rechargement',
 
 
+	// analytics
+	'visitors since 5 minutes' => 'Visiteurs depuis 5 minutes',
+	'View statistics' => 'Voir les statistiques',
+	'Your period' => 'Période',
+	'Generate report' => 'Générer rapport',
+	'All websites' => 'Tous les sites',
+	'Total visitors' => "Total des visiteurs",
+	'Total visits' => "Total des vues",
+	'Visitors by website' => 'Visiteurs par site',
+	'Top pages' => 'Top pages',
+	'Visitors by device' => "Visiteurs par appareil",
+	'Top referrers' => "Top referrers",
+	'Last 7 days' => "7 derniers jours",
+	'Last 30 days' => "30 derniers jours",
+	'Last 90 days' => "90 derniers jours",
+	'Last 12 months' => "12 derniers mois",
+	'Current civil year (1st jan - 31 dec' => "Année civile en cours (1er jan - 31 déc",
+	'Last civil year (1st jan - 31 dec' => "Dernière année civile (1er jan - 31 déc",
+
+
+	// newsletter
+	'campaign' => 'campagne',
+	'Expeditor email' => 'Expéditeur email',
+	'Expeditor label' => 'Expéditeur libellé',
+	'Link add parameters' => "Ajouter paramètres aux liens",
+	'Programming' => "Programmation",
+	"Mailing-list is required" => "Merci de choisir votre mailing-list",
+	"Send test email" => "Envoyer un mail test",
+	"Report" => "Rapport",
+	"Scheduler" => "Programmation",
 
 
 
