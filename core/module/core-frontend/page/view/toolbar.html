@@ -26,6 +26,17 @@
         color: white;
     }
 
+    #frontbar-backdrop {
+
+        display: none;
+        position: fixed;
+        z-index: 99997;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 1);
+    }
 </style>
 <div id="frontbar">
 
@@ -48,28 +59,36 @@
         </svg>
     </a>
 
+
+
+
+</div>
+
+<div id="frontbar-backdrop"></div>
+<div id="frontbar-preview">
+    <iframe src=""></iframe>
 </div>
 <!-- /unee frontbar -->
 
 <script>
-	document.querySelector('.button-frontbar-edit-page').addEventListener('click', function(e) {
-		e.preventDefault(); // Prevent the default behavior of the link
+document.querySelector('.button-frontbar-edit-page').addEventListener('click', function(e) {
+    e.preventDefault();
 
-		const uri = this.getAttribute('href'); // Get the URL from the 'href' attribute
+    const uri = this.getAttribute('href'); // Get the URL from the 'href' attribute
 
-		// Calculate the dimensions of the popup (90% of the available screen size)
-		const width = Math.floor(window.innerWidth * 0.9);
-		const height = Math.floor(window.innerHeight * 0.9);
+    // Calculate the dimensions of the popup (90% of the available screen size)
+    const width = Math.floor(window.innerWidth * 0.9);
+    const height = Math.floor(window.innerHeight * 0.9);
 
-		// Use screen.availWidth and screen.availHeight to calculate the position
-		const left = (window.top.outerWidth / 2) + (window.top.screenX) - ( width / 2);
-		const top =( window.top.outerHeight / 2) + (window.top.screenY) - ( height / 2);
+    // Use screen.availWidth and screen.availHeight to calculate the position
+    const left = (window.top.outerWidth / 2) + (window.top.screenX) - ( width / 2);
+    const top =( window.top.outerHeight / 2) + (window.top.screenY) - ( height / 2);
 
-		// Open a new popup window with the specified dimensions and position
-		window.open(
-			uri, // The URL to open
-			'unee_live_editor', // A name for the new window
-			`width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes` // Popup options
-		);
-	});
+    // Open a new popup window with the specified dimensions and position
+    window.open(
+        uri, // The URL to open
+        'unee_live_editor', // A name for the new window
+        `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes` // Popup options
+    );
+});
 </script>
