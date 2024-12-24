@@ -5,7 +5,7 @@ var blockeeEditorPlugins = {
 
     'heading': ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
     'text': ['p', 'list', 'table', 'hr',  'blockquote', 'details', 'html', 'code', 'pre'],
-    'media' : ['img', 'audio', 'embed', 'iframe'],
+    'media' : ['img', 'audio', 'video', 'embed', 'iframe'],
     'unee' : ['block', 'slider', 'gallery', 'thumbpage', 'plugin'],
 };
 
@@ -695,38 +695,42 @@ class blockeeEditor {
     static actionMenuShow(source="")
     {
         let pos;
-        let top = '50%';
+        let top = '30%';
         let left = '50%';
+        let cur_scroll = $(window).scrollTop();
 
         if(source.toLowerCase() === "toolbar")
         {
             pos = $('.blockee-editor__button-add').offset();
-            top = pos.top + 180 - $(window).scrollTop();
-            left = pos.left - 100;
+            top = pos.top + 130;
+            left = pos.left + 80;
+
+            if($('body').hasClass('fullscreen'))
+            {
+                top = 60 + 130;
+                left -= 80;
+            }
         }
 
         if(source.toLowerCase() === "block")
         {
             pos = $('.blockee-editor__menu-block').offset();
+            top = pos.top + 100;
+            left = pos.left + 75;
+            $('.blockee-editor__menu-block').hide();
 
-            let cur_scroll = $(window).scrollTop();
             if($('body').hasClass('fullscreen'))
             {
-                const $editor = $('.fullscreen');
-                cur_scroll = $editor.prop('scrollHeight');
+                top = pos.top + 50 + cur_scroll;
+                left = pos.left + 125;
             }
-
-            top = pos.top + 150  + cur_scroll;
-            left = pos.left + 120;
-
-            top = blockeeEditorMouseY;
-
-            $('.blockee-editor__menu-block').hide();
         }
 
-        $('.blockee-editor__menu-plugin').css({top: top, left:left}).show();
-        $('.blockee-editor-canvas').show();
+        $('.blockee-editor__menu-plugin').css({top: top, left: left});
 
+
+        $('.blockee-editor__menu-plugin').show();
+        $('.blockee-editor-canvas').show();
         $('.blockee-editor__menu-plugin')[0].scrollTop = 0;
         $('.blockee-editor__menu-plugin input[type=search]').val('').change().focus();
     }
@@ -746,11 +750,10 @@ class blockeeEditor {
 
     static actionBlockMenuShow(node)
     {
-        let top = blockeeEditorMouseY + 60;
-        let left = blockeeEditorMouseX + 75;
+        let cur_scroll;
+        let top;
+        let left;
 
-        $('.blockee-editor__menu-block').css({top: top, left:left}).show();
-        $('.blockee-editor-canvas').show();
 
         let current_block_type = $(node).parent('.blockee-editor-block').data('type');
         const signature = 'BlockeePlugin__'+current_block_type;
@@ -765,12 +768,32 @@ class blockeeEditor {
 
 
         $('.blockee-editor__menu-block').data('blockee-type', current_block_type);
-
         $('.blockee-editor-block.active').removeClass('active');
         $(node).parent('.blockee-editor-block').addClass('active');
 
+        // position
+        const pos = $('.blockee-editor-block.active').offset();
+        top = pos.top + 60;
+        left = pos.left + 35;
 
-        // reposition
+        if($('body').hasClass('fullscreen'))
+        {
+            // top += (-1 * $(window).scrollTop()) + 50;
+            top = blockeeEditorMouseY + 80;
+            left += 50;
+        }
+        else
+        {
+            top = blockeeEditorMouseY + 40;
+        }
+
+
+        $('.blockee-editor__menu-block').css({top: top, left:left}).show();
+        $('.blockee-editor-canvas').show();
+
+
+
+        // reposition outside boundaries
         let menuHeight = $('.blockee-editor__menu:visible').height();
         let screenHeight = window.innerHeight;
         let posY = blockeeEditorMouseY;

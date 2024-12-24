@@ -64,28 +64,27 @@
     {% endfor %}
 
     <script>
-		var QUERY_STRING = "{{ url_get_query_string() }}";
-		const APP_BACKEND_DIRNAME = '@backend';
-		const APP_LOCALE = '@locale';
-		const _I18N_CANCEL = '<i18n>Cancel</i18n>';
-		const _I18N_SUBMIT = '<i18n>Submit</i18n>';
-		const _I18N_I_CONFIRM = '<i18n>Yes, I confirm</i18n>';
-		const _I18N_MESSAGE_SAVED = '<i18n>Your information has been correctly saved</i18n>';
-		const _I18N_CONFIRMATION = '<i18n>Confirmation</i18n>';
-		const _I18N_CONFIRMATION_DELETE_FOLDER = '<i18n>Would you like to delete this folder?</i18n>';
-		const _I18N_CONFIRMATION_DELETE_FILE = '<i18n>Would you like to delete this file?</i18n>';
-		const _I18N_ENTER_NAME = '<i18n>Please fill a name</i18n>';
-		const _I18N_FINISH = '<i18n>Finish</i18n>';
+    var QUERY_STRING = "{{ url_get_query_string() }}";
+    const APP_BACKEND_DIRNAME = '@backend';
+    const APP_LOCALE = '@locale';
+    const _I18N_CANCEL = '<i18n>Cancel</i18n>';
+    const _I18N_SUBMIT = '<i18n>Submit</i18n>';
+    const _I18N_I_CONFIRM = '<i18n>Yes, I confirm</i18n>';
+    const _I18N_MESSAGE_SAVED = '<i18n>Your information has been correctly saved</i18n>';
+    const _I18N_CONFIRMATION = '<i18n>Confirmation</i18n>';
+    const _I18N_CONFIRMATION_DELETE_FOLDER = '<i18n>Would you like to delete this folder?</i18n>';
+    const _I18N_CONFIRMATION_DELETE_FILE = '<i18n>Would you like to delete this file?</i18n>';
+    const _I18N_ENTER_NAME = '<i18n>Please fill a name</i18n>';
+    const _I18N_FINISH = '<i18n>Finish</i18n>';
 
-		const _I18N_FILE = '<i18n>File</i18n>';
-		const _I18N_TYPE = '<i18n>Type</i18n>';
-		const _I18N_SIZE = '<i18n>Size</i18n>';
-		const _I18N_DETAILS = '<i18n>Details</i18n>';
-		const _I18N_COPY_LINK = '<i18n>Copy link</i18n>';
-		const _I18N_OPEN_FILE = '<i18n>Open file</i18n>';
-		const _I18N_DOWNLOAD = '<i18n>Download</i18n>';
-		const _I18N_SELECT = '<i18n>Select</i18n>';
-
+    const _I18N_FILE = '<i18n>File</i18n>';
+    const _I18N_TYPE = '<i18n>Type</i18n>';
+    const _I18N_SIZE = '<i18n>Size</i18n>';
+    const _I18N_DETAILS = '<i18n>Details</i18n>';
+    const _I18N_COPY_LINK = '<i18n>Copy link</i18n>';
+    const _I18N_OPEN_FILE = '<i18n>Open file</i18n>';
+    const _I18N_DOWNLOAD = '<i18n>Download</i18n>';
+    const _I18N_SELECT = '<i18n>Select</i18n>';
     </script>
 
 </head>
@@ -104,25 +103,19 @@
 <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.min.js"></script>
 <script src="/core/component/datagrid/assets/js/datagrid.js"></script>
 <script src="/core/component/form/assets/js/form.js"></script>
-
 <script src="/core/assets/js/loader/loader.js"></script>
 <script src="/core/assets/js/btn-action/btn-action.js"></script>
 <script src="/core/assets/js/form-ajax/form-ajax.js"></script>
 <script src="/core/assets/js/parent-togglable/parent-togglable.js"></script>
 <script src="/core/assets/js/input-tag-manager/input-tag-manager.js"></script>
-
 <script src="/core/module/core/log/assets/js/func.js"></script>
 <script src="/core/module/core-backend/user-bookmark/assets/js/func.js"></script>
-
 <script src="/core/theme/core-admin/assets/js/app-func.js"></script>
 <script src="/core/theme/core-admin/assets/js/app.js"></script>
-
-
 
 {% for file in config_js_body %}
     <script src="{{ file }}"></script>
 {% endfor %}
-
 
 </body>
 </html>
