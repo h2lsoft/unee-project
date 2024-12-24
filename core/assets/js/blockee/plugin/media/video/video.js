@@ -15,7 +15,7 @@ class BlockeePlugin__video {
 	}
 
 	static insert() {
-		let contents = `<div data-blockee-type="video" class="blockee-editor-block-element blockee-editor-block-element--video"><video src="" controls preload="auto">Your browser does not support the video element.</video></div>`;
+		let contents = `<div data-blockee-type="video" class="blockee-editor-block-element blockee-editor-block-element--video"><video src="" playsinline controls preload="auto">Your browser does not support the video element.</video></div>`;
 		blockeeEditor.blockInsert('video', contents, true);
 	}
 
@@ -32,15 +32,22 @@ class BlockeePlugin__video {
 		let preload = $node.attr('preload') ?? '';
 		let loop = $node.attr('loop') ?? false;
 		let o_muted = $node.attr('muted') ?? false;
+		let o_playsinline = $node.attr('playsinline') ?? false;
+		let o_controls = $node.attr('controls') ?? false;
+
 
 		// init
 		let loop_checked = (loop !== false) ? 'checked' : '';
+
+
 
 		let preload_auto = (preload === 'auto') ? 'selected' : '';
 		let preload_metadata = (preload === 'metadata') ? 'selected' : '';
 		let preload_none = (preload === 'none') ? 'selected' : '';
 
 		let muted_checked = (o_muted !== false) ? 'checked' : '';
+		let playsinline_checked = (o_playsinline !== false) ? 'checked' : '';
+		let controls_checked = (o_controls !== false) ? 'checked' : '';
 
 
 		let render =
@@ -68,7 +75,18 @@ class BlockeePlugin__video {
                                         <option value="metadata" ${preload_metadata}>metadata</option>                                    
                                         <option value="none" ${preload_none}>none</option>
                                     </select>
-                               </div>                                                     
+                               </div>                
+                               
+                               <div class="blockee-editor-form-row">                                
+                                    <div class="blockee-editor-form-label">Controls</div>
+                                    <input type="checkbox" name="controls" value="1" ${controls_checked}>
+                               </div>
+                               
+                               <div class="blockee-editor-form-row">                                
+                                    <div class="blockee-editor-form-label">Playsinline</div>
+                                    <input type="checkbox" name="playsinline" value="1" ${playsinline_checked}>
+                               </div>                 
+                                                                    
                                
                                <div class="blockee-editor-form-row">                                
                                     <div class="blockee-editor-form-label">Loop</div>
@@ -102,10 +120,19 @@ class BlockeePlugin__video {
 		let muted =  $('.blockee-editor-window:visible input[name="muted"]').is(':checked');
 		let loop =  $('.blockee-editor-window:visible input[name="loop"]').is(':checked');
 
+		let playsinline =  $('.blockee-editor-window:visible input[name="playsinline"]').is(':checked');
+		let controls =  $('.blockee-editor-window:visible input[name="controls"]').is(':checked');
+
+
+
 		$node.attr("src", src);
 		$node.attr("width", width);
 		$node.attr("height", height);
 		$node.prop("preload", preload);
+
+
+		$node.attr("playsinline", !playsinline ? null : "playsinline");
+		$node.attr("controls", !controls ? null : "controls");
 		$node.attr("muted", !muted ? null : "muted");
 		$node.prop("loop", !loop ? null : "loop");
 
