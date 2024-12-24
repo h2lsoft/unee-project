@@ -80,8 +80,8 @@ class BlockeePlugin__img {
                                        
                                        <div class="blockee-editor-form-row">                                
                                             <div class="blockee-editor-form-label">Size</div>
-                                            Width <input type="text" name="width" style="width: 80px; text-align: center; margin-left: 10px; margin-right: 10px" value="${width}"> 
-                                            Height <input type="text" name="height" style="width: 80px; text-align: center; margin-left: 10px;" value="${height}">                                
+                                            <small>Width</small> <input type="text" name="width" style="width: 80px; text-align: center; margin-left: 10px; margin-right: 10px" value="${width}"> 
+                                            <small>Height</small> <input type="text" name="height" style="width: 80px; text-align: center; margin-left: 10px;" value="${height}">                                
                                        </div>
                                        
                                        <div class="blockee-editor-form-row">                                

@@ -23,6 +23,7 @@ class blockeeEditor {
     static savedSelection;
     static $toolbar;
     static selectionRange;
+    static isFullScreened = false;
 
     static ScrollviewAfterInsert = true;
 
@@ -610,11 +611,13 @@ class blockeeEditor {
         {
             $(node).parents('.blockee-editor')[0].requestFullscreen();
             $('body').addClass('fullscreen');
+            blockeeEditor.isFullScreened = true;
         }
         else
         {
             document.exitFullscreen();
             $('body').removeClass('fullscreen');
+            blockeeEditor.isFullScreened = false;
         }
     }
 
@@ -784,7 +787,7 @@ class blockeeEditor {
         }
         else
         {
-            top = blockeeEditorMouseY + 40;
+            top = blockeeEditorMouseY + $(window).scrollTop() + 40;
         }
 
 
@@ -1291,12 +1294,11 @@ class blockeeEditor {
             }
         });
 
-
-
-
-
         $('.blockee-editor-window-canvas').show();
         $('.blockee-editor-window--settings').show();
+
+        let ctop = ($(window).height() * 10 / 100) + $(window).scrollTop();
+        $('.blockee-editor-window--settings').css('top', ctop + 'px');
 
         $('.blockee-editor-window-body .blockee-editor-tabs a:eq(0)').click();
 
@@ -1492,6 +1494,7 @@ class blockeeEditor {
     }
 
     static fileManagerOpen(name, query_added=''){
+
         if(!blockeeEditorFileManagerUrl)
         {
             let msg = "Please add parameter `data-blockee-filemanager-url` to open your file manager";
@@ -1507,19 +1510,26 @@ class blockeeEditor {
 
         const attributes = "toolbar=yes,status=yes,scrollbars=yes,resizable=yes,width="+w_width+",height="+w_height+",top="+w_top+",left="+w_left;
 
+        if(!blockeeEditor.isFullScreened)
+        {
+            $('.blockee-editor__button-fullscreen').click();
+        }
+
+
         // iframe open
         let uri = blockeeEditorFileManagerUrl+'?target='+name+query_added;
-        // window.open(uri, "BLOCKEE-FILE-MANAGER", attributes);
-
         $('.blockee-editor-window--file-browser iframe').attr("src", uri);
         $('.blockee-editor-window--file-browser').show();
-        $('.blockee-editor-window-canvas').show();
+        // $('.blockee-editor-window-canvas').show();
     }
 
     static fileManagerClose()
     {
         $('.blockee-editor-window--file-browser').hide();
-        $('.blockee-editor-window-canvas').hide();
+        // $('.blockee-editor-window-canvas').hide();
+
+
+
     }
 
     static removeSpecialClass(o_class)

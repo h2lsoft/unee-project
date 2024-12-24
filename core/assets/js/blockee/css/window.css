@@ -109,6 +109,10 @@
     border-right:1px solid #e5e5e5;*/
 }
 
+.blockee-editor-form-row small {
+    margin-top: 6px;
+}
+
 .blockee-editor-form-label {
 
     display: inline-block;
