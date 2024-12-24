@@ -76,9 +76,10 @@ class blockeeEditor {
  <div class="blockee-editor blockee-editor-container-__${this.name}" data-source="${this.name}" spellcheck="false">
      <div class="blockee-editor__toolbar">        
             <button type="button" class="blockee-editor__button-add" onclick="blockeeEditor.actionMenuShow('toolbar')"></button>
+            <button type="button" title="Plan" class="blockee-editor__button-plan" onclick="blockeeEditor.actionPlanOpen()"></button>
             
-            <button type="button" title="Redo - ctrl + y" class="blockee-editor__button-redo" onclick="blockeeEditor.actionRedo()"></button>
             <button type="button" title="Undo - ctrl + z" class="blockee-editor__button-undo" onclick="blockeeEditor.actionUndo()"></button>
+            <button type="button" title="Redo - ctrl + y" class="blockee-editor__button-redo" onclick="blockeeEditor.actionRedo()"></button>
             
             <button type="button" title="${text_view_source}" class="blockee-editor__button-source" onclick="blockeeEditor.actionSourceOpen()"></button>
             <button type="button" title="${text_clear_all}" class="blockee-editor__button-clear" onclick="blockeeEditor.actionClearAll()"></button>
@@ -211,6 +212,20 @@ class blockeeEditor {
                 <div class="blockee-editor-window-header">File browser</div>
                 <div class="blockee-editor-window-body">
                     <iframe src=""></iframe>
+                </div>                         
+            </form>            
+        </div>`;
+
+        // init window plan
+        render += `
+        <div class="blockee-editor-window blockee-editor-window--plan">
+            <form onsubmit="blockeeEditor.actionPlanExecute(); return false;">        
+                <div class="blockee-editor-window-header">Plan</div>
+                <div class="blockee-editor-window-body">                                        
+                </div>
+                <div class="blockee-editor-window-footer">
+                    <input type="button" value="${text_cancel}" onclick="blockeeEditor.blockConfirmClose()">
+                    <input type="submit" value="${text_save}">                    
                 </div>                         
             </form>            
         </div>`;
@@ -688,6 +703,80 @@ class blockeeEditor {
 
     }
 
+    static actionPlanOpen()
+    {
+        $('.blockee-editor-window-canvas').show();
+
+        let str = '<ul>';
+        $('.blockee-editor-block-element').each(function(index, element){
+
+            let block_type = $(this).data('blockee-type');
+            if (!block_type) {
+                block_type = $(this)[0].nodeName.toLowerCase();
+            }
+
+
+            str += `<li data-index="${index}">
+                         ${block_type}
+                    </li>`;
+
+        });
+
+
+        str += '</ul>';
+
+        $('.blockee-editor-window--plan .blockee-editor-window-body').html(str);
+
+        $('.blockee-editor-window--plan').show();
+
+        $('.blockee-editor-window--plan .blockee-editor-window-body ul').sortable({
+            axis: "y"
+        });
+
+
+    }
+
+    static actionPlanExecute()
+    {
+        const $lis = $('.blockee-editor-window--plan li');
+        if(!$lis.length)
+            blockeeEditor.blockConfirmClose();
+
+        let contents = '';
+        $lis.each(function(){
+
+            if(!empty(str))contents += '\n';
+
+            contents += $('.blockee-editor-block-element').eq($(this).data('index'))[0].outerHTML;
+
+        });
+
+        // update textarea
+        $('textarea.blockee-editor').val(contents);
+        $('.blockee-editor-block__contents').html('');
+        blockeeEditor.ScrollviewAfterInsert = false;
+
+        contents = contents.replaceAll('&lt;', '<');
+        contents = contents.replaceAll('&gt;', '>');
+        contents = contents.replaceAll('&nbsp;', ' ');
+        let $html = $('<div></div>').html(contents);
+        $html.find('.blockee-editor-block-element').each(function(index, element){
+
+            let block = $(element)[0].outerHTML;
+            let block_type = $(element).data('blockee-type');
+
+            if(block_type === undefined)
+            {
+                block_type = $(element).prop('tagName').toLowerCase();
+            }
+
+            blockeeEditor.blockInsert(block_type, block);
+        });
+
+        blockeeEditor.ScrollviewAfterInsert = true;
+        blockeeEditor.update();
+        blockeeEditor.blockConfirmClose();
+    }
 
     static actionClearAll()
     {
