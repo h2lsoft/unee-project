@@ -727,6 +727,9 @@ class blockeeEditor {
                 top = pos.top + 50 + cur_scroll;
                 left = pos.left + 125;
             }
+
+            if(top < 200)
+                top = 200;
         }
 
         $('.blockee-editor__menu-plugin').css({top: top, left: left});
