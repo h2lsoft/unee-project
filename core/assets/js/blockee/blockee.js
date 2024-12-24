@@ -76,6 +76,8 @@ class blockeeEditor {
  <div class="blockee-editor blockee-editor-container-__${this.name}" data-source="${this.name}" spellcheck="false">
      <div class="blockee-editor__toolbar">        
             <button type="button" class="blockee-editor__button-add" onclick="blockeeEditor.actionMenuShow('toolbar')"></button>
+            <button type="button" title="Plan" class="blockee-editor__button-template" onclick="blockeeEditor.actionTemplateOpen()"></button>
+            
             <button type="button" title="Plan" class="blockee-editor__button-plan" onclick="blockeeEditor.actionPlanOpen()"></button>
             
             <button type="button" title="Undo - ctrl + z" class="blockee-editor__button-undo" onclick="blockeeEditor.actionUndo()"></button>
@@ -580,7 +582,9 @@ class blockeeEditor {
         let source = $('textarea.blockee-editor').val();
         $('.blockee-editor-window--source textarea').val(source);
 
-        $('.blockee-editor-window--source').show();
+        let c_top = 20 + $(window).scrollTop();
+
+        $('.blockee-editor-window--source').show().css('top', c_top);
     }
 
     static blockSourceExecute()
@@ -703,9 +707,23 @@ class blockeeEditor {
 
     }
 
+
+    static actionTemplateOpen()
+    {
+
+    }
+
+    static windowCenterY()
+    {
+        let ctop = ($(window).height() * 5 / 100) + $(window).scrollTop();
+        $('.blockee-editor-window:visible').css('top', ctop + 'px');
+    }
+
+
     static actionPlanOpen()
     {
         $('.blockee-editor-window-canvas').show();
+
 
         let str = '<ul>';
         $('.blockee-editor-block-element').each(function(index, element){
@@ -728,6 +746,7 @@ class blockeeEditor {
         $('.blockee-editor-window--plan .blockee-editor-window-body').html(str);
 
         $('.blockee-editor-window--plan').show();
+        blockeeEditor.windowCenterY();
 
         $('.blockee-editor-window--plan .blockee-editor-window-body ul').sortable({
             axis: "y"
@@ -782,6 +801,9 @@ class blockeeEditor {
     {
         $('.blockee-editor-window-canvas').show();
         $('.blockee-editor-window--confirm').show();
+
+        blockeeEditor.windowCenterY();
+
     }
 
     static actionMenuShow(source="")
@@ -1389,8 +1411,10 @@ class blockeeEditor {
         $('.blockee-editor-window-canvas').show();
         $('.blockee-editor-window--settings').show();
 
-        let ctop = ($(window).height() * 10 / 100) + $(window).scrollTop();
-        $('.blockee-editor-window--settings').css('top', ctop + 'px');
+        blockeeEditor.windowCenterY();
+
+
+
 
         $('.blockee-editor-window-body .blockee-editor-tabs a:eq(0)').click();
 
