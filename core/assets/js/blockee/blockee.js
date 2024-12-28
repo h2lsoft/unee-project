@@ -76,7 +76,7 @@ class blockeeEditor {
  <div class="blockee-editor blockee-editor-container-__${this.name}" data-source="${this.name}" spellcheck="false">
      <div class="blockee-editor__toolbar">        
             <button type="button" class="blockee-editor__button-add" onclick="blockeeEditor.actionMenuShow('toolbar')"></button>
-            <button type="button" title="Plan" class="blockee-editor__button-template" onclick="blockeeEditor.actionTemplateOpen()"></button>
+            <button type="button" title="Template" class="blockee-editor__button-template" onclick="blockeeEditor.actionTemplateOpen()"></button>
             
             <button type="button" title="Plan" class="blockee-editor__button-plan" onclick="blockeeEditor.actionPlanOpen()"></button>
             
@@ -228,6 +228,19 @@ class blockeeEditor {
                 <div class="blockee-editor-window-footer">
                     <input type="button" value="${text_cancel}" onclick="blockeeEditor.blockConfirmClose()">
                     <input type="submit" value="${text_save}">                    
+                </div>                         
+            </form>            
+        </div>`;
+
+        // init window template
+        render += `
+        <div class="blockee-editor-window blockee-editor-window--template">
+            <form onsubmit="blockeeEditor.actionPlanExecute(); return false;">        
+                <div class="blockee-editor-window-header">Template</div>
+                <div class="blockee-editor-window-body">                                        
+                </div>
+                <div class="blockee-editor-window-footer">
+                    <input type="button" value="${text_cancel}" onclick="blockeeEditor.blockConfirmClose()">                   
                 </div>                         
             </form>            
         </div>`;
@@ -459,6 +472,11 @@ class blockeeEditor {
     }
 
 
+    static insertBlockHtml(contents)
+    {
+        contents = `<div data-blockee-type="html" class="blockee-editor-block-element blockee-editor-block-element--html">${contents}</div>`
+        blockeeEditor.blockInsert('html', contents, false);
+    }
 
     static insertHtmlAtCaret(html)
     {
@@ -497,6 +515,8 @@ class blockeeEditor {
         if(!$('.blockee-editor-block.active').length)
         {
             $('.blockee-editor__content').append(contents2);
+
+
             $('.blockee-editor__content').scrollTop($('.blockee-editor__content')[0].scrollHeight);
 
             if($('.blockee-editor__content .blockee-editor-block:last [contenteditable]').length)
@@ -533,10 +553,10 @@ class blockeeEditor {
                     blockeeEditor.blockSettingsOpen();
                 } , 300);
             }
-            else
-            {
-                blockeeEditor.update();
-            }
+
+
+            blockeeEditor.update();
+
 
 
         }
@@ -710,8 +730,23 @@ class blockeeEditor {
 
     static actionTemplateOpen()
     {
+        const name = blockeeEditorInstances[0].name;
+        let uri = `/${APP_BACKEND_DIRNAME}/template/all/`;
+
+        $.get(uri, function(contents){
+
+            $('.blockee-editor-window--template .blockee-editor-window-body').html(contents);
+
+
+            $('.blockee-editor-window--template').show();
+            $('.blockee-editor-window-canvas').show();
+            blockeeEditor.windowCenterY();
+
+        });
 
     }
+
+
 
     static windowCenterY()
     {
@@ -2023,6 +2058,17 @@ class blockeeEditor {
         $(this).removeClass('active');
     });
 
+    // detect image editable
+    $('body').on('click', 'img[x-image-editable="true"]', function(){
+
+        const id = $(this).attr('id');
+
+        blockeeEditor.fileManagerOpen('@'+id, "");
+
+
+
+    });
+
 
     // tabs
     $('body').on('click', '.blockee-editor-tabs a', function(e){
@@ -2078,7 +2124,8 @@ class blockeeEditor {
 
     // file-manager
     window.addEventListener('message', function(event) {
-        if (event.data === 'closeFileManager') {
+
+        if(event.data === 'closeFileManager') {
             if (typeof blockeeEditor !== 'undefined' && typeof blockeeEditor.fileManagerClose === 'function') {
                 blockeeEditor.fileManagerClose();
             } else {

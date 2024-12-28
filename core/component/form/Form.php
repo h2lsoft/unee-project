@@ -772,7 +772,9 @@ class Form {
 					// dir is writable
 					if(!is_writable($this->fields[$field]['upload_dir']))
 					{
-						$this->validator->addError("`[FIELD]` directory is not writable => {$this->fields[$field]['upload_dir']}");
+						$label = isset($this->_i18n[$this->fields[$field]['label']]) ? $this->_i18n[$this->fields[$field]['label']] : $this->fields[$field]['label'];
+
+						$this->validator->input($field, $label)->addError("`[FIELD]`: directory is not writable => `{$this->fields[$field]['upload_dir']}`");
 					}
 
 

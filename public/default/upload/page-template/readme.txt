@@ -1,0 +1,1 @@
+automatic path to page template preview

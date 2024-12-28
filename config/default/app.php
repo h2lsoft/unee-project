@@ -172,6 +172,7 @@ return [
 			'article' => APP_PATH."/public/".APP_PACKAGE."/upload/article",
 			'slider_card' => APP_PATH."/public/".APP_PACKAGE."/upload/slider-card",
 			'gallery_card' => APP_PATH."/public/".APP_PACKAGE."/upload/gallery-card",
+			'page_template' => APP_PATH."/public/".APP_PACKAGE."/upload/page-template",
 		],
 
 		// SANITIZER ***************************************************************************************************

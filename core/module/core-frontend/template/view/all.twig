@@ -1,0 +1,32 @@
+{% if collections %}
+
+<div class="input-group mb-2">
+    <span class="input-group-text">Collection</span>
+
+    <select class="form-select" onchange="v=this.value;$('.row-page-template').hide(); $(`.row-page-template[data-collection='${v}']`).show()">
+        {% for collection in collections %}
+            <option value="{{ collection }}" {% if loop.index0 == 0 %}selected{% endif %} >{{ collection }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+
+{% endif %}
+
+{% for r in records %}
+<div class="row row-page-template" data-collection="{{ r.collection }}" style="display: none;">
+    <div class="col-3">
+        <img src="{{ r.image_preview }}" class="border rounded w-100">
+    </div>
+
+    <div class="col">
+        <b>{{ r.name }}</b><br>
+        <small>{{ r.description }}</small>
+
+        <p class="my-1">
+            <button type="button" class="btn btn-primary" onclick="blockeeEditor.insertBlockHtml($('#blockee_template_record_{{ r.id }}').html());blockeeEditor.blockConfirmClose()">Select</button>
+        </p>
+        <template id="blockee_template_record_{{ r.id }}">{{ r.content|raw }}</template>
+    </div>
+</div>
+{% endfor %}
