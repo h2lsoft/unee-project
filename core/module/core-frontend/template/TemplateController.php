@@ -119,8 +119,6 @@ class TemplateController extends \Core\Controller
 		{
 			if(empty($records[$i]['image_preview']))
 				$records[$i]['image_preview'] = get_absolute_path(\Core\Config::get('dir')['page_template'].'/0.png');
-
-
 		}
 
 		$data['collections'] = $collections;

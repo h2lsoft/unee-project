@@ -2060,15 +2060,9 @@ class blockeeEditor {
 
     // detect image editable
     $('body').on('click', 'img[x-image-editable="true"]', function(){
-
         const id = $(this).attr('id');
-
         blockeeEditor.fileManagerOpen('@'+id, "");
-
-
-
     });
-
 
     // tabs
     $('body').on('click', '.blockee-editor-tabs a', function(e){

@@ -1,1 +1,1 @@
-automatic path to page template preview
+automatic path to page template preview.

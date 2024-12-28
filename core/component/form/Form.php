@@ -777,7 +777,6 @@ class Form {
 						$this->validator->input($field, $label)->addError("`[FIELD]`: directory is not writable => `{$this->fields[$field]['upload_dir']}`");
 					}
 
-
 					if($this->fields[$field]['max_upload_size'])
 						$this->validator->input($field, $label)->fileMaxSize($this->fields[$field]['max_upload_size']);
 

@@ -165,7 +165,6 @@ return [
 	
 		// DIR *********************************************************************************************************
 		'dir' => [
-
 			'tmp' => APP_PATH.'/.tmp/'.APP_PACKAGE,
 			'avatar' => APP_PATH."/public/".APP_PACKAGE."/upload/avatar",
 			'page' => APP_PATH."/public/".APP_PACKAGE."/upload/page",

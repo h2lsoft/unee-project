@@ -316,7 +316,7 @@ function ufmItemSelect(node, target)
     const in_iframe = (window.self !== window.top);
     if(in_iframe)
     {
-        if(target[0] == '@')
+        if(target[0] === '@')
             window.parent.document.getElementById(target.replace('@', '')).src = file_url;
         else
             window.parent.document.getElementsByName(target)[0].value = file_url;
@@ -326,7 +326,7 @@ function ufmItemSelect(node, target)
     }
     else
     {
-        if(target[0] == '@')
+        if(target[0] === '@')
             opener.document.getElementById(target.replace('@', '')).src = file_url;
         else
             opener.document.getElementsByName(target)[0].value = file_url;
