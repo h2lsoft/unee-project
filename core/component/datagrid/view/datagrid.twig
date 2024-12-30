@@ -2,73 +2,73 @@
 
     <table id="{{ grid.css_id }}" class="datagrid table {{ grid.classes }}" {% for attr,value in grid.attributes %} {{ attr }}="{{ value }}" {% endfor%} data-datagrid-delete-message="<i18n>{{ grid.delete_message }}</i18n>" data-datagrid-delete-message-warning="<i18n>{{ grid.delete_message_warning }}</i18n>" data-datagrid-delete-label-validate="<i18n>Yes, I confirm</i18n>">
 
-        <caption>
+    <caption>
 
-            {% if pager.data %}
+        {% if pager.data %}
             <div class="pager-information">
                 <i18n>Result</i18n> {{ pager.from }} <i18n>to</i18n> {{ pager.to }} (total {{ pager.total }})
             </div>
-            {% endif %}
+        {% endif %}
 
 
-            <div class="nav-btns float-end" {% if pager.data == false %}style="margin-top:-8px;"{% endif %}>
+        <div class="nav-btns float-end" {% if pager.data == false %}style="margin-top:-8px;"{% endif %}>
 
-                {% if grid.search_columns|length  %}
+            {% if grid.search_columns|length  %}
 
 
-                    <div class="btn-group">
+                <div class="btn-group">
 
-                        <a accesskey="s" data-bs-toggle="offcanvas" data-bs-target="#datagridOffcanvasSearch" class="btn btn-search btn-light {% if grid.user_is_searching %}{% endif %}"  data-bs-toggle="dropdown"  href="#"><i class="bi bi-search me-1"></i> <i18n>Search</i18n>
-                            {% if grid.user_is_searching %}
-                                <span class="badge rounded-pill bg-primary ms-1">{{ get('search')|length }}</span>
-                            {% endif %}
-                        </a>
+                    <a accesskey="s" data-bs-toggle="offcanvas" data-bs-target="#datagridOffcanvasSearch" class="btn btn-search btn-light {% if grid.user_is_searching %}{% endif %}"  data-bs-toggle="dropdown"  href="#"><i class="bi bi-search me-1"></i> <i18n>Search</i18n>
+                        {% if grid.user_is_searching %}
+                            <span class="badge rounded-pill bg-primary ms-1">{{ get('search')|length }}</span>
+                        {% endif %}
+                    </a>
 
-                        <button type="button" class="btn-search-user btn btn-light {% if grid.user_is_searching %}{% endif %} dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                    <button type="button" class="btn-search-user btn btn-light {% if grid.user_is_searching %}{% endif %} dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"></button>
 
-                        <ul class="dropdown-menu dropdown-menu-user-search">
-                            <li><h6 class="dropdown-header text-center"><i18n>Saved searches</i18n></h6></li>
-                            <li class="dropdown-divider"></li>
+                    <ul class="dropdown-menu dropdown-menu-user-search">
+                        <li><h6 class="dropdown-header text-center"><i18n>Saved searches</i18n></h6></li>
+                        <li class="dropdown-divider"></li>
 
-                            <li class="dropdown-item-loading text-center py-4">
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
-                            </li>
+                        <li class="dropdown-item-loading text-center py-4">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </li>
 
-                            <li class="dropdown-item-no-record">
+                        <li class="dropdown-item-no-record">
                                 <span class="dropdown-item-text text-muted text-center py-4">
                                     <i18n>no search found</i18n>
                                 </span>
+                        </li>
+
+                        <template id="template_dropdown-menu-user-search-item">
+                            <li class="li-dropdown-item li-dropdown-item-with-action">
+                                <a class="dropdown-item dropdown-item-with-action" href="[url]">[name]</a>
+                                <a class="dropdown-item-action dropdown-item-action-delete" href="/@backend/user-search/delete/[id]/"><i class="bi bi-trash"></i></a>
                             </li>
+                        </template>
 
-                            <template id="template_dropdown-menu-user-search-item">
-                                <li class="li-dropdown-item li-dropdown-item-with-action">
-                                    <a class="dropdown-item dropdown-item-with-action" href="[url]">[name]</a>
-                                    <a class="dropdown-item-action dropdown-item-action-delete" href="/@backend/user-search/delete/[id]/"><i class="bi bi-trash"></i></a>
-                                </li>
-                            </template>
+                    </ul>
 
-                        </ul>
+                </div>
 
-                    </div>
+            {% endif %}
 
-                {% endif %}
+            {% for btn in grid.nav_btn_actions %}
+                <a class="ms-2 nav-btn-action-{{ btn.name }} btn {{ btn.type }}" href="{{ btn.action }}" {% for attr,value in btn.attributes %} {{ attr }}="{{ value|raw }}" {% endfor%}>{{ btn.label|raw }}</a>
+            {% endfor %}
 
-                {% for btn in grid.nav_btn_actions %}
-                    <a class="ms-2 nav-btn-action-{{ btn.name }} btn {{ btn.type }}" href="{{ btn.action }}" {% for attr,value in btn.attributes %} {{ attr }}="{{ value|raw }}" {% endfor%}>{{ btn.label|raw }}</a>
-                {% endfor %}
+        </div>
 
-            </div>
-
-        </caption>
+    </caption>
 
 
-        {% if pager.data == false %}
+    {% if pager.data == false %}
         <tr>
             <td class="no-record"><i18n>{{ grid.no_record_message }}</i18n></td>
         </tr>
-        {% else %}
+    {% else %}
 
         <thead>
         {% if grid.header_message is not empty %}
@@ -84,33 +84,33 @@
         <tr>
 
             {% if grid.batch_mode %}
-            <th class="batch-column">
-                <div class="form-check">
-                    <input class="form-check-input datagrid-batch-checkbox-all" type="checkbox">
-                </div>
-            </th>
+                <th class="batch-column">
+                    <div class="form-check">
+                        <input class="form-check-input datagrid-batch-checkbox-all" type="checkbox">
+                    </div>
+                </th>
             {% endif %}
 
             {% if grid.col_position == true %}
-            <th></th>
+                <th></th>
             {% endif %}
 
             {% for col in grid.columns %}
-            <th data-datagrid-name="{{ col.name }}" class="{{ col.classes }} {% if col.order_by %}column-order-by{% endif %} {% if get('order_by', grid.order_by_init) == col.name %}active{% endif %} ">
+                <th data-datagrid-name="{{ col.name }}" class="{{ col.classes }} {% if col.order_by %}column-order-by{% endif %} {% if get('order_by', grid.order_by_init) == col.name %}active{% endif %} ">
 
-                {% if col.order_by %}
-                    <a href="{{ grid.order_by_url[col.name]|raw }}">
-                    {% if get('order_by', grid.order_by_init) == col.name %}
-                        {% if get('order_by_sort', grid.order_by_sort_init) == 'asc' %}<i class="bi bi-arrow-up me-1"></i>{% else %}<i class="bi bi-arrow-down me-1"></i>{% endif %}
+                    {% if col.order_by %}
+                        <a href="{{ grid.order_by_url[col.name]|raw }}">
+                            {% if get('order_by', grid.order_by_init) == col.name %}
+                                {% if get('order_by_sort', grid.order_by_sort_init) == 'asc' %}<i class="bi bi-arrow-up me-1"></i>{% else %}<i class="bi bi-arrow-down me-1"></i>{% endif %}
+                            {% else %}
+                                <i class="bi bi-arrow-down-up me-1"></i>
+                            {% endif %}
+                            <i18n>{{ col.label }}</i18n>
+                        </a>
                     {% else %}
-                        <i class="bi bi-arrow-down-up me-1"></i>
-                    {% endif %}
                         <i18n>{{ col.label }}</i18n>
-                    </a>
-                {% else %}
-                    <i18n>{{ col.label }}</i18n>
-                {% endif %}
-            </th>
+                    {% endif %}
+                </th>
             {% endfor %}
 
             {% if grid.row_btn_actions %}
@@ -122,14 +122,14 @@
         <tbody>
 
         {% for row in pager.data %}
-        <tr class="tr_row" data-id="{{ row.id }}" {% if grid.col_position == true %} {% endif %}>
+            <tr class="tr_row" data-id="{{ row.id }}" {% if grid.col_position == true %} {% endif %}>
 
                 {% if grid.batch_mode %}
-                <td class="batch-column">
-                    <div class="form-check">
-                        <input class="form-check-input datagrid-batch-checkbox" type="checkbox" value="{{ row.id }}">
-                    </div>
-                </td>
+                    <td class="batch-column">
+                        <div class="form-check">
+                            <input class="form-check-input datagrid-batch-checkbox" type="checkbox" value="{{ row.id }}">
+                        </div>
+                    </td>
                 {% endif %}
 
                 {% if grid.col_position == true %}
@@ -140,93 +140,93 @@
 
 
                 {% for col in grid.columns %}
-                <td class="{{ col.classes }}" data-type="{{ col.type }}">
+                    <td class="{{ col.classes }}" data-type="{{ col.type }}">
 
-                    {% if col.type == 'normal' %}
-                        {{ row[col.name] }}
-                    {% elseif col.type in ['html','note'] %}
+                        {% if col.type == 'normal' %}
+                            {{ row[col.name] }}
+                        {% elseif col.type in ['html','note'] %}
 
-                        {% if col.name == 'email' %}
-                            {% if row[col.name] is not empty %}
-                                <a class="btn-action" title="{{ row[col.name]|raw }}" data-bs-toggle="tooltip" data-bs-custom-class="datagrid-tooltip-btn-actions" data-bs-placement="top" href="mailto:{{ row[col.name]|raw }}"><i class="bi bi-envelope-fill"></i></a>
+                            {% if col.name == 'email' %}
+                                {% if row[col.name] is not empty %}
+                                    <a class="btn-action" title="{{ row[col.name]|raw }}" data-bs-toggle="tooltip" data-bs-custom-class="datagrid-tooltip-btn-actions" data-bs-placement="top" href="mailto:{{ row[col.name]|raw }}"><i class="bi bi-envelope-fill"></i></a>
+                                {% endif %}
+
+                            {% elseif col.type == 'note' %}
+
+                                {% if row[col.name] is not empty %}
+                                    <a href="#" target="_bootbox">
+                                        <i class="{{ col.text_icon }} {{ col.text_icon_classes }}"></i>
+                                        <div class="bootbox-content d-none">{{ row[col.name]|striptags|nl2br|raw }}</div>
+                                    </a>
+                                {% endif %}
+
+                            {% else %}
+                                {{ row[col.name]|raw }}
                             {% endif %}
 
-                        {% elseif col.type == 'note' %}
+                        {% elseif col.type == 'image' %}
 
                             {% if row[col.name] is not empty %}
-                                <a href="#" target="_bootbox">
-                                    <i class="{{ col.text_icon }} {{ col.text_icon_classes }}"></i>
-                                    <div class="bootbox-content d-none">{{ row[col.name]|striptags|nl2br|raw }}</div>
+                                {% if col.image_url is not empty %}<a href="{{ col.image_url|replace({'[ID]': row.id}) }}">{% endif %}
+                                <img src="{{ row[col.name] }}" class="{{ col.image_classes }} {% if col.image_zoomable  %}zoomable{% endif %}">
+                                {% if col.image_url is not empty %}</a>{% endif %}
+                            {% endif %}
+
+                        {% elseif col.type == 'button' %}
+
+                            {% if row[col.name] is not empty %}
+                                <a class="btn btn-sm {{ col.button_type }} py-1" href="{{ col.button_url|replace({'[ID]': row.id}) }}" {% for attr,value in col.button_attributes %} {{ attr }}="{{ value }}" {% endfor%}>
+                                {% if col.button_icon %}<i class="{{ col.button_icon }} me-1"></i>{% endif %}
+                                {{ ucfirst(row[col.name]) }}
                                 </a>
                             {% endif %}
 
-                        {% else %}
-                            {{ row[col.name]|raw }}
+
+                        {% elseif col.type == 'boolean' %}
+
+                            {% if col.editable is defined and col.editable == true %}<a href="#" class="btn-action-toggle" data-column="{{ col.name }}" data-id="{{ row.id }}">{% endif %}
+
+                            {% if row[col.name] in ['yes', 'YES', '1', 'true'] %}
+                                <i class="text-success bi bi-check-circle-fill" data-value="1"></i>
+                            {% else %}
+                                <i class="text-muted bi bi-circle" data-value="0"></i>
+                            {% endif %}
+
+                            {% if col.editable is defined and col.editable == true %}</a>{% endif %}
+
+                        {% elseif col.type == 'date' or col.type == 'datetime' %}
+
+                            {% if row[col.name] == '0000-00-00 00:00:00' or row[col.name] == '0000-00-00' or row[col.name] == '' %}
+                                -
+                            {% elseif col.format is defined and col.format is not empty %}
+                                {{ row[col.name]|date(col.format) }}
+                            {% else %}
+                                {{ row[col.name] }}
+                            {% endif %}
+                        {% elseif col.type == 'tags' %}
+
+                            {% for tag in row['xTags'] %}
+                                <a href="#" class="xtag badge {% if(tag in searched_tags) %}selected{% endif %}" data-first-letter="{{ tag|trim|first }}">{{ tag }}</a>
+                            {% endfor %}
+
                         {% endif %}
 
-                    {% elseif col.type == 'image' %}
-
-                        {% if row[col.name] is not empty %}
-                            {% if col.image_url is not empty %}<a href="{{ col.image_url|replace({'[ID]': row.id}) }}">{% endif %}
-                            <img src="{{ row[col.name] }}" class="{{ col.image_classes }} {% if col.image_zoomable  %}zoomable{% endif %}">
-                            {% if col.image_url is not empty %}</a>{% endif %}
-                        {% endif %}
-
-                    {% elseif col.type == 'button' %}
-
-                        {% if row[col.name] is not empty %}
-                            <a class="btn btn-sm {{ col.button_type }} py-1" href="{{ col.button_url|replace({'[ID]': row.id}) }}" {% for attr,value in col.button_attributes %} {{ attr }}="{{ value }}" {% endfor%}>
-                            {% if col.button_icon %}<i class="{{ col.button_icon }} me-1"></i>{% endif %}
-                            {{ ucfirst(row[col.name]) }}
-                            </a>
-                        {% endif %}
-
-
-                    {% elseif col.type == 'boolean' %}
-
-                        {% if col.editable is defined and col.editable == true %}<a href="#" class="btn-action-toggle" data-column="{{ col.name }}" data-id="{{ row.id }}">{% endif %}
-
-                        {% if row[col.name] in ['yes', 'YES', '1', 'true'] %}
-                            <i class="text-success bi bi-check-circle-fill" data-value="1"></i>
-                        {% else %}
-                            <i class="text-muted bi bi-circle" data-value="0"></i>
-                        {% endif %}
-
-                        {% if col.editable is defined and col.editable == true %}</a>{% endif %}
-
-                    {% elseif col.type == 'date' or col.type == 'datetime' %}
-
-                        {% if row[col.name] == '0000-00-00 00:00:00' or row[col.name] == '0000-00-00' or row[col.name] == '' %}
-                            -
-                        {% elseif col.format is defined and col.format is not empty %}
-                            {{ row[col.name]|date(col.format) }}
-                        {% else %}
-                            {{ row[col.name] }}
-                        {% endif %}
-                    {% elseif col.type == 'tags' %}
-
-                        {% for tag in row['xTags'] %}
-                            <a href="#" class="xtag badge {% if(tag in searched_tags) %}selected{% endif %}" data-first-letter="{{ tag|trim|first }}">{{ tag }}</a>
-                        {% endfor %}
-
-                    {% endif %}
-
-                </td>
+                    </td>
                 {% endfor %}
 
                 {% if grid.row_btn_actions %}
-                <td class="btn-actions">
-                    {% for btn in grid.row_btn_actions %}
-                        <a data-bs-toggle="tooltip"
-                           data-bs-custom-class="datagrid-tooltip-btn-actions"
-                           data-bs-placement="top"
-                           title="<i18n>{{ btn.tooltip }}</i18n>"
-                           href="{{ btn.action|replace({'[ID]': row.id}) }}"
-                           class="btn-action-{{ btn.name }} {% if btn.name == 'edit' and row.btn_edit_class is defined %}{{ row.btn_edit_class }}{% endif %} {% if btn.name == 'delete' and row.btn_delete_class is defined %}{{ row.btn_delete_class }}{% endif %}" {% for attr,value in btn.attributes %} {{ attr }}="{{ value }}" {% endfor%}>
-                        <i class="{{ btn.icon }}"></i>
-                       </a>
-                    {% endfor %}
-                </td>
+                    <td class="btn-actions">
+                        {% for btn in grid.row_btn_actions %}
+                            <a data-bs-toggle="tooltip"
+                               data-bs-custom-class="datagrid-tooltip-btn-actions"
+                               data-bs-placement="top"
+                               title="<i18n>{{ btn.tooltip }}</i18n>"
+                               href="{{ btn.action|replace({'[ID]': row.id}) }}"
+                               class="btn-action-{{ btn.name }} {% if btn.name == 'edit' and row.btn_edit_class is defined %}{{ row.btn_edit_class }}{% endif %} {% if btn.name == 'delete' and row.btn_delete_class is defined %}{{ row.btn_delete_class }}{% endif %}" {% for attr,value in btn.attributes %} {{ attr }}="{{ value }}" {% endfor%}>
+                            <i class="{{ btn.icon }}"></i>
+                            </a>
+                        {% endfor %}
+                    </td>
                 {% endif %}
 
             </tr>
@@ -235,22 +235,22 @@
         </tbody>
 
         {% if grid.batch_mode %}
-        <tfoot class="batch">
-        <tr>
-            <td colspan="999">
-                <select class="form-select datagrid-batch-action-select w-auto pe-5 d-inline" disabled>
-                    <option value=""></option>
-                    {% for action in grid.batch_actions %}
-                        <option value="{{ action.js_func }}"><i18n>{{ action.label }}</i18n></option>
-                    {% endfor %}
-                </select>
+            <tfoot class="batch">
+            <tr>
+                <td colspan="999">
+                    <select class="form-select datagrid-batch-action-select w-auto pe-5 d-inline" disabled>
+                        <option value=""></option>
+                        {% for action in grid.batch_actions %}
+                            <option value="{{ action.js_func }}"><i18n>{{ action.label }}</i18n></option>
+                        {% endfor %}
+                    </select>
 
-                <button type="button" class="btn btn-light btn-batch-execute" disabled><i18n>Execute</i18n></button>
+                    <button type="button" class="btn btn-light btn-batch-execute" disabled><i18n>Execute</i18n></button>
 
-            </td>
-        </tr>
+                </td>
+            </tr>
 
-        </tfoot>
+            </tfoot>
         {% endif %}
 
 
@@ -262,7 +262,7 @@
                     <a href="{{ grid.previous_url }}" accesskey="p" class="{% if pager.current_page == 1 %}invisible{% endif %}"><i class="bi bi-arrow-left-short"></i></a>
 
                     Page <input data-location="{{ grid.page_direct_url }}" data-value-original="{{ pager.current_page }}" data-page-max="{{ pager.last_page }}" accesskey="g" type="text" onfocus="this.select()" value="{{ pager.current_page }}" class="mx-2 form-control form-control-sm d-inline-block input-page text-center"> /
-                    {{ pager.page_end }}
+                    {{ pager.last_page }}
 
                     <a href="{{ grid.next_url }}" accesskey="n" class="{% if pager.current_page == pager.page_end %}invisible{% endif %}"><i class="bi bi-arrow-right-short"></i></a>
 
@@ -280,7 +280,7 @@
             </tr>
             </tfoot>
         {% endif %}
-        {% endif %}
+    {% endif %}
 
     </table>
 </div>
@@ -300,61 +300,61 @@
         </div>
 
         <form class="datagrid-search-form">
-        <div class="datagrid_search_fields__wrapper"></div>
+            <div class="datagrid_search_fields__wrapper"></div>
         </form>
 
         <template id="tpl__datagrid_search_fields">
-        <div class="row g-1 my-1 datagrid_search_field">
+            <div class="row g-1 my-1 datagrid_search_field">
 
-            <div class="col-3">
-                <select class="form-select datagrid-search-input__name">
-                    {% for s in grid.search_columns %}
-                        <option value="{{ s.name }}" data-type="{{ s.type }}" data-options="{{ json(s.options) }}" data-operator-default="{{ s.operator_selected }}"><i18n>{{ s.label }}</i18n></option>
-                    {% endfor %}
-                </select>
-            </div>
-
-            <div class="col-4">
-                <select class="form-select datagrid-search-input__operator">
-                    <option value="eq" data-filter="text,number,boolean,date,tags,select"> <i18n>equals</i18n>... </option>
-                    <option value="!eq" data-filter="text,number,date,tags"> <i18n>not equals</i18n>... </option>
-                    <option value="gte"  data-filter="number,date,datetime-local"> <i18n>greater than equal</i18n>... </option>
-                    <option value="lte"  data-filter="number,date,datetime-local"> <i18n>lower than equal</i18n>... </option>
-                    <option value="in" data-filter="select"> <i18n>in (separator `;`)</i18n>... </option>
-                    <option value="!in" data-filter="select"> <i18n>not in (separator `;`)</i18n>... </option>
-                    <option value="like" data-filter="text"> <i18n>contains</i18n>... </option>
-                    <option value="!like" data-filter="text"> <i18n>does not contain</i18n>... </option>
-                    <option value="empty" data-filter="text,boolean,select,tags"> <i18n>is empty</i18n> </option>
-                    <option value="!empty" data-filter="text,boolean,select"> <i18n>is not empty</i18n> </option>
-                </select>
-            </div>
-
-            <div class="col">
-                <div class="input-group">
-
-                    <input type="text" class="form-control datagrid-search-input__value datagrid-search-input__value__text" value="" onfocus="this.select()">
-
-                    <input type="date" class="form-control datagrid-search-input__value datagrid-search-input__value__date" value="" onfocus="this.select()">
-                    <input type="datetime-local" class="form-control datagrid-search-input__value datagrid-search-input__value__datetime-local" value="" onfocus="this.select()">
-
-                    <input type="number" class="form-control datagrid-search-input__value datagrid-search-input__value__number" value="" onfocus="this.select()">
-                    <select class="form-select datagrid-search-input__value datagrid-search-input__value__boolean">
-                        <option value="yes"><i18n>Yes</i18n></option>
-                        <option value="no"><i18n>No</i18n></option>
+                <div class="col-3">
+                    <select class="form-select datagrid-search-input__name">
+                        {% for s in grid.search_columns %}
+                            <option value="{{ s.name }}" data-type="{{ s.type }}" data-options="{{ json(s.options) }}" data-operator-default="{{ s.operator_selected }}"><i18n>{{ s.label }}</i18n></option>
+                        {% endfor %}
                     </select>
-
-                    <select class="form-select selectx-multiple datagrid-search-input__value datagrid-search-input__value__select"></select>
-
-                    <input type="text" class="form-control datagrid-search-input__value datagrid-search-input__value__tags" onfocus="this.select()">
-
-
-                    <button type="button" class="btn btn-outline-secondary btn-search-condition-btn-delete"><i class="bi bi-trash-fill"></i></button>
-                    {# <button type="button" class="btn btn-outline-secondary btn-search-condition-btn-grip"><i class="bi bi-three-dots-vertical"></i></button> #}
-
                 </div>
-            </div>
 
-        </div>
+                <div class="col-4">
+                    <select class="form-select datagrid-search-input__operator">
+                        <option value="eq" data-filter="text,number,boolean,date,tags,select"> <i18n>equals</i18n>... </option>
+                        <option value="!eq" data-filter="text,number,date,tags"> <i18n>not equals</i18n>... </option>
+                        <option value="gte"  data-filter="number,date,datetime-local"> <i18n>greater than equal</i18n>... </option>
+                        <option value="lte"  data-filter="number,date,datetime-local"> <i18n>lower than equal</i18n>... </option>
+                        <option value="in" data-filter="select"> <i18n>in (separator `;`)</i18n>... </option>
+                        <option value="!in" data-filter="select"> <i18n>not in (separator `;`)</i18n>... </option>
+                        <option value="like" data-filter="text"> <i18n>contains</i18n>... </option>
+                        <option value="!like" data-filter="text"> <i18n>does not contain</i18n>... </option>
+                        <option value="empty" data-filter="text,boolean,select,tags"> <i18n>is empty</i18n> </option>
+                        <option value="!empty" data-filter="text,boolean,select"> <i18n>is not empty</i18n> </option>
+                    </select>
+                </div>
+
+                <div class="col">
+                    <div class="input-group">
+
+                        <input type="text" class="form-control datagrid-search-input__value datagrid-search-input__value__text" value="" onfocus="this.select()">
+
+                        <input type="date" class="form-control datagrid-search-input__value datagrid-search-input__value__date" value="" onfocus="this.select()">
+                        <input type="datetime-local" class="form-control datagrid-search-input__value datagrid-search-input__value__datetime-local" value="" onfocus="this.select()">
+
+                        <input type="number" class="form-control datagrid-search-input__value datagrid-search-input__value__number" value="" onfocus="this.select()">
+                        <select class="form-select datagrid-search-input__value datagrid-search-input__value__boolean">
+                            <option value="yes"><i18n>Yes</i18n></option>
+                            <option value="no"><i18n>No</i18n></option>
+                        </select>
+
+                        <select class="form-select selectx-multiple datagrid-search-input__value datagrid-search-input__value__select"></select>
+
+                        <input type="text" class="form-control datagrid-search-input__value datagrid-search-input__value__tags" onfocus="this.select()">
+
+
+                        <button type="button" class="btn btn-outline-secondary btn-search-condition-btn-delete"><i class="bi bi-trash-fill"></i></button>
+                        {# <button type="button" class="btn btn-outline-secondary btn-search-condition-btn-grip"><i class="bi bi-three-dots-vertical"></i></button> #}
+
+                    </div>
+                </div>
+
+            </div>
         </template>
 
 

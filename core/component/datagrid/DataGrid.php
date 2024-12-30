@@ -5,7 +5,7 @@ namespace Component;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DataGrid {
-	
+
 	private string $table;
 	private string $object_label = 'record';
 	private string $no_record_message = "No record found";
@@ -15,29 +15,29 @@ class DataGrid {
 	private string $sql;
 	private string $classes = '';
 	private array $attributes = [];
-	
+
 	private int $record_per_page;
 	private array $per_page_options = [25, 50, 100, 250, 500, 1000];
 	private bool $pagination = true;
-	
+
 	private bool $batch_mode = false;
 	private array $batch_actions = [];
-	
+
 	private array $columns = [];
 	private array $order_by_columns = [];
-	
+
 	private array $row_btn_actions = [];
 	private array $nav_btn_actions = [];
-	
+
 	private array $search_columns = [];
 	public mixed $hookData;
-	
+
 	private array $query = [];
 	private array $query_params = [];
-	
+
 	private string $order_by_init = '';
 	private string $order_by_sort_init = 'desc';
-	
+
 	public bool $user_is_searching = false;
 
 	private bool $col_position = false;
@@ -45,40 +45,56 @@ class DataGrid {
 
 	public bool $action_duplicate = true;
 	public bool $user_has_right_edit = false;
-	
+
 	public function __construct(string $object_label='record', string $table='', int $record_per_page=25, string $css_id='datagrid', string $classes='table-sm table-hover table-border caption-top', $attributes=[])
 	{
 		$this->object_label = $object_label;
 		$this->table = $table;
 		$this->css_id = $css_id;
-		
+
 		if(!empty($classes) && $classes[0] == ' ')
 			$classes .= " table-sm table-hover table-border caption-top";
-		
+
 		$this->classes = $classes;
 		$this->attributes = $attributes;
 		$this->record_per_page = $record_per_page;
-		
+
 		if(!$this->record_per_page)$this->setPagination(false);
-		
+
 		$plugin_route = App()->plugin['route_prefix_name'];
 
 		if(\Model\User::hasRight('edit'))
 			$this->user_has_right_edit = true;
 
+
+
+		$plugin_route = App()->plugin['route_prefix_name'];
+
+		if(App()->is_backend)
+		{
+			if(\Model\User::hasRight('add'))
+				$this->navAddActionButton('add', "<i class='bi bi-plus-circle me-1'></i> <i18n>".ucfirst($this->object_label)."</i18n>", "/@backend/{$plugin_route}/add/", '', 'btn-primary', ['accesskey' => 'c']);
+
+			if(\Model\User::hasRight('edit'))
+				$this->rowAddActionButton('edit', 'Edit', 'bi bi-pencil-fill text-info', "/@backend/{$plugin_route}/edit/[ID]/");
+
+			if(\Model\User::hasRight('delete'))
+				$this->rowAddActionButton('delete', 'Delete', 'bi bi-trash-fill text-danger', "/@backend/{$plugin_route}/delete/[ID]/");
+		}
+
 	}
-	
+
 	public function setRecordByPage(int $record):void
 	{
-		$this->record_per_page = 0;
-		$this->setPagination(false);
+		$this->record_per_page = $record;
+		if(!$record)$this->setPagination(false);
 	}
-	
+
 	public function rowRemoveActionButton($name)
 	{
 		unset($this->row_btn_actions[$name]);
 	}
-	
+
 	public function navAddActionButton($name, $label, $action, $icon='', $type='btn-light', $attributes=[]):void
 	{
 		$tmp = [];
@@ -88,7 +104,7 @@ class DataGrid {
 		$tmp['label'] = (strpos($label, '<i18n>') === false) ? "<i18n>{$label}</i18n>" : $label;
 		$tmp['icon'] = $icon;
 		$tmp['attributes'] = $attributes;
-		
+
 		$this->nav_btn_actions[$name] = $tmp;
 	}
 
@@ -105,37 +121,37 @@ class DataGrid {
 		$tmp['icon'] = $icon;
 		$tmp['action'] = $action;
 		$tmp['attributes'] = $attributes;
-		
+
 		$this->row_btn_actions[$name] = $tmp;
 	}
-	
+
 	public function setPagination(bool $pagination):void {$this->pagination = $pagination;}
-	
+
 	public function setObjectLabel(string $object_label):void {$this->object_label = $object_label;}
 	public function setClass(string $class):void {$this->classes = $class;}
 	public function setAttributes(array $attributes):void {$this->attributes = $attributes;}
-	
+
 	public function setDeleteMessage(string $message):void {$this->delete_message = $message;}
 	public function setDeleteMessageWarning(string $message):void {$this->delete_message_warning = $message;}
-	
-	
+
+
 	public function setNoRecordMessage(string $no_record_message):void {$this->no_record_message = $no_record_message;}
 	public function setBatchMode(bool $batch_mode):void{$this->batch_mode = $batch_mode;}
-	
+
 	public function addBatchAction(string $label, string $js_func):void{
-		
+
 		$this->batch_actions[] = ['label' => $label, 'js_func' => $js_func];
-		
+
 	}
-	
-	
+
+
 	public function setOrderByInit(string $column, string $sort='desc'):void{
 		$this->order_by_init = $column;
 		$this->order_by_sort_init = $sort;
 	}
-	
+
 	public function userIsSearching(string $column):bool {
-		
+
 		if(isset($_GET['search']) && is_array($_GET['search']))
 		{
 			$searches = $_GET['search'];
@@ -146,8 +162,29 @@ class DataGrid {
 					return true;
 			}
 		}
-		
+
 		return false;
+	}
+
+	public function searchGetValue(string $column):string
+	{
+		$v = "";
+
+		if(isset($_GET['search']) && is_array($_GET['search']))
+		{
+			$searches = $_GET['search'];
+			foreach($searches as $search)
+			{
+				$v = explode('|', $search);
+				if(count($v) >= 2 && $v[0] == $column)
+				{
+					return end($v);
+				}
+			}
+		}
+
+
+		return $v;
 	}
 
 	public function searchSet(string $column, string $value, string $operator="")
@@ -167,84 +204,84 @@ class DataGrid {
 		$this->header_message_class = $class;
 		$this->header_message_icon = $icon;
 	}
-	
+
 	public function searchAddText(string $name, string $label='', string $operator_selected='')
 	{
 		if($name == 'id' && empty($label))$label = 'Id';
-		
+
 		$this->search_columns[$name] = [];
 		$this->search_columns[$name]['name'] = $name;
 		$this->search_columns[$name]['label'] = (empty($label)) ? $name : $label;
 		$this->search_columns[$name]['type'] = 'text';
 		$this->search_columns[$name]['operator_selected'] = $operator_selected;
 		$this->search_columns[$name]['options'] = [];
-		
-		
-		
+
+
+
 		return $this;
 	}
-	
+
 	public function searchForceSql(string $sql, array $params=[], string $name='')
 	{
 		$cols = array_keys($this->search_columns);
 		if(empty($name))$name = end($cols);
-		
+
 		$this->search_columns[$name]['sql_raw'] = $sql;
 		$this->search_columns[$name]['sql_raw_params'] = $params;
-		
+
 		return $this;
 	}
-	
-	
-	
+
+
+
 	public function searchAddDatetime(string $name, string $label='', string $operator_selected='')
 	{
 		$this->searchAddText($name, $label, $operator_selected);
 		$this->search_columns[$name]['type'] = 'datetime-local';
 		return $this;
 	}
-	
+
 	public function searchAddNumber(string $name, string $label='', string $operator_selected='')
 	{
 		$this->searchAddText($name, $label, $operator_selected);
 		$this->search_columns[$name]['type'] = 'number';
 		return $this;
 	}
-	
+
 	public function searchAddBoolean(string $name, string $label='', string $operator_selected='')
 	{
 		$this->searchAddText($name, $label, $operator_selected);
 		$this->search_columns[$name]['type'] = 'boolean';
 		return $this;
 	}
-	
-	
+
+
 	public function searchAddSelect(string $name, string $label='', array $options=[], string $operator_selected='')
 	{
 		$this->searchAddText($name, $label, $operator_selected);
 		$this->search_columns[$name]['type'] = 'select';
 		$this->search_columns[$name]['options'] = $options;
-		
-		
+
+
 		$options_values = [];
 		foreach($options as $option)
 			$options_values[] = $option['value'];
-		
+
 		$this->search_columns[$name]['options-values'] = $options_values;
 		return $this;
 	}
-	
+
 	public function searchAddSelectSql(string $name, string $label='', string $table='', string $column='', string $where_added='', string $operator_selected='')
 	{
 		$distinct_mode = false;
-		
+
 		if(empty($table) && empty($column) && !(preg_match('/id$/', $name)))
 		{
 			$table = $this->table;
 			$column = $name;
 			$distinct_mode = true;
 		}
-		
+
 		if(empty($table))
 		{
 			$table = $this->table;
@@ -254,7 +291,7 @@ class DataGrid {
 				if(empty($column))$column = 'name';
 			}
 		}
-		
+
 		if($distinct_mode)
 		{
 			$sql = "SELECT DISTINCT {$column} AS label FROM {$table} WHERE deleted = 'no' {$where_added} ORDER BY {$column}";
@@ -263,9 +300,9 @@ class DataGrid {
 		{
 			$sql = "SELECT id AS value, {$column} AS label FROM {$table} WHERE deleted = 'no' {$where_added} ORDER BY {$column}";
 		}
-		
+
 		$recs = DB()->query($sql)->fetchAll();
-		
+
 		$options = [];
 		foreach($recs as $rec)
 		{
@@ -274,9 +311,9 @@ class DataGrid {
 			else
 				$options[] = ['label' => $rec['label'], 'value' => $rec['value'], 'selected' => false];
 		}
-		
+
 		$this->searchAddSelect($name, $label, $options, $operator_selected);
-		
+
 	}
 
 	public function searchAddTagManager(string $signature='', string $table='')
@@ -302,24 +339,24 @@ class DataGrid {
 		return $this;
 	}
 
-	
+
 	private function ajaxerPositionExecute()
 	{
 		if(get('ajaxer') == 1 && get('ajaxer-action') == 'position')
 		{
 			$resp = ['error' => false, 'error_message' => ""];
-			
+
 			// ids
 			$ids = get('ids');
 			$ids = explode(';', trim($ids));
-			
+
 			$ids2 = [];
 			foreach($ids as $id)
 			{
 				if($id == (int)$id && $id)
 					$ids2[] = (int)$id;
 			}
-			
+
 			if(count($ids2))
 			{
 				$current = 1;
@@ -329,23 +366,23 @@ class DataGrid {
 					$current++;
 				}
 			}
-			
+
 			return die(json_encode($resp));
 		}
 	}
-	
+
 	public function addColumnPosition()
 	{
 		$this->col_position = true;
 		// $this->col_position_parent = $col_position_parent;
-		
+
 		$this->ajaxerPositionExecute();
 	}
-	
+
 	public function addColumn(string $name, string $label='', bool $order_by=false, string $classes=''):void
 	{
 		if($name == 'id')$classes .= ' min text-end ';
-		
+
 		$this->columns[$name] = [];
 		$this->columns[$name]['type'] = 'normal';
 		$this->columns[$name]['name'] = $name;
@@ -353,18 +390,18 @@ class DataGrid {
 		$this->columns[$name]['classes'] = $classes;
 		$this->columns[$name]['order_by'] = $order_by;
 		$this->columns[$name]['order_by_sort'] = "";
-		
+
 		if($order_by)
 			$this->order_by_columns[] = $name;
 	}
 	public function addColumnHtml(string $name, string $label='', bool $order_by=false, string $classes=''):void
 	{
 		if($name == 'email')$classes .= ' min center';
-		
+
 		$this->addColumn($name, $label, $order_by, $classes);
 		$this->columns[$name]['type'] = 'html';
 	}
-	
+
 	public function addColumnNote(string $name, string $label='', bool $order_by=false, string $icon='bi bi-sticky-fill', string $icon_classes="text-warning"):void
 	{
 		$classes = ' min center';
@@ -373,8 +410,8 @@ class DataGrid {
 		$this->columns[$name]['text_icon'] = $icon;
 		$this->columns[$name]['text_icon_classes'] = $icon_classes;
 	}
-	
-	
+
+
 	public function addColumnImage(string $name, string $label='', bool $order_by=false, string $img_classes='', bool $img_zoomable=false, string $img_url=""):void
 	{
 		if(!empty($img_url))$img_zoomable = false;
@@ -386,13 +423,13 @@ class DataGrid {
 		$this->columns[$name]['image_zoomable'] = $img_zoomable;
 		$this->columns[$name]['image_url'] = $img_url;
 	}
-	
+
 	public function addColumnButton(string $name, string $text, string $url, bool $order_by=false, string $icon='', string $type='btn-light', array $attributes=[]):void
 	{
 		if(empty($type))$type = 'btn-light';
-		
+
 		$this->addColumnHtml($name, $text, $order_by, 'min center');
-		
+
 		$this->columns[$name]['type'] = 'button';
 		$this->columns[$name]['button_url'] = $url;
 		$this->columns[$name]['button_icon'] = $icon;
@@ -425,18 +462,18 @@ class DataGrid {
 	{
 		if(empty($format))$format = \Core\Session::get('auth.format_date');
 		if(empty($format))$format = \Core\Config::get('format/date');
-		
+
 		$classes .= " min";
 		$this->addColumn($name, $label, $order_by, $classes);
 		$this->columns[$name]['type'] = 'date';
 		$this->columns[$name]['format'] = $format;
 	}
-	
+
 	public function addColumnDatetime(string $name, string $label='', string $format='', bool $order_by=false, string $classes=''):void
 	{
 		if(empty($format))$format = \Core\Session::get('auth.format_datetime', "");
 		if(empty($format))$format = \Core\Config::get('format/datetime', "");
-		
+
 		$classes .= " min";
 		$this->addColumn($name, $label, $order_by, $classes);
 		$this->columns[$name]['type'] = 'datetime';
@@ -455,24 +492,24 @@ class DataGrid {
 		$sql = "(select GROUP_CONCAT(tag SEPARATOR ', ') FROM xcore_tag WHERE deleted = 'no' AND signature = '{$signature}' AND record_id = {$table}.id ORDER BY tag) AS `xTags`";
 		$this->qSelect($sql);
 	}
-	
+
 	public function hookData(callable $callback):void
 	{
 		$this->hookData = $callback;
 	}
-	
+
 	public function qSelect(string $raw):void {
 		$this->query['SELECT'][] = $raw;
 	}
-	
+
 	public function qSelectEmbed(string $table, string $column='name', string $alias='', string $where_added=''):void {
 		if(empty($alias))$alias = "{$table}__{$column}";
 		if(!empty($where_added)) $where_added = " AND {$where_added}";
 		$sql = "(select {$column} FROM {$table} WHERE deleted = 'no' AND {$this->table}.{$table}_id = {$table}.id {$where_added}) AS `{$alias}`";
-		
+
 		$this->qSelect($sql);
 	}
-	
+
 	public function qSelectEmbedCount(string $table, string $alias='', string $column='*', string $where_added=''):void {
 		if(empty($alias))$alias = "{$table}__{$column}";
 		if(!empty($where_added)) $where_added = " AND {$where_added}";
@@ -488,16 +525,16 @@ class DataGrid {
 	{
 		$this->query['ORDER-BY'] = $col;
 	}
-	
+
 	public function getSQL():string {return $this->sql;}
-	
+
 	public function render()
 	{
 		// position
 		$this->ajaxerPositionExecute();
 
 		// $this->controller->loadAssetsJs(['/core/component/datagrid/assets/js/datagrid.js']);
-		
+
 		// add search parameters
 		if(isset($_GET['search']) && is_array(($_GET['search'])))
 		{
@@ -506,12 +543,12 @@ class DataGrid {
 			{
 				$str = "";
 				$bind = [];
-				
-				
+
+
 				$vs = explode("||", $vs);
 				$col = $vs[0];
 				$current_bind_name = ":search_value_{$current}";
-				
+
 				if(isset($this->search_columns[$col]))
 				{
 					if(count($vs) == 2)
@@ -522,12 +559,12 @@ class DataGrid {
 							$vs[1] = "eq";
 						}
 					}
-					
+
 					// check operator value
 					if(!in_array($vs[1], ['eq', '!eq', 'gte', 'lte', 'in', '!in', 'like', '!like', 'empty', '!empty']))
 						$vs[1] = "eq";
-					
-					
+
+
 					// datime-local
 					if($this->search_columns[$col]['type'] == 'datetime-local')
 					{
@@ -537,9 +574,9 @@ class DataGrid {
 					// @todo> tags
 
 
-					
+
 					$this->user_is_searching = true;
-					
+
 					// normal search
 					if(empty($this->search_columns[$col]['sql_raw']))
 					{
@@ -547,10 +584,10 @@ class DataGrid {
 						if($vs[1] == 'eq' || $vs[1] == '!eq')
 						{
 							$exclam = ($vs[1] == 'eq') ? '' : '!';
-							
+
 							// $str = "{$col} {$exclam}= :search_value";
 							$str = "{$col} {$exclam}= {$current_bind_name}";
-							
+
 							// $bind[':search_value'] = $vs[2];
 							$bind[$current_bind_name] = $vs[2];
 						}
@@ -558,7 +595,7 @@ class DataGrid {
 						{
 							// $str = "{$col} >= :search_value";
 							$str = "{$col} >= {$current_bind_name}";
-							
+
 							// $bind[':search_value'] = $vs[2];
 							$bind[$current_bind_name] = $vs[2];
 						}
@@ -590,7 +627,7 @@ class DataGrid {
 						elseif($vs[1] == 'in' || $vs[1] == '!in')
 						{
 							$values = explode(';', $vs[2]);
-							
+
 							$tmp = "";
 							foreach($values as $v)
 							{
@@ -600,9 +637,9 @@ class DataGrid {
 									$tmp .= "'".addslashes($v)."'";
 								}
 							}
-							
+
 							if(empty($tmp))$tmp = 0; # prevent bug
-							
+
 							$not = ($vs[1] == 'in') ? '' : 'NOT';
 							$str = "{$col} {$not} IN({$tmp})";
 						}
@@ -622,7 +659,7 @@ class DataGrid {
 						$params = $this->search_columns[$col]['sql_raw_params'];
 						foreach($params as $pkey => $pval)
 							$bind[$pkey] = $pval;
-						
+
 						if($vs[1] == 'eq')
 						{
 							$str = str_replace('[@operator_input]', " = {$current_bind_name}", $str);
@@ -666,9 +703,9 @@ class DataGrid {
 						elseif($vs[1] == 'in' || $vs[1] == '!in')
 						{
 							$not = ($vs[1] == 'in') ? '' : 'NOT';
-							
+
 							$values = explode(';', $vs[2]);
-							
+
 							$tmp = "";
 							foreach($values as $v)
 							{
@@ -678,9 +715,9 @@ class DataGrid {
 									$tmp .= "'".addslashes($v)."'";
 								}
 							}
-							
+
 							if(empty($tmp))$tmp = 0; # prevent bug
-							
+
 							$str = str_replace('[@operator_input]', " {$not} IN($tmp)", $str);
 						}
 					}
@@ -693,25 +730,32 @@ class DataGrid {
 				}
 			}
 		}
-		
-		$this->record_per_page = get('per_page', $this->record_per_page, $this->per_page_options);
+
+
+		if($this->pagination)
+			$this->record_per_page = get('per_page', $this->record_per_page, $this->per_page_options);
+
+
 
 		$plugin_route = App()->plugin['route_prefix_name'];
+		if($this->action_duplicate && \Model\User::hasRight('add') && \Model\User::hasRight('edit'))
+			$this->rowAddActionButton('duplicate', 'Duplicate', 'bi bi-files', "/@backend/{$plugin_route}/add/?cid=[ID]");
 
-		if(App()->is_backend)
+		// reorder action buttons
+		if(isset($this->row_btn_actions['edit']))
 		{
-			if(\Model\User::hasRight('add'))
-				$this->navAddActionButton('add', "<i class='bi bi-plus-circle me-1'></i> <i18n>".ucfirst($this->object_label)."</i18n>", "/@backend/{$plugin_route}/add/", '', 'btn-primary', ['accesskey' => 'c']);
-
-			if(\Model\User::hasRight('edit'))
-				$this->rowAddActionButton('edit', 'Edit', 'bi bi-pencil-fill text-info', "/@backend/{$plugin_route}/edit/[ID]/");
-
-			if($this->action_duplicate && \Model\User::hasRight('add') && \Model\User::hasRight('edit'))
-				$this->rowAddActionButton('duplicate', 'Duplicate', 'bi bi-files', "/@backend/{$plugin_route}/add/?cid=[ID]");
-
-			if(\Model\User::hasRight('delete'))
-				$this->rowAddActionButton('delete', 'Delete', 'bi bi-trash-fill text-danger', "/@backend/{$plugin_route}/delete/[ID]/");
+			$r = $this->row_btn_actions['edit'];
+			unset($this->row_btn_actions['edit']);
+			$this->row_btn_actions = array_merge($this->row_btn_actions, ['edit' => $r]);
 		}
+
+		if(isset($this->row_btn_actions['delete']))
+		{
+			$r = $this->row_btn_actions['delete'];
+			unset($this->row_btn_actions['delete']);
+			$this->row_btn_actions = array_merge($this->row_btn_actions, ['delete' => $r]);
+		}
+
 
 		// grid properties
 		$grid = [];
@@ -735,10 +779,10 @@ class DataGrid {
 		$grid['columns'] = $this->columns;
 		$grid['row_btn_actions'] = $this->row_btn_actions;
 		$grid['nav_btn_actions'] = $this->nav_btn_actions;
-		
+
 		$grid['no_record_message'] = $this->no_record_message;
 		$grid['per_page_options'] = $this->per_page_options;
-		
+
 		$grid['order_by_init'] = (empty($this->order_by_init)) ? @$this->order_by_columns[0] : $this->order_by_init;
 		$grid['order_by_sort_init'] = $this->order_by_sort_init;
 		$grid['user_searches'] = [];
@@ -748,7 +792,7 @@ class DataGrid {
 		$grid['per_page_url'] = http_query_replace(['per_page' => null], $uri)."&per_page=";
 		$grid['page_direct_url'] = http_query_replace(['page' => null], $uri)."&page=";
 		$grid['order_by_url'] = [];
-		
+
 		foreach($this->order_by_columns as $col)
 		{
 			if(!isset($_GET['order_by_sort']) || !in_array($_GET['order_by_sort'], ['asc', 'desc']))
@@ -757,20 +801,20 @@ class DataGrid {
 				$sort = 'asc';
 			else
 				$sort = 'desc';
-			
+
 			$grid['order_by_url'][$col] = http_query_replace(['order_by' => $col, 'order_by_sort' => $sort], $uri);
 		}
-		
-		
+
+
 		// get rows
 		$select = '*';
 		if(isset($this->query['SELECT']))
 		{
 			$select .= ",\n".join(',', $this->query['SELECT']);
 		}
-		
+
 		$obj = Db($this->table)->select($select);
-		
+
 		$sql_where = "";
 		if(isset($this->query['WHERE']) && count($this->query['WHERE']))
 		{
@@ -780,10 +824,10 @@ class DataGrid {
 				$sql_where .= $w;
 			}
 		}
-		
+
 		if(!empty($sql_where))
 			$obj->where($sql_where);
-		
+
 		// order by
 		if(!count($this->order_by_columns))
 		{
@@ -797,11 +841,11 @@ class DataGrid {
 			$order_by = get('order_by', $this->order_by_init);
 			if(!in_array($order_by, $this->order_by_columns))
 				$order_by = $this->order_by_columns[0];
-			
+
 			$order_by_sort = get('order_by_sort', $this->order_by_sort_init);
 			if(!in_array($order_by_sort, ['asc', 'desc']))
 				$order_by_sort = $this->order_by_sort_init;
-				
+
 			$obj->orderBy("{$order_by} {$order_by_sort}");
 		}
 
@@ -813,13 +857,13 @@ class DataGrid {
 
 		$page_prev = $pager['current_page'] - 1;
 		if($page_prev < 1)$page_prev = 1;
-		
+
 		$page_next = $pager['current_page'] + 1;
 		if($page_next > $pager['page_end'])$page_next = $pager['page_end'];
-		
+
 		$grid['previous_url'] = http_query_replace(['page' => null], $uri)."&page={$page_prev}";
 		$grid['next_url'] = http_query_replace(['page' => null], $uri)."&page={$page_next}";
-		
+
 		if(!count($pager['data']))
 			$grid['classes'] = str_erase(['table-hover', 'table-striped'], $grid['classes']);
 
@@ -844,7 +888,7 @@ class DataGrid {
 		$data['searched_tags'] = $searched_tags;
 		$data['grid'] = $grid;
 		$data['pager'] = $pager;
-		
+
 		for($i=0; $i < count($data['pager']['data']); $i++)
 		{
 			// xTags
@@ -858,8 +902,8 @@ class DataGrid {
 			if(is_callable($this->hookData))
 				$data['pager']['data'][$i] = call_user_func($this->hookData, $data['pager']['data'][$i]);
 		}
-		
-		
+
+
 		$content = App()->twig->render('core/component/datagrid/view/datagrid.twig', $data);
 		return $content;
 	}
