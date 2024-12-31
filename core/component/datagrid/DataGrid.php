@@ -586,7 +586,7 @@ class DataGrid {
 							$exclam = ($vs[1] == 'eq') ? '' : '!';
 
 							// $str = "{$col} {$exclam}= :search_value";
-							$str = "{$col} {$exclam}= {$current_bind_name}";
+							$str = "`{$col}` {$exclam}= {$current_bind_name}";
 
 							// $bind[':search_value'] = $vs[2];
 							$bind[$current_bind_name] = $vs[2];
@@ -594,7 +594,7 @@ class DataGrid {
 						elseif($vs[1] == 'gte')
 						{
 							// $str = "{$col} >= :search_value";
-							$str = "{$col} >= {$current_bind_name}";
+							$str = "`{$col}` >= {$current_bind_name}";
 
 							// $bind[':search_value'] = $vs[2];
 							$bind[$current_bind_name] = $vs[2];
@@ -602,7 +602,7 @@ class DataGrid {
 						elseif($vs[1] == 'lte')
 						{
 							// $str = "{$col} <= :search_value";
-							$str = "{$col} <= {$current_bind_name}";
+							$str = "`{$col}` <= {$current_bind_name}";
 							// $bind[':search_value'] = $vs[2];
 							$bind[$current_bind_name] = $vs[2];
 						}
@@ -610,18 +610,18 @@ class DataGrid {
 						{
 							$not = ($vs[1] == 'like') ? '' : 'NOT';
 							// $str = "{$col} {$not} LIKE :search_value";
-							$str = "{$col} {$not} LIKE {$current_bind_name}";
+							$str = "`{$col}` {$not} LIKE {$current_bind_name}";
 							$vs[2] = str_erase(['%', '_'], $vs[2]);
 							// $bind[':search_value'] = "%{$vs[2]}%";
 							$bind[$current_bind_name] = "%{$vs[2]}%";
 						}
 						elseif($vs[1] == 'empty')
 						{
-							$str = "({$col} = '' OR {$col} IS NULL)";
+							$str = "(`{$col}` = '' OR `{$col}` IS NULL)";
 						}
 						elseif($vs[1] == '!empty')
 						{
-							$str = "({$col} != '' AND {$col} IS NOT NULL)";
+							$str = "(`{$col}` != '' AND `{$col}` IS NOT NULL)";
 						}
 						// @todo> only parameters accepted
 						elseif($vs[1] == 'in' || $vs[1] == '!in')
@@ -641,13 +641,13 @@ class DataGrid {
 							if(empty($tmp))$tmp = 0; # prevent bug
 
 							$not = ($vs[1] == 'in') ? '' : 'NOT';
-							$str = "{$col} {$not} IN({$tmp})";
+							$str = "`{$col}` {$not} IN({$tmp})";
 						}
 						else
 						{
 							$exclam = ($vs[1] == 'eq') ? '' : '!';
 							// $str = "{$col} {$exclam}= :search_value";
-							$str = "{$col} {$exclam}= {$current_bind_name}";
+							$str = "`{$col}` {$exclam}= {$current_bind_name}";
 							// $bind[':search_value'] = $vs[2];
 							$bind[$current_bind_name] = $vs[2];
 						}
@@ -721,9 +721,6 @@ class DataGrid {
 							$str = str_replace('[@operator_input]', " {$not} IN($tmp)", $str);
 						}
 					}
-
-
-
 
 					$this->qWhere($str, $bind);
 					$current++;
