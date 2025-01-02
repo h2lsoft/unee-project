@@ -47,7 +47,7 @@ class My_ProfileController extends \Core\Controller
 			 ->setInputSize(4); # force in add mode
 		
 		
-		$form->addHeader('information');
+		$form->addHeader('Information');
 		$form->addText('company', '', false, ['class' => "ucfirst"])->datalist();
 		$form->addText('address', '', false, ['class' => "ucfirst"]);
 		$form->addText('address2', 'address 2', false, ['class' => "ucfirst"]);

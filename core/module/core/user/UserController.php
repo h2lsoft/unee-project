@@ -103,7 +103,7 @@ class UserController extends \Core\Controller {
 		$form->addText('firstname', '', true, ['class' => "ucfirst"]);
 		$form->addEmail('email', '', true);
 		
-		$form->addHeader('information');
+		$form->addHeader('Information');
 		$form->addText('company', '', false, ['class' => "ucfirst"])->datalist();
 		$form->addText('address', '', false, ['class' => "ucfirst"]);
 		$form->addText('address2', 'address 2', false, ['class' => "ucfirst"]);
