@@ -870,3 +870,15 @@ INSERT INTO `xcore_widget` VALUES (1, 10, 'User bookmarks', '\\Core_Backend\\Das
 INSERT INTO `xcore_widget` VALUES (2, 10, 'Last connected', '\\Core_Backend\\DashboardController::widgetUserLastConnectedRender()', 'no', 30, 4, 'yes', 'no', '2024-05-28 16:25:13', 'superadmin', '2024-11-20 14:53:48', '', NULL, NULL);
 INSERT INTO `xcore_widget` VALUES (4, 24, 'Updater', '\\Core\\Live_UpdaterController::widgetRender()', 'no', 0, 1, 'yes', 'no', '2024-05-28 16:25:13', 'superadmin', '2024-11-20 14:53:48', '', NULL, NULL);
 INSERT INTO `xcore_widget` VALUES (5, 25, 'Page', '\\Core_Frontend\\PageController::widgetRender()', 'no', 30, 3, 'yes', 'no', '2024-11-18 21:18:35', 'superadmin', '2024-11-20 14:53:48', '', NULL, NULL);
+
+
+-- v1.0.0
+ALTER TABLE `xcore_user_search` ADD COLUMN `default` ENUM('yes','no') NOT NULL DEFAULT 'no' AFTER `url`;
+ALTER TABLE `xcore_user_search` ADD COLUMN `share` ENUM('yes','no') NOT NULL DEFAULT 'no' AFTER `default`;
+
+ALTER TABLE `xcore_user_search`
+	ADD COLUMN `default_xcore_group_id` BIGINT UNSIGNED NOT NULL DEFAULT (0) AFTER `default`,
+	ADD COLUMN `share_xcore_group_id` BIGINT UNSIGNED NOT NULL DEFAULT (0) AFTER `share`;
+
+UPDATE `xcore_plugin` SET `name`='User search', `type`='normal', `actions`='list\nadd\nadd-menu\nedit\ndelete', visible='yes', `position`=10  WHERE  `name`='Search';
+

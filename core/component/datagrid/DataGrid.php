@@ -80,8 +80,40 @@ class DataGrid {
 
 			if(\Model\User::hasRight('delete'))
 				$this->rowAddActionButton('delete', 'Delete', 'bi bi-trash-fill text-danger', "/@backend/{$plugin_route}/delete/[ID]/");
-		}
 
+
+			if(!$this->user_is_searching)
+			{
+				// default search
+				$group_id = \Core\Session::get('auth.xcore_group_id');
+
+				$where = "xcore_plugin_id = :plugin_id and ";
+				$where .= " (xcore_user_id = :user_id or (`default` = 'yes' and default_xcore_group_id in(0, $group_id))) ";
+
+				$binds = [];
+				$binds[':plugin_id'] = App()->plugin['id'];
+				$binds[':user_id'] = \Model\User::getUID();
+				$default_url = \Model\User_Search::findOne($where, $binds);
+
+				if($default_url)
+				{
+					$default_url = $default_url['url'];
+					$result = parse_url($default_url);
+
+					if(isset($result['query']))
+					{
+						parse_str($result['query'], $query_params);
+						foreach($query_params as $key => $value)
+						{
+							if(!isset($_GET[$key]))
+							{
+								$_GET[$key] = $value;
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	public function setRecordByPage(int $record):void

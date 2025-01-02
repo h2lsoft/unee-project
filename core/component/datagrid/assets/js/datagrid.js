@@ -360,7 +360,7 @@ $('body').on('click', '.datagrid-search-offcanvas .btn-search-save', function(e)
 		formData.append("name", result);
 		formData.append("url", uri);
 		
-		fetch("/"+APP_BACKEND_DIRNAME+"/user-search/add/", {
+		fetch("/"+APP_BACKEND_DIRNAME+"/user-search/create/", {
 			method: 'post',
 			body: formData,
 		}).then((response) => {

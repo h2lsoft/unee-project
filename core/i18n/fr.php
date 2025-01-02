@@ -172,6 +172,14 @@ return [
 	"one action by line" => "une action par ligne",
 	"name of your plugin" => "nom de votre plugin",
 
+	// plugin:user_search
+	"User search" => "Recherche utilisateur",
+	"default" => "défaut",
+	"share" => "partagé",
+	"All groups" => "Tous les groupes",
+	"all groups" => "tous les groupes",
+
+
 	// plugin:crontask
 	"task" => "Tâche",
 	"locked" => "verrouillé",
@@ -339,6 +347,7 @@ return [
 	"Send test email" => "Envoyer un mail test",
 	"Report" => "Rapport",
 	"Scheduler" => "Programmation",
+
 
 
 
