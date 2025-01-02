@@ -144,7 +144,7 @@ class PageController extends \Core\Controller {
 				)
 SQL;
 		$allowed_authors = \Model\User::all($sql_author_where, [], "id as value, CONCAT(lastname,' ', firstname) as label", "", "lastname, firstname");
-		$form->addSelect('xcore_user_id', 'author', false, $allowed_authors)->setValue(\Model\User::getUID());
+		$form->addSelect('xcore_user_id', 'author', false, $allowed_authors, false, ['class' => 'select-search', 'data-placeholder' => " "])->setValue(\Model\User::getUID());
 
 		$form->addTabEnd();
 
@@ -167,7 +167,7 @@ SQL;
 			$templates[] = ['label' => $tpl_file, 'value' => $tpl_file.".twig"];
 		}
 
-		$form->addSelect('template', '', false, $templates);
+		$form->addSelect('template', '', false, $templates, "", ['class' => 'select-search']);
 
 		/*
 		$form->addFileImage(
@@ -200,11 +200,11 @@ SQL;
 		$form->addText('meta_title', 'meta title', false);
 		$form->addText('meta_description', 'meta description', false);
 		$form->addText('meta_keywords', 'meta keywords', false);
-		$form->addSelect('meta_robot', 'meta robot', false, ['noindex', 'nofollow', 'noindex, follow', 'noindex, nofollow']);
+		$form->addSelect('meta_robot', 'meta robot', false, ['noindex', 'nofollow', 'noindex, follow', 'noindex, nofollow'], " ", ['class' => 'select-search']);
 
 		$form->addHr();
 		$form->addText('sitemap_priority', 'sitemap priority', false);
-		$form->addSelectEnum('sitemap_change_freq', 'sitemap change freq', false);
+		$form->addSelectEnum('sitemap_change_freq', 'sitemap change freq', false, " ", true, ['class' => 'select-search']);
 		$form->addText('sitemap_pagination_pattern', 'sitemap pagination pattern', false)->setHelp("ex: `/news/page/[:page]/`");
 		$form->addText('sitemap_follow_url_pattern', 'sitemap follow url pattern', false)->setHelp("ex: `/article/[:slug]`");
 		$form->addText('sitemap_follow_url_priority', 'sitemap follow url priority', false);

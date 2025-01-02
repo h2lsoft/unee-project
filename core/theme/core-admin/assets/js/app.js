@@ -252,6 +252,22 @@ function app_init(force_js)
 	// select color
 	$('.select-color').change();
 
+	// select-search
+	if($('.select-search').length)
+	{
+		$('.select-search').each(function(){
+			new Choices($(this)[0], {
+				searchPlaceholderValue: _I18N_SEARCH,
+				noResultsText: _I18N_COMBO_NO_RESULT,
+				noChoicesText: _I18N_COMBO_NO_CHOICES,
+				itemSelectText: _I18N_COMBO_PRESS_SELECT,
+				uniqueItemText: _I18N_COMBO_UNIQUE_ITEM,
+				customAddItemText: _I18N_COMBO_ADD_ITEM,
+			});
+		})
+
+	}
+
 
 	// force js
 	if(force_js)

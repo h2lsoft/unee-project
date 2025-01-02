@@ -77,6 +77,14 @@ return [
 	"no search found" => "aucune recherche trouvée",
 	"Please, enter a name for your search" => "Merci de renseigner le nom de votre recherche",
 
+	// component:form
+	"No results found" => "Aucun résultat trouvé",
+	"No choices to choose from" => "Aucun choix disponible",
+	"Only unique values can be added" => "Seules des valeurs uniques peuvent être ajoutées",
+	"Only values matching specific conditions can be added" => "Seules les valeurs respectant des conditions spécifiques peuvent être ajoutées",
+
+
+
 	// plugin:login
 	"Sign In" => "Connexion",
 	"Username" => "Nom utilisateur",
@@ -336,7 +344,6 @@ return [
 	'Current civil year (1st jan - 31 dec' => "Année civile en cours (1er jan - 31 déc",
 	'Last civil year (1st jan - 31 dec' => "Dernière année civile (1er jan - 31 déc",
 
-
 	// newsletter
 	'campaign' => 'campagne',
 	'Expeditor email' => 'Expéditeur email',
@@ -347,6 +354,7 @@ return [
 	"Send test email" => "Envoyer un mail test",
 	"Report" => "Rapport",
 	"Scheduler" => "Programmation",
+
 
 
 

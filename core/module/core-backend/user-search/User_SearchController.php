@@ -76,8 +76,9 @@ class User_SearchController extends \Core\Controller {
 		$form->linkController($this, $id);
 
 
-		$form->addSelectSql('xcore_user_id', 'user', true, ' ', [], 'id', 'login', 'xcore_user', " and xcore_group_id in(select id from xcore_group where deleted = 'no' and access_backend='yes')");
-		$form->addSelectSql('xcore_plugin_id', 'plugin', true, ' ', [], 'id', "concat((select name from xcore_menu where id = xcore_menu_id),'> ',name)");
+		$form->addSelectSql('xcore_user_id', 'user', true, '', [], 'id', 'login', 'xcore_user', " and xcore_group_id in(select id from xcore_group where deleted = 'no' and access_backend='yes')");
+
+		$form->addSelectSql('xcore_plugin_id', 'plugin', true, '', [], 'id', "concat((select name from xcore_menu where id = xcore_menu_id),'> ',name)");
 		$form->addText('name', '', true, ['class' => 'upper']);
 		$form->addUrl('url', '', true);
 		$form->addSwitch('default', 'default', true);

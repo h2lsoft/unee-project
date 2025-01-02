@@ -338,6 +338,17 @@ class Form {
 		if(empty($column_value))$column_value = 'id';
 		if(empty($column_label))$column_label = 'name';
 
+		if(!isset($attributes['class']) || str_contains($attributes['class'], 'select-search'))
+		{
+			if(!isset($attributes['class']))$attributes['class'] = '';
+			$attributes['class'] .= ' select-search';
+		}
+
+		if(empty($caption))
+			$attributes['data-placeholder'] = ' ';
+		else
+			$attributes['data-placeholder'] = $caption;
+		$caption = false;
 
 		$sql = "SELECT {$column_value} AS value, {$column_label} AS label FROM {$table} WHERE deleted = 'no' ";
 		if(!empty($where))$sql .= $where;

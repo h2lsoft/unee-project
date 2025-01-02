@@ -92,7 +92,7 @@ class UserController extends \Core\Controller {
 		$form->addFileImage('avatar')->createThumbnail();
 		
 		$priority = Session::get('auth.group_priority');
-		$form->addSelectSql('xcore_group_id', 'group', true, "", [], 'id', "CONCAT(name,' (#',id,')')", '', " and priority >= ".$priority);
+		$form->addSelectSql('xcore_group_id', 'group', true, "Group", [], 'id', "CONCAT(name,' (#',id,')')", '', " and priority >= ".$priority);
 		
 		$options = [];
 		foreach(Config::get('backend/langs') as $l)
