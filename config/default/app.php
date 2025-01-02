@@ -27,7 +27,7 @@ return [
 		'php' => [
 			
 			// override php options (empty = default)
-			'display_errors' => true,
+			'display_errors' => '',
 			'error_reporting' => '',
 			'memory_limit' => '',
 			'max_execution_time' => '',
@@ -75,7 +75,8 @@ return [
 					'username'  => 'root',
 					'password'  => '',
 					'database'  => 'unee',
-					'pdo_options' => [], # PDO options see php pdo documentation
+					'pdo_options' => [
+					], # PDO options see php pdo documentation
 					
 					// 'init_queries' => ["SET SESSION sql_mode='ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'"],
 					'init_queries' => []

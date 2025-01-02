@@ -64,6 +64,7 @@ $('body').on('input', 'input.lower', function(e){
 	$(this).val(v.toLowerCase());
 });
 
+
 // special links
 $('body').on('click', "a[target='_popup']", function(e){
 	e.preventDefault();
@@ -239,6 +240,11 @@ function app_init(force_js)
 				
 			}
 		});
+
+	// regex
+	$('input[data-inputmask]').each(function(){
+		$(this).mask($(this).data('inputmask'));
+	});
 
 	// input tag manager
 	inputTagManagerInit();
