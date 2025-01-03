@@ -12,3 +12,21 @@ function userBadgeUpdate()
 		
 	});
 }
+
+
+function CodeMirrorFullscreen(obj)
+{
+	let $cm = $(obj).siblings('.CodeMirror')
+
+	if ($cm[0].requestFullscreen) {
+		$cm[0].requestFullscreen();
+	} else if ($cm[0].mozRequestFullScreen) { // Firefox
+		$cm[0].mozRequestFullScreen();
+	} else if ($cm[0].webkitRequestFullscreen) { // Chrome, Safari and Opera
+		$cm[0].webkitRequestFullscreen();
+	} else if ($cm[0].msRequestFullscreen) { // IE/Edge
+		$cm[0].msRequestFullscreen();
+	}
+
+
+}

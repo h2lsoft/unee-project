@@ -265,8 +265,33 @@ function app_init(force_js)
 				customAddItemText: _I18N_COMBO_ADD_ITEM,
 			});
 		})
-
 	}
+
+	// highlighter
+	$('textarea.code-highlighter').each(function(){
+
+		$(this).before('<button onclick="CodeMirrorFullscreen(this)" title="Fullscreen" class="CodeMirror-fullscreen-button btn btn-primary" type="button"><i class="bi bi-fullscreen"></i></button>');
+
+		CodeMirror.fromTextArea($(this)[0], {
+			lineNumbers: true,
+			indentUnit: 2,
+
+			extraKeys: {
+
+				"Esc": function(cm) {
+
+
+
+				}
+			}
+
+		});
+
+
+
+
+
+	});
 
 
 	// force js

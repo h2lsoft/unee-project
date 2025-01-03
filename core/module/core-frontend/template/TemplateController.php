@@ -59,21 +59,20 @@ class TemplateController extends \Core\Controller
 	{
 		$form = new \Component\Form();
 
-		$form->loadAssetsJs(['form.js']);
-
 		$form->linkController($this, $id);
 
 
 		$form->addText('collection', '', true, ['class' => 'ucfirst'])->datalist();
+		$form->addFileImage('image_preview', '', false, \Core\Config::get('dir')['page_template']);
 		$form->addText('name', '', true, ['class' => 'ucfirst']);
 		$form->addText('description', '', true, ['class' => 'ucfirst']);
 
 		$msg = "&bull; contenteditable='true' creates an editable text<br>";
 		$msg .= "&bull; x-image-editable='true' creates an editable image path (x-folder-path=assign folder path)<br>";
 
-		$form->addTextarea('content', '', true, ['style' => "height:450px"])->setHelp($msg);
+		$form->addTextarea('content', '', true, ['style' => "height:450px", 'class' => "code-highlighter code-highlighter-html"])->setHelp($msg);
 
-		$form->addFileImage('image_preview', '', false, \Core\Config::get('dir')['page_template']);
+
 
 		$form->addSwitch('active')->setValue('yes');
 		$form->addTagManager();
