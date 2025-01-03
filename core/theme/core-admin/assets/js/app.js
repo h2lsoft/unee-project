@@ -275,15 +275,9 @@ function app_init(force_js)
 		CodeMirror.fromTextArea($(this)[0], {
 			lineNumbers: true,
 			indentUnit: 2,
+			autoCloseBrackets: true,
+			matchBrackets: true,
 
-			extraKeys: {
-
-				"Esc": function(cm) {
-
-
-
-				}
-			}
 
 		});
 

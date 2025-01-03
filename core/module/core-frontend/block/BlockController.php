@@ -75,7 +75,7 @@ class BlockController extends \Core\Controller
 		$form->addSelect('type', '', true, ['content','file'])->setValue('content');
 
 		$form->addText('file_path', 'file path <kbd>@theme/blocks/</kbd>', false)->setHelp('path relative to your block theme directory');
-		$form->addTextarea('content', '', false, ['style' => "height:350px"]);
+		$form->addTextarea('content', '', false, ['style' => "height:350px", 'class' => 'code-highlighter code-highlighter-html']);
 
 		$form->addHeader('Publication');
 		$form->addDatetime('publication_date_start', 'date start', false);
