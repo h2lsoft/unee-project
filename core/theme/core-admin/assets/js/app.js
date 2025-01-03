@@ -277,13 +277,7 @@ function app_init(force_js)
 			indentUnit: 2,
 			autoCloseBrackets: true,
 			matchBrackets: true,
-
-
 		});
-
-
-
-
 
 	});
 
