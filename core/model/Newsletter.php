@@ -1,6 +1,6 @@
 <?php
 
-namespace model;
+namespace Model;
 
 class Newsletter extends \Core\Entity
 {
