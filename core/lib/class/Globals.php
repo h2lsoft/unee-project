@@ -9,12 +9,13 @@ class Globals
 	/**
 	 * get global value from variable name
 	 *
-	 * @param $name
-	 * @param $default value if not found
+	 * @param string $name
+	 * @param mixed $default value if not found
+	 * @param bool $register_value (default=true) register default value
 	 *
 	 * @return string|bool
 	 */
-	public static function get(string $name, mixed $default=false, bool $register_value=false):bool|string
+	public static function get(string $name, mixed $default=false, bool $register_value=true):bool|string
 	{
 		global $app;
 
