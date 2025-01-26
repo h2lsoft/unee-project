@@ -883,23 +883,6 @@ ALTER TABLE `xcore_user_search`
 UPDATE `xcore_plugin` SET `name`='User search', `type`='normal', `actions`='list\nadd\nadd-menu\nedit\ndelete', visible='yes', `position`=10  WHERE  `name`='Search';
 
 -- v1.1.0
-CREATE TABLE `xcore_blacklist` (
-	`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-	`date` DATETIME NOT NULL,
-	`email` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_unicode_ci',
-	`deleted` ENUM('yes','no') NOT NULL DEFAULT 'no' COLLATE 'utf8mb4_unicode_ci',
-	`created_at` DATETIME NULL DEFAULT NULL,
-	`created_by` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
-	`updated_at` DATETIME NULL DEFAULT NULL,
-	`updated_by` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
-	`deleted_at` DATETIME NULL DEFAULT NULL,
-	`deleted_by` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
-	PRIMARY KEY (`id`) USING BTREE,
-	INDEX `deleted` (`deleted`) USING BTREE
-)
-COLLATE='utf8mb4_unicode_ci'
-ENGINE=MyISAM;
-
 DROP TABLE IF EXISTS xcore_newsletter_data;
 
 CREATE TABLE `xcore_newsletter_data` (
