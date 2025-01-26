@@ -354,7 +354,9 @@ return [
 	"Send test email" => "Envoyer un mail test",
 	"Report" => "Rapport",
 	"Scheduler" => "Programmation",
-
+	"Unsubscription confirmed" => "Désinscription confirmée",
+	"You have been successfully unsubscribed from our newsletter. You will no longer receive communications from us." => "Vous avez été désinscrit avec succès de notre newsletter. Vous ne recevrez plus de communications de notre part.",
+	"You can't edit newsletter (status not compatible)" => "Vous ne pouvez modifier cette newsletter (statut incompatible)",
 
 
 
