@@ -407,8 +407,7 @@ class NewsletterController extends \Core\Controller {
 		}
 
 
-		$tpl_path = \Core\Globals::get('core.newsletter.unsubscribe_template_path', 'unsubscribe');
-		return View($tpl_path, ['lang' => $lang, 'email' => $email]);
+		return View('unsubscribe', ['lang' => $lang]);
 	}
 
 
