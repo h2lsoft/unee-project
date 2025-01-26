@@ -2,6 +2,7 @@
 
 namespace Plugin\Core_Backend;
 
+use Cassandra\Exception\TruncateException;
 use Core\Html;
 
 class Mailinglist_SubscriberController extends \Core\Controller {
@@ -17,6 +18,7 @@ class Mailinglist_SubscriberController extends \Core\Controller {
 
 		$datagrid = new \Component\DataGrid($this->object_label, $this->table, 100);
 		$datagrid->qSelectEmbed('xcore_mailinglist', 'name', 'list');
+
 
 		// search
 		$datagrid->searchAddNumber('id');
@@ -64,7 +66,14 @@ class Mailinglist_SubscriberController extends \Core\Controller {
 		$form->linkController($this, $id);
 
 		$form->addDatetime('date', '', true)->setValue(now());
+
+
+		$form->addSelectSql('xcore_mailinglist_id', 'list', true)->setValue(get('xcore_mailinglist_id', 1));
+
+		$default_lang = \Core\Config::get('frontend/langs')[0][0];
 		$form->addEmail('email', '', true, ['class' => 'lower']);
+		$form->addText('language', '', true)->setValue($default_lang);
+
 		$form->addText('lastname', '', false, ['class' => 'ucfirst']);
 		$form->addText('firstname', '', false, ['class' => 'ucfirst']);
 
