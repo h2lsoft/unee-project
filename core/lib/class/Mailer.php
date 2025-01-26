@@ -84,7 +84,7 @@ class Mailer
 		if(!isset($options['charset']))$options['charset'] = 'utf-8';
 		$mail->CharSet = $options['charset'];
 
-		if(!isset($options['X-Mailer']))
+		if(!isset($options['X-Mailer']) && !isset($options['XMailer']) && !isset($options['x-mailer']))
 			$mail->XMailer = null;
 
 		// add headers
