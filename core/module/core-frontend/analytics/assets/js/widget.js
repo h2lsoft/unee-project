@@ -16,7 +16,7 @@ $(function() {
 
 		const c_options = {
 			width:'100%',
-			curveType: 'function',
+			// curveType: 'function',
 			legend: { position: 'none' }
 		};
 
