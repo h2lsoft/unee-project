@@ -222,7 +222,7 @@ function int_formatX(int $int, string $thousand_separator=' '):string
  */
 function isEmail(string$email):bool
 {
-	$regex = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5})$/';
+	$regex = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,8})$/';
 	return preg_match($regex, $email);
 }
 
