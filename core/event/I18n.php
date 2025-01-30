@@ -14,12 +14,10 @@ $dispatcher->addListener('kernel.response', function(ResponseEvent $event) {
 	
 	$response = $event->getResponse();
 	$c = $response->getContent();
-	
-	if(($locale = App()->locale) != 'en')
+
+	if(($locale = App()->locale) != 'en' && file_exists("core/i18n/{$locale}.php"))
 	{
 		$match = preg_match_all('#<i18n>(.*)</i18n>#U', $c, $tab);
-		
-		
 		if($match)
 		{
 			$_I18N = include "core/i18n/{$locale}.php";
