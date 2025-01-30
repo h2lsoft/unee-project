@@ -153,7 +153,7 @@ class SliderController extends \Core\Controller {
 	static public function render(int $id, string $fullname="", array $data=[]):string
 	{
 		$slider = Db()->query("select * from xcore_slider where deleted='no' and active = 'yes' and id={$id}")->fetch();
-		$cards = Db()->query("select * from xcore_slider_card where deleted='no' and visible = 'yes' and xcore_slider_id={$id}")->fetchAll();
+		$cards = Db()->query("select * from xcore_slider_card where deleted='no' and visible = 'yes' and xcore_slider_id={$id} order by position")->fetchAll();
 
 		$parameters = [];
 		$parameters['navigation'] = (@$slider['option_navigation'] === 'yes') ? 'true' : 'false';
