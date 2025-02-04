@@ -22,20 +22,20 @@ function http_redirect(string $url, int $code=302):void
 function getVisitorIp():string
 {
 	if(APP_CLI_MODE)return "127.0.0.1";
-	
-	
+
+
 	// Get real visitor IP behind CloudFlare network
 	if(isset($_SERVER["HTTP_CF_CONNECTING_IP"]))
 	{
 		$_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
 		$_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
 	}
-	
+
 	$client  = @$_SERVER['HTTP_CLIENT_IP'];
 	$forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
 	$remote  = @$_SERVER['REMOTE_ADDR'];
-	
-	
+
+
 	if(filter_var($client, FILTER_VALIDATE_IP))
 	{
 		$ip = $client;
@@ -48,7 +48,7 @@ function getVisitorIp():string
 	{
 		$ip = $remote;
 	}
-	
+
 	return $ip;
 }
 
@@ -64,10 +64,10 @@ function getVisitorIp():string
 function get(string $key, mixed $default='', array $list=[]):mixed
 {
 	$v = (isset($_GET[$key])) ? $_GET[$key] : $default;
-	
+
 	if(count($list) && !in_array($v, $list))
 		$v = $list[0];
-	
+
 	return $v;
 }
 
@@ -88,12 +88,6 @@ function post(string $key, mixed $default='', array $list=[]):mixed
 	return $v;
 }
 
-
-
-
-
-
-
 /**
  * replace in url get parameters
  *
@@ -107,7 +101,7 @@ function http_query_replace(array $params, string $url):string
 	$new_url = parse_url($url);
 	if(!isset($new_url['query']))$new_url['query'] = "";
 	parse_str($new_url['query'], $q);
-	
+
 	foreach($params as $k => $v)
 	{
 		if(is_null($v))
@@ -115,12 +109,12 @@ function http_query_replace(array $params, string $url):string
 		else
 			$q[$k] = $v;
 	}
-	
+
 	$new_url = $new_url['path'] . '?' . http_build_query($q);
-	
+
 	$new_url = str_replace('%5B0%5D', '[]', $new_url);
 	$new_url = str_replace('%7C', '|', $new_url);
-	
+
 	return $new_url;
 }
 
@@ -130,9 +124,45 @@ function http_query_replace(array $params, string $url):string
  *
  * @return bool
  */
-function requestIs(string $type)
+function requestIs(string $type):bool
 {
 	$type = strtoupper($type);
-	
 	return (App()->request->getMethod() == $type);
 }
+function requestIsGet():bool{return requestIs('get');}
+function requestIsPost():bool{return requestIs('post');}
+function requestIsPut():bool{return requestIs('put');}
+function requestIsDelete():bool{return requestIs('delete');}
+
+/**
+ * return current mail provider for a domain (office365, gmail, orange, yahoo)
+ * @param $domain
+ * @return string
+ */
+function dns_mx_get_provider($domain):string
+{
+	$provider = '';
+
+
+	$mx_records = @dns_get_record($domain, DNS_MX);
+	if(!$mx_records)return $provider;
+
+	foreach($mx_records as $record)
+	{
+		if(strpos($record['target'], 'outlook.com') !== false)
+			return 'office365';
+
+		if(strpos($record['target'], 'google.com') !== false || strpos($record['target'], 'googlemail.com') !== false)
+			return 'google';
+
+		if(strpos($record['target'], 'orange.') !== false || strpos($record['target'], 'wanadoo.fr') !== false)
+			return 'orange';
+
+		if(strpos($record['target'], 'yahoo.') !== false)
+			return 'yahoo';
+	}
+
+	return $provider;
+}
+
+

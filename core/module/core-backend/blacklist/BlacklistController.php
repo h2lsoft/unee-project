@@ -15,6 +15,11 @@ class BlacklistController extends \Core\Controller
 
 		$datagrid = new \Component\DataGrid($this->object_label, $this->table, 100);
 
+		// search
+		$datagrid->searchAddNumber('id');
+		$datagrid->searchAddDatetime('date');
+		$datagrid->searchAddText('email');
+
 		// columns
 		$datagrid->addColumnPosition();
 		$datagrid->addColumn('id');

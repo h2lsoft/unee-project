@@ -358,6 +358,9 @@ return [
 	"You have been successfully unsubscribed from our newsletter. You will no longer receive communications from us." => "Vous avez été désinscrit avec succès de notre newsletter. Vous ne recevrez plus de communications de notre part.",
 	"You can't edit newsletter (status not compatible)" => "Vous ne pouvez modifier cette newsletter (statut incompatible)",
 
+	"Unsubscription confirmation" => "Confirmation de désinscription",
+	"I confirm that I want to unsubscribe" => "Je confirme que je souhaite me désinscrire",
+
 
 
 

@@ -62,7 +62,7 @@ class Mailer
 	 *
 	 * @return bool
 	 */
-	public static function send(string|array $from, string $to, string $subject, string $body, array $attachments=[], array $options=[], array $data=[], array $headers=[], $wrap_email=true):bool
+	public static function send(string|array $from, string $to, string $subject, string $body, array $attachments=[], array $options=[], array $data=[], array $headers=[], $wrap_email=true, $automatic_routing=true, $return_path=''):bool
 	{
 		global $request;
 
@@ -80,6 +80,47 @@ class Mailer
 		$mail->SMTPAuth = $cfg['auth'];
 		$mail->Username = $cfg['auth.username'];
 		$mail->Password = $cfg['auth.password'];
+
+		// smtp routing
+
+		if(!empty($to) && str_contains($to, '@') && $automatic_routing && isset($cfg['router']) && count($cfg['router']))
+		{
+			$domain = explode('@', $to);
+			$domain = end($domain);
+			$provider = dns_mx_get_provider($domain);
+			$key = false;
+
+			// outlook
+			if(
+				(isset($cfg['router']['office365']) && $cfg['router']['office365']['active'] && count($cfg['router']['office365']['account']) && str_starts_with("@{$domain}", $cfg['router']['office365']['domains_begins_detect'])) ||
+				($provider == 'office365')
+			)
+			{
+				$key = 'office365';
+			}
+			// google
+			elseif(
+				(isset($cfg['router']['google']) && $cfg['router']['google']['active'] && count($cfg['router']['google']['account']) && str_starts_with("@{$domain}", $cfg['router']['google']['domains_begins_detect'])) ||
+				($provider == 'google')
+			)
+			{
+				$key = 'google';
+			}
+
+			// found
+			if($key)
+			{
+				$account = $cfg['router'][$key]['account'][rand(0, count($cfg['router'][$key]['account']) - 1)];
+
+				$mail->isSMTP();
+				$mail->SMTPSecure = $account['smtp_secure'];
+				$mail->Host = $account['smtp_host'];
+				$mail->Port = $account['smtp_port'];
+				$mail->Username = $account['smtp_username'];
+				$mail->Password = $account['smtp_password'];
+			}
+		}
+
 
 		if(!isset($options['charset']))$options['charset'] = 'utf-8';
 		$mail->CharSet = $options['charset'];
@@ -191,6 +232,9 @@ class Mailer
 		$body = str_replace(' href="/',  " href=\"{$uri}/", $body);
 
 		$mail->Body = $body;
+
+		if(!empty($return_path))
+			$mail->Sender = $return_path;
 
 		try {
 			$mail->send();

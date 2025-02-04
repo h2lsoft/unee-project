@@ -3,6 +3,9 @@
 namespace Plugin\Core_Backend;
 
 use Core\Html;
+use Core\JsonResponse;
+use Core\Response;
+use h2lsoft\Data\Validator;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class NewsletterController extends \Core\Controller {
@@ -22,6 +25,10 @@ class NewsletterController extends \Core\Controller {
 		$datagrid->qSelect("(select count(DISTINCT xcore_mailinglist_subscriber_id) from xcore_newsletter_data where deleted = 'no' and xcore_newsletter_id=xcore_newsletter.id and action='view') as total_opened");
 		$datagrid->qSelect("(select count(DISTINCT xcore_mailinglist_subscriber_id) from xcore_newsletter_data where deleted = 'no' and xcore_newsletter_id=xcore_newsletter.id and action='click') as total_clicked");
 		$datagrid->qSelect("(select count(DISTINCT xcore_mailinglist_subscriber_id) from xcore_newsletter_data where deleted = 'no' and xcore_newsletter_id=xcore_newsletter.id and action='unsubscribe') as total_unsubscribe");
+		$datagrid->qSelect("(select count(DISTINCT xcore_mailinglist_subscriber_id) from xcore_newsletter_data where deleted = 'no' and xcore_newsletter_id=xcore_newsletter.id and action in('spam')) as total_spam");
+
+
+		// $datagrid->addHeaderMessage("");
 
 		// search
 		$datagrid->searchAddNumber('id');
@@ -42,9 +49,11 @@ class NewsletterController extends \Core\Controller {
 		$datagrid->addColumnDatetime('programming_date', 'programming',  '', false, 'min center');
 		$datagrid->addColumn('total_blacklisted', 'Blacklisted', false, 'min center');
 		$datagrid->addColumn('total_sent', 'Sent',  false, 'min center');
+		$datagrid->addColumn('total_spam', 'Spam',  false, 'min center');
 		$datagrid->addColumn('total_opened', 'Open',  false, 'min center');
 		$datagrid->addColumn('total_clicked', 'Click',  false, 'min center');
 		$datagrid->addColumn('total_unsubscribe', 'Unsubscribe',  false, 'min center');
+		$datagrid->addColumnHtml('btn_view', 'Stats', false, 'min center');
 		$datagrid->addColumnTags();
 
 		// hookData
@@ -65,6 +74,9 @@ class NewsletterController extends \Core\Controller {
 			$row['total_unsubscribe'] = int_formatX((int)$row['total_unsubscribe']);
 			if(!$row['total_unsubscribe'])$row['total_unsubscribe'] = '-';
 
+			$row['total_spam'] = int_formatX((int)$row['total_spam']);
+			if(!$row['total_spam'])$row['total_spam'] = '-';
+
 
 			$class = '';
 			if($row['status'] == 'draft') $class = 'bg-warning text-white';
@@ -80,6 +92,8 @@ class NewsletterController extends \Core\Controller {
 				$row['btn_edit_class'] = 'd-none';
 			}
 
+
+			$row['btn_view'] = "<a class='btn py-1 px-2 btn-light' href='/@backend/newsletter-data/?search[]=xcore_newsletter_id||{$row['id']}&_popup=1' target='_popup'><i class=\"bi bi-bar-chart-line\"></i></a>";
 
 			return $row;
 		});
@@ -117,9 +131,17 @@ class NewsletterController extends \Core\Controller {
 		$form->addEmail('expeditor_email', 'Expeditor email', true)->datalist();
 		$form->addText('expeditor_email_label', 'Expeditor label', false)->datalist();
 		$form->addEmail('reply_to', 'Reply to', false)->datalist();
+		$form->addEmail('return_path', 'Return-path', false)->datalist();
 
+		$form->addHeader('Subject');
 		$form->addText('subject', 'Subject', true);
+		$form->addText('subject2', 'Subject 2', false);
+		$form->addText('subject3', 'Subject 3', false);
+
+		$form->addHeader('Template');
 		$form->addFileBrowser('template_url', 'Template url', true, 'newsletter');
+		$form->addFileBrowser('template_url2', 'Template url 2', false, 'newsletter');
+		$form->addFileBrowser('template_url3', 'Template url 3', false, 'newsletter');
 		// $form->addTextarea('link_add_parameters', 'Link add parameters', false, ['placeholder' => "utm_campaign=my_campaign\nutm_medium=email"])->setHelp("One parameter by line");
 
 		$sql = "select 
@@ -202,15 +224,23 @@ class NewsletterController extends \Core\Controller {
 			// check [unsubscribe_link] parameter
 			if(!empty(post('template_url')))
 			{
-				$file_url = post('template_url');
-				if(post('template_url')[0] == '/')
-					$file_url = APP_PATH.$file_url;
 
-				$contents = file_get_contents($file_url);
-				if(!str_contains($contents, '[[unsubscribe_link]]'))
+				// template
+				for($i=1; $i <= 3; $i++)
 				{
-					$form->validator->addError("`[[unsubscribe_link]]` not found in template", [], 'template_url');
+					$suffix = ($i == 1) ? '' : $i;
+					$file_url = post("template_url{$suffix}");
+					if(empty($file_url)) continue;
+
+					if($file_url[0] == '/')
+						$file_url = APP_PATH.$file_url;
+					$contents = file_get_contents($file_url);
+					if(!str_contains($contents, '[[unsubscribe_link]]'))
+					{
+						$form->validator->addError("`[[unsubscribe_link]]` not found in template {$suffix}", [], "template_url{$suffix}");
+					}
 				}
+
 			}
 
 			// valid
@@ -292,6 +322,7 @@ class NewsletterController extends \Core\Controller {
 		$mlids = (int)get('mlids');
 		$sid = (int)get('sid');
 		$email = get('email');
+		$timestamp_sent = get('tmstp', false);
 
 		if($nid && $sid && isEmail($email))
 		{
@@ -303,7 +334,16 @@ class NewsletterController extends \Core\Controller {
 			$f['email'] = $email;
 			$f['action'] = 'view';
 
-			DB('xcore_newsletter_data')->insert($f);
+			$f['user_agent'] = @$_SERVER['HTTP_USER_AGENT'];
+			$f['ip'] = getVisitorIp();
+
+
+			if(!$timestamp_sent || (strtotime('now - 2 minutes') >= $timestamp_sent))
+			{
+				DB('xcore_newsletter_data')->insert($f);
+			}
+
+
 		}
 
 		$transparent_gif = base64_decode("R0lGODlhAQABAIAAAP///////yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
@@ -343,7 +383,18 @@ class NewsletterController extends \Core\Controller {
 			$f['action'] = 'click';
 			$f['url'] = $uri['url'];
 
-			DB('xcore_newsletter_data')->insert($f);
+			$f['user_agent'] = @$_SERVER['HTTP_USER_AGENT'];
+			$f['ip'] = getVisitorIp();
+
+			// check 2 minutes
+			if(
+				(!isset($uri['tmstp']) || $uri['tmstp'] <= strtotime('now - 2 minutes')) &&
+				!str_contains($uri['url'], "/service/newsletter/unsubscribe/")
+			)
+			{
+				DB('xcore_newsletter_data')->insert($f);
+			}
+
 		}
 
 		return new RedirectResponse($uri['url']);
@@ -352,11 +403,13 @@ class NewsletterController extends \Core\Controller {
 
 	/**
 	 * display pixel tracking
-	 * @route /service/newsletter/unsubscribe/
+	 * @route /service/newsletter/unsubscribe/ {method:"GET|POST"}
 	 */
 	public static function unsubscribeRender()
 	{
 		$lang = get('lang', \Core\Config::get('frontend/langs')[0][0]);
+		App()->locale = $lang;
+
 
 		$nid = (int)get('nid');
 		$mlid = (int)get('mlid');
@@ -364,50 +417,65 @@ class NewsletterController extends \Core\Controller {
 		$sid = (int)get('sid');
 		$email = get('email');
 
-		if($nid && $sid && isEmail($email))
+		if($_POST)
 		{
-			// unsubscribe from all mailing list
-			$sql = "select * from xcore_mailinglist_subscriber where deleted = 'no' and id=:sid and email = :email and xcore_mailinglist_id = :mlid limit 1";
-			$found = DB()->query($sql, [':sid' => $sid, ':email' => $email, ':mlid' => $mlid])->fetch();
-			if($found)
+			sleep(2);
+
+			$resp = new Validator();
+
+			if($nid && $sid && isEmail($email))
 			{
-				// remove from current mailinglist
-				DB('xcore_mailinglist_subscriber')->update(['unsubscribe_newsletter_id' => $nid, 'unsubscribe_date' => now()], $found['id']);
-				DB('xcore_mailinglist_subscriber')->delete($found['id']);
+				// unsubscribe from all mailing list
+				$sql = "select * from xcore_mailinglist_subscriber where deleted = 'no' and id=:sid and email = :email and xcore_mailinglist_id = :mlid limit 1";
+				$found = DB()->query($sql, [':sid' => $sid, ':email' => $email, ':mlid' => $mlid])->fetch();
 
-				// log
-				$f = [];
-				$f['xcore_newsletter_id'] = $nid;
-				$f['xcore_mailinglist_id'] = $mlid;
-				$f['xcore_mailinglist_subscriber_id'] = $sid;
-				$f['date'] = now();
-				$f['email'] = $email;
-				$f['action'] = 'unsubscribe';
-				DB('xcore_newsletter_data')->insert($f);
-
-
-				// remove other mailing list from sending
-				$mailinglist_ids = explode(',', $mlids);
-				foreach($mailinglist_ids as $mailinglist_id)
+				if($found)
 				{
-					$mailinglist_id = (int)$mailinglist_id;
-					if(!$mailinglist_id || $mailinglist_id == $mlid)
-						continue;
+					// remove from current mailinglist
+					DB('xcore_mailinglist_subscriber')->update(['unsubscribe_newsletter_id' => $nid, 'unsubscribe_date' => now()], $found['id']);
+					DB('xcore_mailinglist_subscriber')->delete($found['id']);
 
-					$sql = "select * from xcore_mailinglist_subscriber where deleted = 'no' and email = :email and xcore_mailinglist_id = :mlid limit 1";
-					$found = DB()->query($sql, [':email' => $email, ':mlid' => $mailinglist_id])->fetch();
-					if($found)
+					// log
+					$f = [];
+					$f['xcore_newsletter_id'] = $nid;
+					$f['xcore_mailinglist_id'] = $mlid;
+					$f['xcore_mailinglist_subscriber_id'] = $sid;
+					$f['date'] = now();
+					$f['email'] = $email;
+					$f['action'] = 'unsubscribe';
+					$f['user_agent'] = @$_SERVER['HTTP_USER_AGENT'];
+					$f['ip'] = getVisitorIp();
+					DB('xcore_newsletter_data')->insert($f);
+
+
+					// remove other mailing list from sending
+					$mailinglist_ids = explode(',', $mlids);
+					foreach($mailinglist_ids as $mailinglist_id)
 					{
-						// remove from current mailinglist
-						DB('xcore_mailinglist_subscriber')->update(['unsubscribe_newsletter_id' => $nid, 'unsubscribe_date' => now()], $found['id']);
-						DB('xcore_mailinglist_subscriber')->delete($found['id']);
+						$mailinglist_id = (int)$mailinglist_id;
+						if(!$mailinglist_id || $mailinglist_id == $mlid)
+							continue;
+
+						$sql = "select * from xcore_mailinglist_subscriber where deleted = 'no' and email = :email and xcore_mailinglist_id = :mlid limit 1";
+						$found = DB()->query($sql, [':email' => $email, ':mlid' => $mailinglist_id])->fetch();
+						if($found)
+						{
+							// remove from current mailinglist
+							DB('xcore_mailinglist_subscriber')->update(['unsubscribe_newsletter_id' => $nid, 'unsubscribe_date' => now()], $found['id']);
+							DB('xcore_mailinglist_subscriber')->delete($found['id']);
+						}
 					}
 				}
 			}
+
+			return new Response("ok");
 		}
 
+		$data = [];
+		$data['lang'] = $lang;
 
-		return View('unsubscribe', ['lang' => $lang]);
+		$tpl = \Core\Globals::get('core.newsletter.unsubscribe.template_path', 'unsubscribe');
+		return View($tpl, $data);
 	}
 
 
