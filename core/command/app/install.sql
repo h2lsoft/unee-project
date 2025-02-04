@@ -937,3 +937,27 @@ VALUES
     (40, 3, 'Blacklist', 'normal', 'bi bi-shield-slash-fill', 'blacklist', 'list\nadd\nedit\ndelete', '', 0, 21, 'yes', 'no', 'yes', 'no', now(), 'superadmin');
 
 
+-- v1.2.0
+ALTER TABLE `xcore_newsletter`
+	ADD COLUMN `subject2` VARCHAR(255) NOT NULL DEFAULT '' AFTER `subject`,
+	ADD COLUMN `subject3` VARCHAR(255) NOT NULL DEFAULT '' AFTER `subject2`,
+	ADD COLUMN `template_url2` VARCHAR(255) NOT NULL AFTER `template_url`,
+	ADD COLUMN `template_url3` VARCHAR(255) NOT NULL AFTER `template_url2`;
+
+
+ALTER TABLE `xcore_newsletter_data`
+	CHANGE COLUMN `action` `action` ENUM('sent','sent-error','unsubscribe','view','click','blacklisted','conversion') NOT NULL COLLATE 'utf8mb4_general_ci' AFTER `email`,
+	ADD COLUMN `conversion_type` VARCHAR(255) NOT NULL DEFAULT '' AFTER `action`,
+	ADD COLUMN `conversion_params` LONGTEXT NOT NULL AFTER `conversion_type`,
+	ADD INDEX `conversion_type` (`conversion_type`);
+
+ALTER TABLE `xcore_newsletter_data`
+	CHANGE COLUMN `action` `action` ENUM('sent','sent-error','unsubscribe','view','click','blacklisted','conversion','refused', 'bounce', 'queue', 'spam', 'quota-exceeded', 'mail not exists') NOT NULL COLLATE 'utf8mb4_general_ci' AFTER `email`;
+
+ALTER TABLE `xcore_newsletter_data`
+	ADD COLUMN `user_agent` VARCHAR(255) NOT NULL DEFAULT '' AFTER `action`,
+	ADD COLUMN `ip` VARCHAR(255) NOT NULL DEFAULT '' AFTER `user_agent`;
+
+ALTER TABLE `xcore_newsletter`
+	ADD COLUMN `return_path` VARCHAR(255) NOT NULL AFTER `reply_to`;
+
