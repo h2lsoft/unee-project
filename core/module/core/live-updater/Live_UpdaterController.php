@@ -150,7 +150,7 @@ class Live_UpdaterController extends Controller {
 			$dir_path = dirname($file_path);
 
 			// dir exists
-			if(!empty(dirname($fileNameWithExtension)) && !is_writable($dir_path))
+			if(!empty(dirname($fileNameWithExtension)) && is_writable($dir_path))
 			{
 				if(!@mkdir($dir_path, 0777, true))
 				{
