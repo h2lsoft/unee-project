@@ -4,7 +4,7 @@ namespace Model;
 
 class Live_Updater extends \Core\Entity
 {
-	public static string $version = '1.1.0'; # do not edit this line
+	public static string $version = '1.2.0'; # do not edit this line
 
 
 	/**
