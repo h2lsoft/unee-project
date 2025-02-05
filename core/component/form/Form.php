@@ -405,7 +405,7 @@ class Form {
 
 
 	
-	public function addSelect(string $name, string $label, bool $required=false, array $options=[], string $caption="", array $attributes=[], string $help='', string $after=""):Form
+	public function addSelect(string $name, string $label, bool $required=false, array $options=[], string $caption="", array $attributes=[], string $help='', string $after="", bool $dynamic=false):Form
 	{
 		// format options
 		$options2 = [];
@@ -434,6 +434,7 @@ class Form {
 		$this->fields[$name]['type'] = 'select';
 		$this->fields[$name]['caption'] = $caption;
 		$this->fields[$name]['options'] = $options;
+		$this->fields[$name]['dynamic'] = $dynamic;
 		return $this;
 	}
 
@@ -837,7 +838,10 @@ class Form {
 				}
 				
 				// select + radio
-				if($this->fields[$field]['type'] == 'select' || $this->fields[$field]['type'] == 'radio')
+				if(
+					($this->fields[$field]['type'] == 'select' && isset($this->fields[$field]['dynamic']) && !$this->fields[$field]['dynamic']) ||
+					$this->fields[$field]['type'] == 'radio'
+				)
 				{
 					$list = [];
 					foreach($this->fields[$field]['options'] as $o)
