@@ -152,7 +152,7 @@ class Live_UpdaterController extends Controller {
 			// dir exists
 			if(!empty(dirname($fileNameWithExtension)) && is_writable($dir_path))
 			{
-				if(!@mkdir($dir_path, 0777, true))
+				if(!is_dir($dir_path) && !@mkdir($dir_path, 0777, true))
 				{
 					$output .= "\n<error>>> dir is not writable `{$dir_path}`</error>";
 					$target_files_errors = true;
@@ -181,12 +181,17 @@ class Live_UpdaterController extends Controller {
 				$output .= "\n<error>>>> copy error `{$target_file['source']}` to `{$target_file['target']}`</error>";
 				$target_files_errors = true;
 			}
+			else
+			{
+				$output .= "\n>>> copy `{$target_file['source']}` to `{$target_file['target']}`";
+			}
 		}
+
+
 
 		// execute file /core/module/live-updater/@cmd/{$next_version}.inc.php
 		if(file_exists(APP_PATH."/core/module/core/live-updater/@cmd/{$next_version}.inc.php"))
 			include(APP_PATH."/core/module/core/live-updater/@cmd/{$next_version}.inc.php");
-
 
 		if($target_files_errors)
 			return trim($output);
