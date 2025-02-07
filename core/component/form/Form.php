@@ -589,7 +589,8 @@ class Form {
 		string $upload_dir="", string $max_upload_size="",
 		array $allowed_exts=[], array $allowed_mimes=[],
 		string $help="",
-		array $attributes=[]
+		array $attributes=[],
+		string $file_url=""
 	):Form
 	{
 		
@@ -633,7 +634,8 @@ class Form {
 		$this->fields[$name]['mimes'] = $allowed_mimes;
 		$this->fields[$name]['upload_dir'] = $upload_dir;
 		$this->fields[$name]['image_url'] = str_erase(APP_PATH, $upload_dir);
-		
+		$this->fields[$name]['file_url'] = $file_url;
+
 		return $this;
 	}
 	

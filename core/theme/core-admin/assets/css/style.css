@@ -60,12 +60,10 @@ a {text-decoration: none!important;}
 .img-avatar-sm {width: 35px; height: 35px;}
 .img-avatar-xs {width: 28px; height: 28px;}
 
-.ucfirst {text-transform: lowercase;}
+/*.ucfirst {text-transform: lowercase;}*/
+/* .form-control.ucfirst {text-transform: none!important;} */
+/*.form-control.ucfirst:first-letter {text-transform: none!important;} */
 .ucfirst:first-letter {text-transform: uppercase;}
-
-.form-control.ucfirst {text-transform: none!important;}
-.form-control.ucfirst:first-letter {text-transform: none!important;}
-
 .lower {text-transform: lowercase;}
 .upper {text-transform: uppercase;}
 
