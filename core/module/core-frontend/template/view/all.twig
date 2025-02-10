@@ -3,8 +3,11 @@
     <span class="input-group-text">Collection</span>
 
     <select class="form-select" onchange="v=this.value;$('.row-page-template').hide(); $(`.row-page-template[data-collection='${v}']`).show()">
+
+        <option value=""></option>
+
         {% for collection in collections %}
-            <option value="{{ collection }}" {% if loop.index0 == 0 %}selected{% endif %} >{{ collection }}</option>
+            <option value="{{ collection }}">{{ collection }}</option>
         {% endfor %}
     </select>
 </div>
