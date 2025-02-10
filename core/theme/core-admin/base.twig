@@ -142,5 +142,27 @@
     <script src="{{ file }}"></script>
 {% endfor %}
 
+
+<script>
+{% if get('_popup') == 1 and get('_parent-refresh') == 1 %}
+$(window).on("beforeunload", function() {
+    if (window.opener && !window.opener.closed) {
+        window.opener.location.reload();
+    }
+});
+{% endif %}
+
+{% if get('_popup', 0) == 0 %}
+const storedScrollPosition = sessionStorage.getItem("poppy_window__scroll_position");
+if(storedScrollPosition)
+{
+    sessionStorage.removeItem("poppy_window__scroll_position");
+    setTimeout(function() {
+        $(window).scrollTop(storedScrollPosition);
+    }, 200);
+}
+{% endif %}
+</script>
+
 </body>
 </html>
