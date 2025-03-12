@@ -332,16 +332,37 @@ function db2date(string $sql_date, string $format="", string $language="en"):str
 	$months['en'] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 	$months['fr'] = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 
+	$days = [];
+	$days['en'] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+	$days['fr'] = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+
+	$days_min = [];
+	$days_min['en'] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+	$days_min['fr'] = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+
+
 	if(isset($months[$language]))
 	{
 		if(str_contains($format, 'F'))
 		{
 			$date = str_replace($months['en'], $months[$language], $date);
 		}
-
-
 	}
-	
+
+	if(isset($days[$language]))
+	{
+		if(str_contains($format, 'l'))
+		{
+			$date = str_replace($days['en'], $days[$language], $date);
+		}
+
+		if(str_contains($format, 'D'))
+		{
+			$date = str_replace($days_min['en'], $days_min[$language], $date);
+		}
+	}
+
+
 	return $date;
 }
 
