@@ -89,7 +89,6 @@ foreach($custom_routes as $route_file)
 
 // get route from controller
 $all_controllers = \Core\Controller::getAll();
-
 foreach($all_controllers as $c_controller)
 {
 	$info = \Core\Controller::getInfo($c_controller);
