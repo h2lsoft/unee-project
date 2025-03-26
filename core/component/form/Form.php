@@ -656,7 +656,8 @@ class Form {
 									bool $height_constraint=false,
 
 									string $help="",
-									array $attributes=[]
+									array $attributes=[],
+									string $file_url=""
 								):Form
 	{
 		
@@ -731,6 +732,7 @@ class Form {
 		$this->fields[$name]['image_width_constraint'] = $width_constraint;
 		$this->fields[$name]['image_height'] = $height;
 		$this->fields[$name]['image_height_constraint'] = $height_constraint;
+		$this->fields[$name]['file_url'] = $file_url;
 
 		return $this;
 	}

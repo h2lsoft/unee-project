@@ -202,17 +202,13 @@
 
                         {% if f.type == 'file-image' %}
                             <div id="{{ f.name }}__placeholder" class="file-image--placeholder" onclick="$('#{{ f.name }}').click()">
-                                <img id="{{ f.name }}_image_preview" src="{{ f.value }}" class="zoomable">
+                                <img id="{{ f.name }}_image_preview" src="{% if f.file_url is empty %}{{ f.value }}{% else %}{{ f.file_url|replace({'{id}': form.id}) }}{% endif %}" class="zoomable">
                             </div>
                         {% endif %}
 
                         {% if f.type == 'file' and f.value is not empty %}
                             <div id="{{ f.name }}__placeholder" class="file--placeholder">
-                                <a href="{% if f.file_url is empty %}
-                                        {{ f.value }}
-                                     {% else %}
-                                        {{ f.file_url|replace({'{id}': 1}) }}
-                                    {% endif %}" target="_blank"><i class="bi bi-file-earmark-fill"></i></a>
+                                <a href="{% if f.file_url is empty %}{{ f.value }}{% else %}{{ f.file_url|replace({'{id}': form.id}) }}{% endif %}" target="_blank"><i class="bi bi-file-earmark-fill"></i></a>
                             </div>
                         {% endif %}
 
