@@ -25,16 +25,20 @@ class File
 		
 	}
 
-	public static function get($file_path)
+	public static function get($file_path, $content_type='')
 	{
 		if(!file_exists($file_path))
 			return new \Core\Response("Error : file not found", 404);
 
 		$response = new Response(file_get_contents($file_path));
-		$response->headers->set('Content-Type', 'application/pdf');
+
+		if(empty($content_type))
+			$content_type = mime_content_type($file_path);
+
+		if(!empty($content_type))
+			$response->headers->set('Content-Type', $content_type);
 
 		return $response;
-
 	}
 
 }
